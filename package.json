@@ -94,13 +94,9 @@
     }
   },
   "lint-staged": {
-    "*.{js, jsx, ts, tsx}": [
-      "./node_modules/.bin/eslint --fix",
-      "git add"
-    ],
-    "*.{js, jsx, ts, tsx, json, html, css}": [
-      "./node_modules/.bin/prettier --write",
-      "git add"
+    "*.{ts,tsx,js,jsx}": [
+      "eslint",
+      "prettier --write"
     ]
   }
 }

@@ -11,12 +11,10 @@ const Header = styled.div`
   color: ${({ theme }) => theme.colors.pageHeader};
 `;
 
-const Homepage = () => {
-  return (
-    <Wrapper>
-      <Header>Home Page</Header>
-    </Wrapper>
-  );
-};
+const Homepage = () => (
+  <Wrapper>
+    <Header>Home Page</Header>
+  </Wrapper>
+);
 
 export default Homepage;
