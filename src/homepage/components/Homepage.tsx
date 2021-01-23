@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -11,10 +11,12 @@ const Header = styled.div`
   color: ${({ theme }) => theme.colors.pageHeader};
 `;
 
-const Homepage = () => (
-  <Wrapper>
-    <Header>Home Page</Header>
-  </Wrapper>
-);
+const Homepage = () => {
+  return (
+    <Wrapper>
+      <Header>Home Page</Header>
+    </Wrapper>
+  );
+};
 
 export default Homepage;
