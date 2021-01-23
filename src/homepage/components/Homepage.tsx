@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   flex: 1;
-  padding: 33px 35px 0px 35px;
+  padding: 35px;
 `;
 
 const Header = styled.div`
