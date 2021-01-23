@@ -1,11 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": [
-    "airbnb-typescript",
-    "plugin:react-hooks/recommended",
-    "prettier"
-  ],
+  "extends": ["airbnb-typescript", "plugin:react-hooks/recommended", "prettier"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
@@ -38,11 +34,7 @@
           { "pattern": "react", "group": "builtin", "position": "before" },
           { "pattern": "shared/**", "group": "external", "position": "after" }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "react",
-          "react-dom",
-          "styled-components"
-        ],
+        "pathGroupsExcludedImportTypes": ["react", "react-dom", "styled-components"],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
