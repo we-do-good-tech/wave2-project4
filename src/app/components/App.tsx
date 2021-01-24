@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Homepage from 'homepage';
 import Information from 'information';
+import Team from 'team';
 import Container from './Container';
 
 const App = () => (
@@ -9,6 +10,9 @@ const App = () => (
     <Switch>
       <Route path="/information">
         <Information />
+      </Route>
+      <Route path="/team">
+        <Team />
       </Route>
       <Route path="/" exact>
         <Homepage />

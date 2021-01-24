@@ -61,6 +61,10 @@ const items: MenuItemType[] = [
     name: 'Information',
     path: '/information',
   },
+  {
+    name: 'Team',
+    path: '/team',
+  },
 ];
 
 const SideBar = () => {
