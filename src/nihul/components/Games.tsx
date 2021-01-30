@@ -19,7 +19,8 @@ const Buttons = styled.div`
 
 const StyledButton = styled.button`
   min-width: 191px;
-  min-height: 50px;
+  min-height: 47px;
+  padding-bottom: 3px;
   font-size: 18px;
   text-weight: 400;
   margin: 0 15px;
@@ -37,9 +38,15 @@ const SaveButton = styled(StyledButton)`
   background: ${({ theme }: { theme: any }) => theme.button.primary.normal.background};
   border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.normal.border};
   &:hover {
+    font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};
     background: ${({ theme }: { theme: any }) => theme.button.primary.hover.background};
     border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.hover.border};
+  }
+  &:active {
+    color: ${({ theme }: { theme: any }) => theme.button.primary.active.color};
+    background: ${({ theme }: { theme: any }) => theme.button.primary.active.background};
+    border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.active.border};
   }
 `;
 
@@ -51,6 +58,11 @@ const ClearButton = styled(StyledButton)`
     color: ${({ theme }: { theme: any }) => theme.button.secondary.hover.color};
     background: ${({ theme }: { theme: any }) => theme.button.secondary.hover.background};
     border: 2px solid ${({ theme }: { theme: any }) => theme.button.secondary.hover.border};
+  }
+  &:active {
+    color: ${({ theme }: { theme: any }) => theme.button.secondary.active.color};
+    background: ${({ theme }: { theme: any }) => theme.button.secondary.active.background};
+    border: 2px solid ${({ theme }: { theme: any }) => theme.button.secondary.active.border};
   }
 `;
 
@@ -109,7 +121,6 @@ const Games = () => {
             />
 
             <Buttons>
-              <SaveButton type="submit">שמירה</SaveButton>
               <ClearButton
                 onClick={() => {
                   form.reset();
@@ -117,6 +128,7 @@ const Games = () => {
               >
                 ביטול
               </ClearButton>
+              <SaveButton type="submit">שמירה</SaveButton>
             </Buttons>
           </form>
         )}

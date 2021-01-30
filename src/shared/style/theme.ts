@@ -16,7 +16,7 @@ const colors = {
     sapphireDark: '#0B225C',
     frenchPass: '#96D5E4',
     darkMagenta: '#7D0396',
-    purple: '#7D0396',
+    purple: '#6C0382',
 
 };
 
