@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Games from './Games';
 import TopBar from './TopBar';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled.div`
   dispaly: flex;
   flex-direction: column;
   flex: 1;

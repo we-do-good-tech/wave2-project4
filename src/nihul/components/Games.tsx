@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 import firebase from '../../firebase';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
@@ -60,6 +60,8 @@ const TextArea = styled.textarea`
   margin-top: 45px;
   color: black;
   font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
   padding: 35px;
   background: #fffafa;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
@@ -67,6 +69,9 @@ const TextArea = styled.textarea`
   border-radius: 30px;
   outline: 0;
   resize: none;
+  text-align: right;
+  font-stretch: ultra-condensed;
+  word-spacing: -6px;
 `;
 
 const Games = () => {
