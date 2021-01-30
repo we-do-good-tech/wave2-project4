@@ -62,6 +62,10 @@ const items: MenuItemType[] = [
     path: '/information',
   },
   {
+    name: 'Team',
+    path: '/team',
+  },
+  {
     name: 'Game',
     path: '/game',
   },
