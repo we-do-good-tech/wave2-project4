@@ -11,10 +11,10 @@ const Header = styled.div`
   color: ${({ theme }) => theme.page.header.color};
 `;
 
-const Information = () => (
+const Team = () => (
   <Wrapper>
-    <Header>אודות</Header>
+    <Header>הנבחרת</Header>
   </Wrapper>
 );
 
-export default Information;
+export default Team;

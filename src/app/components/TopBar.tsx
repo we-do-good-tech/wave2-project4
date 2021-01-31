@@ -2,18 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'shared/components';
+import logo from '../../assets/images/logo.png';
 
-const Wrapper = styled.div`
-  background: ${({ theme }) => theme.colors.background};
-  flex: 1;
-  display: grid;
-  box-sizing: border-box;
-  grid-template-rows: 50px;
+const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+  background: ${({ theme }) => theme.topbar.background};
+  max-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid ${({ theme }) => theme.topbar.border};
+`;
+
+const Logo = styled.a`
+  width: 198px;
+  height: 55px;
+  margin-top: 40px;
+  margin-right: 30px;
+  background-image: url(${logo});
+  z-index: 1000;
 `;
 
 const Menu = styled.ul`
   list-style-type: none;
   display: flex;
+  height: 50px;
   margin: 0 16px;
   padding-inline-start: 0px;
 `;
@@ -28,13 +40,21 @@ const MenuItem = styled.li`
 `;
 
 const StyledLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-width: 191px;
+  max-height: 50px;
   text-decoration: none;
-  cursor: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 'default' : 'pointer')};
+  color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.link.primary.active.color : theme.link.primary.normal.color};
+  background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.link.primary.active.background : theme.link.primary.normal.background};
+  border: 1px solid ${({ theme }) => theme.link.primary.normal.border};
+  border-radius: 50px;
   &:hover {
     text-decoration: none;
+    background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+      $isActiveItem ? theme.link.primary.active.background : theme.link.primary.hover.background};
+    color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+      $isActiveItem ? theme.link.primary.active.color : theme.link.primary.hover.color};
   }
 `;
 
@@ -54,16 +74,26 @@ type MenuItemType = {
 
 const items: MenuItemType[] = [
   {
-    name: 'Homepage',
+    name: 'משחקים פאראלימפיים',
     path: '/',
   },
   {
-    name: 'Information',
-    path: '/information',
+    name: 'בואו נשחק!',
+    path: '/game',
   },
   {
-    name: 'Game',
-    path: '/game',
+    name: 'הנבחרת',
+    path: '/team',
+  },
+];
+const itemsLeft: MenuItemType[] = [
+  {
+    name: 'ניהול',
+    path: '/nihul',
+  },
+  {
+    name: 'אודות',
+    path: '/information',
   },
 ];
 
@@ -71,8 +101,18 @@ const SideBar = () => {
   const location = useLocation();
   return (
     <Wrapper>
+      <Logo href={items[0].path} />
       <Menu>
         {items.map((i: MenuItemType) => (
+          <MenuItem key={i.name}>
+            <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
+              <StyledLinkText>{i.name}</StyledLinkText>
+            </StyledLink>
+          </MenuItem>
+        ))}
+      </Menu>
+      <Menu>
+        {itemsLeft.map((i: MenuItemType) => (
           <MenuItem key={i.name}>
             <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
               <StyledLinkText>{i.name}</StyledLinkText>

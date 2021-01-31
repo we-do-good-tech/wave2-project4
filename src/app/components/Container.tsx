@@ -5,7 +5,7 @@ import TopBar from 'app/components/TopBar';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 69px 1fr;
   grid-template-columns: 1fr;
   height: 100vh;
   width: 100vw;
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled(FlexColumn)`
-  background: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.page.background};
   position: relative;
   overflow: auto;
 `;
