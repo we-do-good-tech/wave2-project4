@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'shared/components';
+import logo from '../../assets/images/logo.png';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background: ${({ theme }) => theme.topbar.background};
@@ -10,6 +11,15 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   align-items: center;
   justify-content: space-between;
   border-bottom: 3px solid ${({ theme }) => theme.topbar.border};
+`;
+
+const Logo = styled.a`
+  width: 198px;
+  height: 55px;
+  margin-top: 40px;
+  margin-right: 30px;
+  background-image: url(${logo});
+  z-index: 1000;
 `;
 
 const Menu = styled.ul`
@@ -91,6 +101,7 @@ const SideBar = () => {
   const location = useLocation();
   return (
     <Wrapper>
+      <Logo href={items[0].path} />
       <Menu>
         {items.map((i: MenuItemType) => (
           <MenuItem key={i.name}>

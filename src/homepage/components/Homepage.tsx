@@ -6,14 +6,14 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   padding: 35px;
 `;
 
-const Header = styled.div`
+const Title = styled.div`
   font-size: 32px;
   color: ${({ theme }) => theme.page.header.color};
 `;
 
 const Homepage = () => (
   <Wrapper>
-    <Header>משחקים פאראלימפיים</Header>
+    <Title>משחקים פאראלימפיים</Title>
   </Wrapper>
 );
 
