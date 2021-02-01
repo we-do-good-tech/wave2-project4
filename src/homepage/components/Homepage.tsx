@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
@@ -68,18 +68,24 @@ const ContinueBtn = styled(Button)`
   }
 `;
 
-const Homepage = () => (
-  <Wrapper>
-    <GamesModal>
-      <Container>
-        <Title>מהם משחקים פראלימפיים</Title>
-        <Content>
-          משמעות המילה פראלימפי היא מקביל, כלומר המשחקים הפראלימפיים הם משחקים המקבילים למשחקים האולימפיים
-        </Content>
-      </Container>
-      <ContinueBtn>המשך</ContinueBtn>
-    </GamesModal>
-  </Wrapper>
-);
+const Homepage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  return (
+    <Wrapper>
+      {isModalOpen && (
+        <GamesModal>
+          <Container>
+            <Title>מהם משחקים פראלימפיים</Title>
+            <Content>
+              משמעות המילה פראלימפי היא מקביל, כלומר המשחקים הפראלימפיים הם משחקים המקבילים למשחקים האולימפיים
+            </Content>
+          </Container>
+          <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
+        </GamesModal>
+      )}
+    </Wrapper>
+  );
+};
 
 export default Homepage;
