@@ -17,6 +17,7 @@ const colors = {
   frenchPass: '#96D5E4',
   darkMagenta: '#7D0396',
   purple: '#6C0382',
+  modalBackground: '#afd9e3',
 };
 
 const theme = {
@@ -32,6 +33,7 @@ const theme = {
         background: colors.darkMagenta,
         color: colors.white,
         border: colors.white,
+        fontWeight: '700',
       },
       active: {
         background: colors.purple,
@@ -82,7 +84,7 @@ const theme = {
         border: 'none',
       },
       hover: {
-        fontWeight: 'bold',
+        fontWeight: '700',
       },
       active: {
         border: colors.white,
@@ -117,6 +119,25 @@ const theme = {
   topbar: {
     background: `linear-gradient(${colors.sapphireLight}, ${colors.sapphireDark})`,
     border: colors.white,
+  },
+  modal: {
+    background: colors.modalBackground,
+    border: colors.white,
+    borderRadius: '20px',
+  },
+  text: {
+    title: {
+      fontSize: '25px',
+      fontWeight: '700',
+      lineHeight: '33px',
+      color: colors.sapphireLightMedium,
+    },
+    paragraph: {
+      fontSize: '20px',
+      fontWeight: '600',
+      lineHeight: '26px',
+      color: colors.sapphireLightMedium,
+    },
   },
 };
 
