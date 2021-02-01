@@ -58,6 +58,26 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const StyledAboutLink = styled(Link)`
+  min-width: 133px;
+  max-height: 50px;
+  text-align: center;
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 'bold' : 'normal')};
+  color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.colors.darkMagenta : 'none'};
+  border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)};
+  border-style: solid;
+  border color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.colors.white : theme.colors.darkMagenta};  
+  border-radius: 50px;
+  text-decoration: none;
+
+  &:hover {
+    font-weight: bold;
+  }
+`;
+
 const StyledLinkText = styled.h3`
   font-style: normal;
   font-weight: 400;
@@ -91,10 +111,10 @@ const itemsLeft: MenuItemType[] = [
     name: 'ניהול',
     path: '/nihul',
   },
-  {
-    name: 'אודות',
-    path: '/information',
-  },
+  // {
+  //   name: 'אודות',
+  //   path: '/information',
+  // },
 ];
 
 const SideBar = () => {
@@ -119,6 +139,9 @@ const SideBar = () => {
             </StyledLink>
           </MenuItem>
         ))}
+        <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
+          אודות
+        </StyledAboutLink>
       </Menu>
     </Wrapper>
   );
