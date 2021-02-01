@@ -49,6 +49,7 @@ const StyledLink = styled(Link)`
     $isActiveItem ? theme.link.primary.active.background : theme.link.primary.normal.background};
   border: 1px solid ${({ theme }) => theme.link.primary.normal.border};
   border-radius: 50px;
+
   &:hover {
     text-decoration: none;
     background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
@@ -62,19 +63,16 @@ const StyledAboutLink = styled(Link)`
   min-width: 133px;
   max-height: 50px;
   text-align: center;
-  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 'bold' : 'normal')};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.link.secondary.normal.color};
   background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
-    $isActiveItem ? theme.colors.darkMagenta : 'none'};
+    $isActiveItem ? theme.link.secondary.active.background : theme.link.secondary.normal.background};
   border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)};
   border-style: solid;
-  border color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
-    $isActiveItem ? theme.colors.white : theme.colors.darkMagenta};  
   border-radius: 50px;
   text-decoration: none;
 
   &:hover {
-    font-weight: bold;
+    font-weight: ${({ theme }) => theme.link.secondary.hover.fontWeight};
   }
 `;
 
