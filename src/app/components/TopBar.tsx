@@ -64,6 +64,7 @@ const StyledAboutLink = styled(Link)`
   max-height: 50px;
   text-align: center;
   color: ${({ theme }) => theme.link.secondary.normal.color};
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : 'normal')};
   background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
     $isActiveItem ? theme.link.secondary.active.background : theme.link.secondary.normal.background};
   border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)};
