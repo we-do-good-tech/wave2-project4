@@ -109,9 +109,9 @@ const About = () => {
     return <div style={trackStyle} {...props} />;
   };
 
-  const itemsRef = firebase.database().ref('games');
+  const itemsRef = firebase.database().ref('about');
 
-  const [gamesDescription, setGamesDescription] = useState();
+  const [aboutDescription, setAboutDescription] = useState();
   const [inputs, setInputs] = useState(() => {
     const initialState = textInputs;
     return initialState;
@@ -135,7 +135,7 @@ const About = () => {
 
   useEffect(() => {
     itemsRef.on('value', (snapshot: any) => {
-      setGamesDescription(snapshot.val().gamesDescription);
+      setAboutDescription(snapshot.val()?.aboutDescription || '');
     });
   }, [itemsRef]);
 
@@ -143,14 +143,14 @@ const About = () => {
     <Wrapper>
       <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
         <Form
-          initialValues={{ gamesDescription, ...inputs }}
+          initialValues={{ aboutDescription, ...inputs }}
           onSubmit={onSubmit}
           // validate={validate}
           render={({ handleSubmit, form }) => (
             <StyledForm onSubmit={handleSubmit}>
               <Field
                 value="hi"
-                name="gameDescription"
+                name="aboutDescription"
                 render={({ input, meta }) => (
                   <div>
                     <TextArea {...input} />
