@@ -27,7 +27,7 @@ const StyledLink = styled(Link)`
   min-width: 191px;
   max-height: 50px;
   font-size: 20px;
-  text-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : '400')};
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : '400')};
   text-decoration: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 'underline' : 'none')};
   color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
     $isActiveItem ? theme.link.nihul.active.color : theme.link.nihul.normal.color};
@@ -41,10 +41,9 @@ const StyledLink = styled(Link)`
 
 const StyledLinkText = styled.h3`
   font-style: normal;
-  font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : '400')};
   text-align: center;
 `;
 
@@ -84,7 +83,7 @@ const SideBar = () => {
         {items.map((i: MenuItemType) => (
           <MenuItem key={i.name}>
             <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-              <StyledLinkText>{i.name}</StyledLinkText>
+              <StyledLinkText $isActiveItem={location.pathname === i.path}>{i.name}</StyledLinkText>
             </StyledLink>
           </MenuItem>
         ))}

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Games from './Games';
+import { Route, Switch } from 'react-router-dom';
+import About from './panels/About';
+import Games from './panels/Games';
 import TopBar from './TopBar';
 
 const Wrapper = styled.div`
@@ -21,15 +23,19 @@ const Header = styled.div`
   font-weight: 600;
   line-height: 32.7px;
   color: ${({ theme }) => theme.page.nihul.header.color};
-  margin-top: 77px;
+  margin-top: 32px;
   margin-bottom: 32px;
+  direction: rtl;
 `;
 
 const Nihul = () => (
   <Wrapper>
-    <Header>ניהול</Header>
+    <Header>ברוכים הבאים, מה תרצו לערוך?</Header>
     <TopBar />
-    <Games />
+    <Switch>
+      <Route component={About} path="/nihul/about" />
+      <Route component={Games} path="/nihul/games" />
+    </Switch>
   </Wrapper>
 );
 
