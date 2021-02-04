@@ -49,12 +49,30 @@ const StyledLink = styled(Link)`
     $isActiveItem ? theme.link.primary.active.background : theme.link.primary.normal.background};
   border: 1px solid ${({ theme }) => theme.link.primary.normal.border};
   border-radius: 50px;
+
   &:hover {
     text-decoration: none;
     background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
       $isActiveItem ? theme.link.primary.active.background : theme.link.primary.hover.background};
     color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
       $isActiveItem ? theme.link.primary.active.color : theme.link.primary.hover.color};
+  }
+`;
+
+const StyledAboutLink = styled(Link)`
+  min-width: 133px;
+  max-height: 50px;
+  text-align: center;
+  color: ${({ theme }) => theme.link.secondary.normal.color};
+  background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.link.secondary.active.background : theme.link.secondary.normal.background};
+  border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)};
+  border-style: solid;
+  border-radius: 50px;
+  text-decoration: none;
+
+  &:hover {
+    font-weight: ${({ theme }) => theme.link.secondary.hover.fontWeight};
   }
 `;
 
@@ -91,10 +109,10 @@ const itemsLeft: MenuItemType[] = [
     name: 'ניהול',
     path: '/nihul',
   },
-  {
-    name: 'אודות',
-    path: '/information',
-  },
+  // {
+  //   name: 'אודות',
+  //   path: '/information',
+  // },
 ];
 
 const SideBar = () => {
@@ -119,6 +137,9 @@ const SideBar = () => {
             </StyledLink>
           </MenuItem>
         ))}
+        <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
+          אודות
+        </StyledAboutLink>
       </Menu>
     </Wrapper>
   );
