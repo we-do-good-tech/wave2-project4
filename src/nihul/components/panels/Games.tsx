@@ -7,9 +7,10 @@ import { StyledForm } from '../../shared/StyledForm';
 import { Wrapper } from '../../shared/Wrapper';
 
 const TextArea = styled.textarea`
-  width: 854px;
-  height: 246px;
-  margin-top: 45px;
+  width: 900px;
+  height: 300px;
+  margin-top: 40px;
+  margin-bottom: 33px;
   color: black;
   font-size: 20px;
   font-weight: 400;

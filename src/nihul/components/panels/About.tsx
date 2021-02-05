@@ -9,6 +9,10 @@ import { InputProps, FormInput } from '../../shared/InputTypes';
 import { StyledForm } from '../../shared/StyledForm';
 import { Wrapper } from '../../shared/Wrapper';
 
+const StyledWrapper = styled(Wrapper)`
+  height: 100%;
+`;
+
 const DeleteButton = styled.button`
   background: transparent;
   border: none;
@@ -124,8 +128,6 @@ const About = () => {
 
   const removeInputGroup = (e: any, indexToDelete: number) => {
     e.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log('number', indexToDelete);
     setInputs(inputs.filter((value, index) => index !== indexToDelete));
   };
 
@@ -140,7 +142,7 @@ const About = () => {
   }, [itemsRef]);
 
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
         <Form
           initialValues={{ aboutDescription, ...inputs }}
@@ -187,7 +189,7 @@ const About = () => {
           )}
         />
       </Scrollbars>
-    </Wrapper>
+    </StyledWrapper>
   );
 };
 

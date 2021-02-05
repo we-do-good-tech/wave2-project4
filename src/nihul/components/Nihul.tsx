@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import About from './panels/About';
 import Games from './panels/Games';
+import Info from './panels/Info';
+import Sports from './panels/Sports';
+import Team from './panels/Team';
 import TopBar from './TopBar';
 
 const Wrapper = styled.div`
@@ -35,6 +38,9 @@ const Nihul = () => (
     <Switch>
       <Route component={About} path="/nihul/about" />
       <Route component={Games} path="/nihul/games" />
+      <Route component={Info} path="/nihul/info" />
+      <Route component={Team} path="/nihul/team" />
+      <Route component={Sports} path="/nihul/sports" />
     </Switch>
   </Wrapper>
 );
