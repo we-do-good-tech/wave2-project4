@@ -146,6 +146,7 @@ const About = () => {
   };
 
   useEffect(() => {
+    console.log('stop!');
     if (!aboutLinks) setAboutLinks([]);
     itemsRef.on('value', (snapshot: any) => {
       setAboutDescription(snapshot.val()?.aboutDescription || '');
@@ -195,9 +196,9 @@ const About = () => {
                     fields.map((name: any, index: number) => (
                       <TextInputWrapper key={name}>
                         <TextInputGroup>
-                          <StyledLabel htmlFor={`${name}.description`}>תיאור</StyledLabel>
+                          <StyledLabel htmlFor={`${name}.text`}>תיאור</StyledLabel>
                           <Field
-                            name={`${name}.description`}
+                            name={`${name}.text`}
                             render={({ input, meta }) => (
                               <span>
                                 <TextInput {...input} />
@@ -207,9 +208,9 @@ const About = () => {
                           />
                         </TextInputGroup>
                         <TextInputGroup>
-                          <StyledLabel htmlFor={`${name}.link`}>לינק</StyledLabel>
+                          <StyledLabel htmlFor={`${name}.path`}>לינק</StyledLabel>
                           <Field
-                            name={`${name}.link`}
+                            name={`${name}.path`}
                             render={({ input, meta }) => (
                               <span>
                                 <TextInput {...input} />
