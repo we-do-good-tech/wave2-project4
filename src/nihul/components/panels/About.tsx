@@ -1,16 +1,21 @@
 import React, { useState, useEffect, HTMLAttributes } from 'react';
 import styled from 'styled-components';
+import arrayMutators from 'final-form-arrays';
+import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
 import { Form, Field } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash } from 'react-icons/bi';
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
-import { InputProps, FormInput } from '../../shared/InputTypes';
 import { StyledForm } from '../../shared/StyledForm';
 import { Wrapper } from '../../shared/Wrapper';
 
 const StyledWrapper = styled(Wrapper)`
-  height: 100%;
+  flex-direction: column;
+  padding: 1rem;
+  direction: rtl;
+  max-width: 89%;
 `;
 
 const DeleteButton = styled.button`
@@ -28,9 +33,8 @@ const DeleteButton = styled.button`
 
 const TextInputWrapper = styled.div`
   display: flex;
-  flex-direction: row-reverse;
-  max-width: 80%;
-  min-width: 80%;
+  max-width: 95%;
+  min-width: 95%;
   flex: 1;
   flex-wrap: wrap;
   margin-top: 2rem;
@@ -78,16 +82,36 @@ const TextArea = styled.textarea`
   font-family: 'Assistant';
 `;
 
-const textInputs: InputProps[] = [
-  {
-    type: 'input',
-    value: 'ניסיון',
-  },
-  {
-    type: 'input',
-    value: '2ניסיון',
-  },
-];
+const TextInput = styled.input`
+  width: 80%;
+  color: black;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
+  padding: 10px;
+  background: #fffafa;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 15%);
+  border: none;
+  border-radius: 10px;
+  outline: 0;
+  resize: none;
+  text-align: right;
+  font-stretch: ultra-condensed;
+  direction: rtl;
+  font-family: 'Assistant';
+`;
+
+const TextInputGroup = styled.div`
+  flex: 0 0 45%;
+  max-width: 45%;
+  direction: rtl;
+  transition: all 0.3s;
+`;
+
+const StyledLabel = styled.label`
+  margin-left: 0.5rem;
+  font-size: 20px;
+`;
 
 const About = () => {
   const thumbVertical = ({ style, ...props }: HTMLAttributes<HTMLDivElement>) => {
@@ -105,7 +129,7 @@ const About = () => {
       ...style,
       backgroundColor: '#C4C4C4',
       width: '6px',
-      right: '100px',
+      right: '0',
       borderRadius: '10px',
       bottom: '2px',
       top: '2px',
@@ -116,80 +140,109 @@ const About = () => {
   const itemsRef = firebase.database().ref('about');
 
   const [aboutDescription, setAboutDescription] = useState();
-  const [inputs, setInputs] = useState(() => {
-    const initialState = textInputs;
-    return initialState;
-  });
-
-  const addInputGroup = () => {
-    inputs.push({ type: 'input', value: '' });
-    setInputs(inputs);
-  };
-
-  const removeInputGroup = (e: any, indexToDelete: number) => {
-    e.preventDefault();
-    setInputs(inputs.filter((value, index) => index !== indexToDelete));
-  };
-
+  const [aboutLinks, setAboutLinks] = useState([]);
   const onSubmit = async (values: any) => {
     itemsRef.update({ ...values });
   };
 
   useEffect(() => {
+    if (!aboutLinks) setAboutLinks([]);
     itemsRef.on('value', (snapshot: any) => {
       setAboutDescription(snapshot.val()?.aboutDescription || '');
+      if (!isEqual(aboutLinks, snapshot.val()?.aboutLinks) && snapshot.val()?.aboutLinks)
+        setAboutLinks(snapshot.val()?.aboutLinks);
     });
-  }, [itemsRef]);
+  }, [itemsRef, aboutLinks]);
+
+  const newAboutLink = {
+    text: '',
+    path: '',
+  };
 
   return (
-    <StyledWrapper>
-      <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
-        <Form
-          initialValues={{ aboutDescription, ...inputs }}
-          onSubmit={onSubmit}
-          // validate={validate}
-          render={({ handleSubmit, form }) => (
-            <StyledForm onSubmit={handleSubmit}>
-              <Field
-                value="hi"
-                name="aboutDescription"
-                render={({ input, meta }) => (
-                  <div>
-                    <TextArea {...input} />
-                    {meta.touched && meta.error && <span>{meta.error}</span>}
-                  </div>
-                )}
-              />
-              {inputs.map((i: InputProps, index) => (
-                <TextInputWrapper key={index}>
-                  <FormInput {...i} name={index} />
-                  <DeleteButton type="button" onClick={(eve) => removeInputGroup(eve, index)}>
-                    <BiTrash />
-                  </DeleteButton>
-                </TextInputWrapper>
-              ))}
-              <TextButton
+    <Wrapper>
+      <Form
+        initialValues={{ aboutDescription, aboutLinks }}
+        onSubmit={onSubmit}
+        // validate={validate}
+        mutators={{
+          ...arrayMutators,
+        }}
+        render={({
+          handleSubmit,
+          form: {
+            mutators: { push }, // pop
+          },
+          pristine,
+          form,
+          submitting,
+        }) => (
+          <StyledForm onSubmit={handleSubmit}>
+            <Field
+              value="hi"
+              name="aboutDescription"
+              render={({ input, meta }) => (
+                <div>
+                  <TextArea {...input} />
+                  {meta.touched && meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            />
+            <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
+              <StyledWrapper>
+                <FieldArray name="aboutLinks">
+                  {({ fields }: any) =>
+                    fields.map((name: any, index: number) => (
+                      <TextInputWrapper key={name}>
+                        <TextInputGroup>
+                          <StyledLabel htmlFor={`${name}.description`}>תיאור</StyledLabel>
+                          <Field
+                            name={`${name}.description`}
+                            render={({ input, meta }) => (
+                              <span>
+                                <TextInput {...input} />
+                                {meta.touched && meta.error && <span>{meta.error}</span>}
+                              </span>
+                            )}
+                          />
+                        </TextInputGroup>
+                        <TextInputGroup>
+                          <StyledLabel htmlFor={`${name}.link`}>לינק</StyledLabel>
+                          <Field
+                            name={`${name}.link`}
+                            render={({ input, meta }) => (
+                              <span>
+                                <TextInput {...input} />
+                                {meta.touched && meta.error && <span>{meta.error}</span>}
+                              </span>
+                            )}
+                          />
+                        </TextInputGroup>
+                        <DeleteButton type="button" onClick={() => fields.remove(index)}>
+                          <BiTrash />
+                        </DeleteButton>
+                      </TextInputWrapper>
+                    ))
+                  }
+                </FieldArray>
+              </StyledWrapper>
+            </Scrollbars>
+            <TextButton onClick={() => push('aboutLinks', newAboutLink)}>הוספה</TextButton>
+            <Buttons>
+              <ClearButton
+                disabled={submitting || pristine}
                 onClick={() => {
-                  addInputGroup();
+                  form.reset();
                 }}
               >
-                הוספה
-              </TextButton>
-              <Buttons>
-                <ClearButton
-                  onClick={() => {
-                    form.reset();
-                  }}
-                >
-                  ביטול
-                </ClearButton>
-                <SaveButton type="submit">שמירה</SaveButton>
-              </Buttons>
-            </StyledForm>
-          )}
-        />
-      </Scrollbars>
-    </StyledWrapper>
+                ביטול
+              </ClearButton>
+              <SaveButton type="submit">שמירה</SaveButton>
+            </Buttons>
+          </StyledForm>
+        )}
+      />
+    </Wrapper>
   );
 };
 

@@ -236,7 +236,6 @@ const Team = () => {
                     <IconButton type="button" onClick={() => fields.remove(index)}>
                       <BiTrash />
                     </IconButton>
-
                     <TextInputGroup>
                       <StyledLabel htmlFor={`description${name}`}>תמונה</StyledLabel>
                       <Field
