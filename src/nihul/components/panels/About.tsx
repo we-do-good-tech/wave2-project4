@@ -8,6 +8,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash } from 'react-icons/bi';
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
+import StyledModal from '../../shared/Modal';
 import { StyledForm } from '../../shared/StyledForm';
 import { Wrapper } from '../../shared/Wrapper';
 
@@ -106,10 +107,19 @@ const TextInputGroup = styled.div`
   max-width: 45%;
   direction: rtl;
   transition: all 0.3s;
+  position: relative;
 `;
 
 const StyledLabel = styled.label`
   margin-left: 0.5rem;
+  font-size: 20px;
+`;
+
+const StyledError = styled.span`
+  position: absolute;
+  right: 4rem;
+  top: 10px;
+  color: red;
   font-size: 20px;
 `;
 
@@ -141,12 +151,18 @@ const About = () => {
 
   const [aboutDescription, setAboutDescription] = useState();
   const [aboutLinks, setAboutLinks] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const onSubmit = async (values: any) => {
-    itemsRef.update({ ...values });
+    itemsRef.update({ ...values }, (error) => {
+      if (error) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(true);
+      }
+    });
   };
 
   useEffect(() => {
-    console.log('stop!');
     if (!aboutLinks) setAboutLinks([]);
     itemsRef.on('value', (snapshot: any) => {
       setAboutDescription(snapshot.val()?.aboutDescription || '');
@@ -155,10 +171,12 @@ const About = () => {
     });
   }, [itemsRef, aboutLinks]);
 
-  const newAboutLink = {
+  const required = (value: any) => (value ? undefined : 'לא ניתן להשאיר שדה ריק');
+
+  /*  const newAboutLink = {
     text: '',
     path: '',
-  };
+  }; */
 
   return (
     <Wrapper>
@@ -199,10 +217,11 @@ const About = () => {
                           <StyledLabel htmlFor={`${name}.text`}>תיאור</StyledLabel>
                           <Field
                             name={`${name}.text`}
+                            validate={required}
                             render={({ input, meta }) => (
                               <span>
                                 <TextInput {...input} />
-                                {meta.touched && meta.error && <span>{meta.error}</span>}
+                                {meta.touched && meta.error && <StyledError>{meta.error}</StyledError>}
                               </span>
                             )}
                           />
@@ -211,10 +230,11 @@ const About = () => {
                           <StyledLabel htmlFor={`${name}.path`}>לינק</StyledLabel>
                           <Field
                             name={`${name}.path`}
+                            validate={required}
                             render={({ input, meta }) => (
                               <span>
                                 <TextInput {...input} />
-                                {meta.touched && meta.error && <span>{meta.error}</span>}
+                                {meta.touched && meta.error && <StyledError>{meta.error}</StyledError>}
                               </span>
                             )}
                           />
@@ -228,7 +248,7 @@ const About = () => {
                 </FieldArray>
               </StyledWrapper>
             </Scrollbars>
-            <TextButton onClick={() => push('aboutLinks', newAboutLink)}>הוספה</TextButton>
+            <TextButton onClick={() => push('aboutLinks', undefined)}>הוספה</TextButton>
             <Buttons>
               <ClearButton
                 disabled={submitting || pristine}
@@ -243,6 +263,7 @@ const About = () => {
           </StyledForm>
         )}
       />
+      <StyledModal isOpen={isOpen} />
     </Wrapper>
   );
 };
