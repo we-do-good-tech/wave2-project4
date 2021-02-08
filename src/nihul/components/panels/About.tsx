@@ -121,6 +121,7 @@ const StyledError = styled.span`
   top: 10px;
   color: red;
   font-size: 20px;
+  pointer-events: none;
 `;
 
 const About = () => {
@@ -152,12 +153,15 @@ const About = () => {
   const [aboutDescription, setAboutDescription] = useState();
   const [aboutLinks, setAboutLinks] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const onSubmit = async (values: any) => {
     itemsRef.update({ ...values }, (error) => {
       if (error) {
         setIsOpen(true);
+        setIsError(true);
       } else {
         setIsOpen(true);
+        setIsError(false);
       }
     });
   };
@@ -263,7 +267,7 @@ const About = () => {
           </StyledForm>
         )}
       />
-      <StyledModal isOpen={isOpen} />
+      <StyledModal isOpen={isOpen} setIsOpen={setIsOpen} error={isError} />
     </Wrapper>
   );
 };
