@@ -7,5 +7,5 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   flex: 0 0 85%;
-  max-height: 460px;
+  height: 460px;
 `;
