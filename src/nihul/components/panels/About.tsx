@@ -176,7 +176,7 @@ const About = () => {
   }, [itemsRef, aboutLinks]);
 
   const required = (value: any) => (value ? undefined : 'לא ניתן להשאיר שדה ריק');
-
+  const requiredArray = (value: any) => (value && value.length > 0 ? undefined : 'לא ניתן להשאיר שדה ריק');
   /*  const newAboutLink = {
     text: '',
     path: '',
@@ -187,7 +187,6 @@ const About = () => {
       <Form
         initialValues={{ aboutDescription, aboutLinks }}
         onSubmit={onSubmit}
-        // validate={validate}
         mutators={{
           ...arrayMutators,
         }}
@@ -197,8 +196,8 @@ const About = () => {
             mutators: { push }, // pop
           },
           pristine,
-          form,
           submitting,
+          form,
         }) => (
           <StyledForm onSubmit={handleSubmit}>
             <Field
@@ -213,7 +212,7 @@ const About = () => {
             />
             <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
               <StyledWrapper>
-                <FieldArray name="aboutLinks">
+                <FieldArray name="aboutLinks" validate={requiredArray}>
                   {({ fields }: any) =>
                     fields.map((name: any, index: number) => (
                       <TextInputWrapper key={name}>
@@ -252,17 +251,25 @@ const About = () => {
                 </FieldArray>
               </StyledWrapper>
             </Scrollbars>
-            <TextButton onClick={() => push('aboutLinks', undefined)}>הוספה</TextButton>
+            <TextButton
+              onClick={() => {
+                push('aboutLinks', undefined);
+                console.log('stop here!');
+              }}
+            >
+              הוספה
+            </TextButton>
             <Buttons>
               <ClearButton
-                disabled={submitting || pristine}
                 onClick={() => {
                   form.reset();
                 }}
               >
                 ביטול
               </ClearButton>
-              <SaveButton type="submit">שמירה</SaveButton>
+              <SaveButton type="submit" disabled={submitting || pristine}>
+                שמירה
+              </SaveButton>
             </Buttons>
           </StyledForm>
         )}
