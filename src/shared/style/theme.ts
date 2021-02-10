@@ -139,6 +139,65 @@ const theme = {
       color: colors.sapphireLightMedium,
     },
   },
+  mapPinIcons: [
+    {
+      title: "בוצ'ה",
+      position: {
+        left: 17,
+        top: 45,
+        background: colors.sapphireLightMedium,
+      },
+    },
+    {
+      title: 'כדורסל',
+      position: {
+        left: 32,
+        top: 19,
+      },
+    },
+    {
+      title: 'ריצה',
+      position: {
+        left: 44,
+        top: 12,
+      },
+    },
+    {
+      title: 'טניס',
+      position: {
+        left: 62,
+        top: 17,
+      },
+    },
+    {
+      title: 'שחיה',
+      position: {
+        left: 81,
+        top: 30,
+      },
+    },
+    {
+      title: 'פינג פונג',
+      position: {
+        left: 61,
+        top: 41,
+      },
+    },
+    {
+      title: 'כדורשת',
+      position: {
+        left: 43,
+        top: 35,
+      },
+    },
+    {
+      title: 'אופניים זוגים',
+      position: {
+        left: 32,
+        top: 52,
+      },
+    },
+  ],
 };
 
 export default theme;
