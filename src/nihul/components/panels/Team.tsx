@@ -5,19 +5,24 @@ import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash, BiImage } from 'react-icons/bi';
+import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
 import { Wrapper } from '../../shared/Wrapper';
 
-export const StyledForm = styled.form`
+const FieldArrayWrapper = styled.div`
+  max-height: calc(100vh - 274px);
+  overflow-y: auto;
+`;
+
+const StyledForm = styled.form`
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: center;
-  flex: 0 0 85%;
-  max-height: 460px;
-  overflow-y: auto;
+  max-height: calc(100vh - 460px);
+  overflow-y: none;
 `;
 
 const Input = styled.input`
@@ -131,7 +136,9 @@ const UploadImageButton = styled.button`
 `;
 
 const TextButton = styled.button`
+  font-size: 20px;
   padding: 0.7rem;
+  margin: 24px 0 53px 0;
   text-decoration: underline;
   color: ${({ theme }: { theme: any }) => theme.button.secondary.normal.color};
   border: none;
@@ -151,6 +158,20 @@ const TeamMember = styled.div`
   justify-content: center;
   align-items: center;
   min-width: 1200px;
+`;
+
+const Footer = styled.div`
+  ${flexColumnCenter};
+  width: 100%;
+  min-width: 1280px;
+  height: 150px;
+  bottom: 66px;
+  position: fixed;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Team = () => {
@@ -229,72 +250,80 @@ const Team = () => {
                 </div>
               )}
             />
-            <FieldArray name="teamMembers">
-              {({ fields }: any) =>
-                fields.map((name: any, index: number) => (
-                  <TeamMember key={name}>
-                    <IconButton type="button" onClick={() => fields.remove(index)}>
-                      <BiTrash />
-                    </IconButton>
-                    <TextInputGroup>
-                      <StyledLabel htmlFor={`description${name}`}>תמונה</StyledLabel>
-                      <Field
-                        name={`${name}.image`}
-                        render={({ input, meta }) => (
-                          <UploadImageButton
-                            onClick={() => {
-                              beginUpload('team', index);
-                            }}
-                          >
-                            <Input dir="ltr" {...input} />
-                            <IconContainer>
-                              <StyledBiImage />
-                            </IconContainer>
-                            {meta.touched && meta.error && <span>{meta.error}</span>}
-                          </UploadImageButton>
-                        )}
-                      />
-                    </TextInputGroup>
-                    <TextInputGroup>
-                      <StyledLabel htmlFor={`description${name}`}>ענף ספורט</StyledLabel>
-                      <Field
-                        name={`${name}.sports`}
-                        render={({ input, meta }) => (
-                          <span>
-                            <TextInput {...input} />
-                            {meta.touched && meta.error && <span>{meta.error}</span>}
-                          </span>
-                        )}
-                      />
-                    </TextInputGroup>
-                    <TextInputGroup>
-                      <StyledLabel htmlFor={`description${name}`}>שם</StyledLabel>
-                      <Field
-                        name={`${name}.name`}
-                        render={({ input, meta }) => (
-                          <span>
-                            <TextInput {...input} />
-                            {meta.touched && meta.error && <span>{meta.error}</span>}
-                          </span>
-                        )}
-                      />
-                    </TextInputGroup>
-                  </TeamMember>
-                ))
-              }
-            </FieldArray>
-            <TextButton onClick={() => push('teamMembers', newMember)}>הוספה</TextButton>
-            <Buttons>
-              <ClearButton
-                disabled={submitting || pristine}
-                onClick={() => {
-                  form.reset();
-                }}
-              >
-                ביטול
-              </ClearButton>
-              <SaveButton type="submit">שמירה</SaveButton>
-            </Buttons>
+            <FieldArrayWrapper>
+              <FieldArray name="teamMembers">
+                {({ fields }: any) =>
+                  fields.map((name: any, index: number) => (
+                    <TeamMember key={name}>
+                      <IconButton type="button" onClick={() => fields.remove(index)}>
+                        <BiTrash />
+                      </IconButton>
+                      <TextInputGroup>
+                        <StyledLabel htmlFor={`description${name}`}>תמונה</StyledLabel>
+                        <Field
+                          name={`${name}.image`}
+                          render={({ input, meta }) => (
+                            <UploadImageButton
+                              onClick={() => {
+                                beginUpload('team', index);
+                              }}
+                            >
+                              <Input dir="ltr" {...input} />
+                              <IconContainer>
+                                <StyledBiImage />
+                              </IconContainer>
+                              {meta.touched && meta.error && <span>{meta.error}</span>}
+                            </UploadImageButton>
+                          )}
+                        />
+                      </TextInputGroup>
+                      <TextInputGroup>
+                        <StyledLabel htmlFor={`description${name}`}>ענף ספורט</StyledLabel>
+                        <Field
+                          name={`${name}.sports`}
+                          render={({ input, meta }) => (
+                            <span>
+                              <TextInput {...input} />
+                              {meta.touched && meta.error && <span>{meta.error}</span>}
+                            </span>
+                          )}
+                        />
+                      </TextInputGroup>
+                      <TextInputGroup>
+                        <StyledLabel htmlFor={`description${name}`}>שם</StyledLabel>
+                        <Field
+                          name={`${name}.name`}
+                          render={({ input, meta }) => (
+                            <span>
+                              <TextInput {...input} />
+                              {meta.touched && meta.error && <span>{meta.error}</span>}
+                            </span>
+                          )}
+                        />
+                      </TextInputGroup>
+                    </TeamMember>
+                  ))
+                }
+              </FieldArray>
+            </FieldArrayWrapper>
+            <Footer>
+              <ButtonWrapper>
+                <TextButton onClick={() => push('teamMembers', newMember)}>הוספה</TextButton>
+              </ButtonWrapper>
+              <Buttons>
+                <ClearButton
+                  disabled={submitting || pristine}
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  ביטול
+                </ClearButton>
+                <SaveButton type="submit" disabled={submitting || pristine}>
+                  שמירה
+                </SaveButton>
+              </Buttons>
+            </Footer>
           </StyledForm>
         )}
       />

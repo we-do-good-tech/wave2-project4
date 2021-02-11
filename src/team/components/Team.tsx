@@ -69,7 +69,7 @@ const Main = styled.main`
   display: flex;
   flex-wrap: wrap;
   padding: 20px 50px;
-  justify-content: space-between;
+  justify-content: center;
   direction: rtl;
 `;
 

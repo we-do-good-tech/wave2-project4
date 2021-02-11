@@ -88,9 +88,14 @@ const MapPin = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     transform: scale(1.2);
+  }
+  h5 {
+    padding-bottom: 12px;
   }
 `;
 

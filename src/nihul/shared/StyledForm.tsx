@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 export const StyledForm = styled.form`
   display: flex;
-  justify-content: space-between;
   flex: 1;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  flex: 0 0 85%;
-  height: 460px;
+  min-height: calc(100vh - 294px);
 `;

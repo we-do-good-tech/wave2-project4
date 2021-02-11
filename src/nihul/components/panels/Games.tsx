@@ -28,6 +28,12 @@ const TextArea = styled.textarea`
   font-family: 'Assistant';
 `;
 
+const StyledButtons = styled(Buttons)`
+  position: fixed;
+  bottom: 53px;
+  width: 100%;
+`;
+
 const Games = () => {
   const itemsRef = firebase.database().ref('games');
 
@@ -61,7 +67,7 @@ const Games = () => {
                 </div>
               )}
             />
-            <Buttons>
+            <StyledButtons>
               <ClearButton
                 onClick={() => {
                   form.reset();
@@ -70,7 +76,7 @@ const Games = () => {
                 ביטול
               </ClearButton>
               <SaveButton type="submit">שמירה</SaveButton>
-            </Buttons>
+            </StyledButtons>
           </StyledForm>
         )}
       />

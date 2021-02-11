@@ -6,6 +6,7 @@ import { Scrollbars } from 'rc-scrollbars';
 import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash } from 'react-icons/bi';
+// import { flexColumnCenter } from 'shared/components';
 import firebase from '../../../firebase';
 import { Scrollers } from '../../../shared/components/index';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
@@ -50,7 +51,9 @@ const TextInputWrapper = styled.div`
 `;
 
 const TextButton = styled.button`
+  font-size: 20px;
   padding: 0.7rem;
+  margin: 24px 0 53px 0;
   text-decoration: underline;
   color: ${({ theme }: { theme: any }) => theme.button.secondary.normal.color};
   border: none;
@@ -125,6 +128,16 @@ const StyledError = styled.span`
   font-size: 20px;
   pointer-events: none;
 `;
+
+// const Footer = styled.div`
+//   ${flexColumnCenter};
+//   width: 100%;
+//   height: 150px;
+//   padding-bottom: 51px;
+//   position: fixed;
+//   bottom: 0;
+//   right: 0;
+// `;
 
 const About = () => {
   const { thumbVertical, trackVertical } = Scrollers;
@@ -235,7 +248,7 @@ const About = () => {
             <TextButton
               onClick={() => {
                 push('aboutLinks', undefined);
-                console.log('stop here!');
+                // console.log('stop here!');
               }}
             >
               הוספה

@@ -5,6 +5,7 @@ import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiImage } from 'react-icons/bi';
+import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
@@ -17,7 +18,7 @@ export const StyledForm = styled.form`
   align-items: center;
   margin-top: 40px;
   flex: 0 0 85%;
-  max-height: 460px;
+  max-height: calc(100vh - 460px);
   overflow-y: auto;
 `;
 
@@ -125,6 +126,15 @@ const TeamMember = styled.div`
   min-width: 1200px;
 `;
 
+const Footer = styled.div`
+  ${flexColumnCenter};
+  width: 100%;
+  min-width: 1280px;
+  height: 150px;
+  bottom: 2px;
+  position: fixed;
+`;
+
 const Sports = () => {
   const itemsRef = firebase.database().ref('sports');
 
@@ -224,17 +234,19 @@ const Sports = () => {
                 ))
               }
             </FieldArray>
-            <Buttons>
-              <ClearButton
-                disabled={submitting || pristine}
-                onClick={() => {
-                  form.reset();
-                }}
-              >
-                ביטול
-              </ClearButton>
-              <SaveButton type="submit">שמירה</SaveButton>
-            </Buttons>
+            <Footer>
+              <Buttons>
+                <ClearButton
+                  disabled={submitting || pristine}
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  ביטול
+                </ClearButton>
+                <SaveButton type="submit">שמירה</SaveButton>
+              </Buttons>
+            </Footer>
           </StyledForm>
         )}
       />

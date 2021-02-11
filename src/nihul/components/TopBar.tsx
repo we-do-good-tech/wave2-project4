@@ -41,7 +41,7 @@ const StyledLink = styled(Link)`
 
 const StyledLinkText = styled.h3`
   font-style: normal;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 18px;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : '400')};
   text-align: center;
