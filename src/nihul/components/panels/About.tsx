@@ -1,4 +1,4 @@
-import React, { useState, useEffect, HTMLAttributes } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import arrayMutators from 'final-form-arrays';
 import isEqual from 'lodash.isequal';
@@ -7,6 +7,7 @@ import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash } from 'react-icons/bi';
 import firebase from '../../../firebase';
+import { Scrollers } from '../../../shared/components/index';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
 import StyledModal from '../../shared/Modal';
 import { StyledForm } from '../../shared/StyledForm';
@@ -17,6 +18,7 @@ const StyledWrapper = styled(Wrapper)`
   padding: 1rem;
   direction: rtl;
   max-width: 89%;
+  margin: 0 auto;
 `;
 
 const DeleteButton = styled.button`
@@ -34,11 +36,11 @@ const DeleteButton = styled.button`
 
 const TextInputWrapper = styled.div`
   display: flex;
-  max-width: 95%;
-  min-width: 95%;
+  max-width: 97%;
+  min-width: 97%;
   flex: 1;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   justify-content: space-around;
   align-items: center;
   &:hover > ${DeleteButton} {
@@ -117,7 +119,7 @@ const StyledLabel = styled.label`
 
 const StyledError = styled.span`
   position: absolute;
-  right: 4rem;
+  right: 22%;
   top: 10px;
   color: red;
   font-size: 20px;
@@ -125,28 +127,7 @@ const StyledError = styled.span`
 `;
 
 const About = () => {
-  const thumbVertical = ({ style, ...props }: HTMLAttributes<HTMLDivElement>) => {
-    const finalStyle = {
-      ...style,
-      cursor: 'pointer',
-      backgroundColor: '#0C2D80',
-      borderRadius: '10px',
-    };
-    return <div style={finalStyle} {...props} />;
-  };
-
-  const trackVertical = ({ style, ...props }: HTMLAttributes<HTMLDivElement>) => {
-    const trackStyle = {
-      ...style,
-      backgroundColor: '#C4C4C4',
-      width: '6px',
-      right: '0',
-      borderRadius: '10px',
-      bottom: '2px',
-      top: '2px',
-    };
-    return <div style={trackStyle} {...props} />;
-  };
+  const { thumbVertical, trackVertical } = Scrollers;
 
   const itemsRef = firebase.database().ref('about');
 
@@ -261,6 +242,7 @@ const About = () => {
             </TextButton>
             <Buttons>
               <ClearButton
+                type="button"
                 onClick={() => {
                   form.reset();
                 }}

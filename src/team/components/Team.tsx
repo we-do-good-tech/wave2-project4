@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
 import goldLogo from '../../assets/images/gold_logo.png';
 import bg from '../../assets/images/teamBg.svg';
+import firebase from '../../firebase';
 import { Scrollers } from '../../shared/components/index';
 
 /* import { Flex } from '../../shared/components/Flex/Flex'; */
@@ -93,17 +95,29 @@ const TeamMember = styled.div`
   flex: 0 0 20%;
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.div<{ image?: string }>`
+  background: ${(props) => `url(${props.image})`} no-repeat;
+  background-size: cover;
   width: 124px;
   height: 124px;
-  background: #c4c4c4;
   border-radius: 50%;
   margin: 0 auto;
 `;
 
-const teamMembers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const Team = () => {
   const { thumbVertical, trackVertical } = Scrollers;
+  const itemsRef = firebase.database().ref('team');
+  const [teamDescription, setTeamDescription] = useState();
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  useEffect(() => {
+    if (!teamMembers) setTeamMembers([]);
+    itemsRef.on('value', (snapshot: any) => {
+      setTeamDescription(snapshot.val()?.teamDescription || '');
+      if (!isEqual(teamMembers, snapshot.val()?.teamMembers) && snapshot.val()?.teamMembers)
+        setTeamMembers(snapshot.val()?.teamMembers);
+    });
+  }, [itemsRef, teamMembers]);
 
   return (
     <Wrapper>
@@ -111,20 +125,25 @@ const Team = () => {
         <StyledHeader>
           <div>
             <H2>נעים להכיר, המשלחת הפראלימפית הישראלית </H2>
-            <H1>טוקיו 2021 </H1>
+            <H1>{teamDescription}</H1>
           </div>
           <img src={goldLogo} alt="logo" />
         </StyledHeader>
         <MainWrapper>
           <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
             <Main>
-              {teamMembers.map((member) => (
-                <TeamMember key={member}>
-                  <Avatar />
-                  <H3>חבר צוות א</H3>
-                  <P>טניס</P>
-                </TeamMember>
-              ))}
+              {teamMembers.map((member: any, index: number) => {
+                if (!member.image || !member.name || !member.sports) {
+                  return;
+                }
+                return (
+                  <TeamMember key={index}>
+                    <Avatar image={member.image} />
+                    <H3>{member.name}</H3>
+                    <P>{member.sports}</P>
+                  </TeamMember>
+                );
+              })}
             </Main>
           </Scrollbars>
         </MainWrapper>
