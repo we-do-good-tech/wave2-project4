@@ -79,9 +79,9 @@ const StyledAboutLink = styled(Link)`
 
 const StyledLinkText = styled.h3`
   font-style: normal;
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 600;
+  font-size: 18px;
+  line-height: 23.5px;
+  font-weight: 700;
   text-align: center;
   padding: 20px;
   margin: 0;
