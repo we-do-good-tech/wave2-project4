@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
 import theme from 'shared/style/theme';
@@ -13,7 +13,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   height: 100%;
   background-image: url(${mapBg});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 `;
 
@@ -87,10 +87,16 @@ const MapPin = styled.div<{ index: number }>`
   background-size: cover;
   text-align: center;
   vertical-align: middle;
+  transition: all 0.6s;
 
   &:hover {
     transform: scale(1.2);
   }
+`;
+
+const popup = keyframes`
+  from {opacity: 0; transform: scale(0)},
+  to {oacity: 1, transform: scale(1)}
 `;
 
 const GameTooltip = styled.div`
@@ -103,6 +109,7 @@ const GameTooltip = styled.div`
   font-size: ${({ theme }) => theme.text.title.fontSize};
   text-align: center;
   background: ${({ theme }) => theme.modal.background};
+  animation: ${popup} 0.5s;
 `;
 
 const CloseBtn = styled.button`
@@ -115,6 +122,7 @@ const CloseBtn = styled.button`
   border: 4px solid #fff;
   border-radius: 50%;
   cursor: pointer;
+  animation: ${popup} 0.8s;
 `;
 
 const Homepage = () => {
