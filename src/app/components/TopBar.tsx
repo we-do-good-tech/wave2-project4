@@ -10,7 +10,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 3px solid ${({ theme }) => theme.topbar.border};
+  border-bottom: 1px solid ${({ theme }) => theme.topbar.border};
 `;
 
 const Logo = styled.a`
@@ -79,11 +79,12 @@ const StyledAboutLink = styled(Link)`
 
 const StyledLinkText = styled.h3`
   font-style: normal;
-  font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   font-weight: 600;
   text-align: center;
+  padding: 20px;
+  margin: 0;
 `;
 
 type MenuItemType = {
