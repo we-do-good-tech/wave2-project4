@@ -3,29 +3,11 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
 import goldLogo from '../../assets/images/gold_logo.png';
-import bg from '../../assets/images/teamBg.svg';
+
 import firebase from '../../firebase';
-import { Scrollers } from '../../shared/components/index';
+import { Scrollers, Background } from '../../shared/components/index';
 
 /* import { Flex } from '../../shared/components/Flex/Flex'; */
-
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
-  flex: 1;
-  background: url(${bg}), linear-gradient(0deg, #6acfff 0%, #0071bc 100%);
-`;
-
-const WhiteWapper = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(2, 27, 91, 0.25);
-  width: 84%;
-  margin: 0 auto;
-  height: 100%;
-  flex: 0 0 84%;
-  text-align: center;
-  direction: ltr;
-  display: flex;
-  flex-direction: column;
-`;
 
 const StyledHeader = styled.header`
   display: grid;
@@ -50,13 +32,6 @@ const H1 = styled.h1`
   margin: 0;
 `;
 
-const H2 = styled.h2`
-  font-size: 28px;
-  color: #112f78;
-  font-weight: 600;
-  margin: 0;
-`;
-
 const H3 = styled.h3`
   font-size: 18px;
   color: #112f78;
@@ -64,6 +39,15 @@ const H3 = styled.h3`
   line-hight: 23.54px;
   text-align: center;
   margin: 0;
+`;
+
+const H2 = styled.h2`
+  font-family: Assistant;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 37px;
+  text-align: center;
 `;
 
 const P = styled.p`
@@ -105,6 +89,7 @@ const Avatar = styled.div<{ image?: string }>`
 `;
 
 const Team = () => {
+  const { Wrapper, WhiteWapper } = Background;
   const { thumbVertical, trackVertical } = Scrollers;
   const itemsRef = firebase.database().ref('team');
   const [teamDescription, setTeamDescription] = useState();
