@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'shared/components';
-import logo from '../../assets/images/logo.png';
+import logo from 'assets/images/logo.png';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background: ${({ theme }) => theme.topbar.background};
@@ -95,7 +95,7 @@ type MenuItemType = {
 const items: MenuItemType[] = [
   {
     name: 'משחקים פאראלימפיים',
-    path: '/',
+    path: '/games',
   },
   {
     name: 'בואו נשחק!',
@@ -121,7 +121,7 @@ const SideBar = () => {
   const location = useLocation();
   return (
     <Wrapper>
-      <Logo href={items[0].path} />
+      <Logo href="/" />
       <Menu>
         {items.map((i: MenuItemType) => (
           <MenuItem key={i.name}>
