@@ -9,6 +9,7 @@ import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
+import StyledModal from '../../shared/Modal';
 import { Wrapper } from '../../shared/Wrapper';
 
 const FieldArrayWrapper = styled.div`
@@ -164,8 +165,7 @@ const Footer = styled.div`
   ${flexColumnCenter};
   width: 100%;
   min-width: 1280px;
-  height: 150px;
-  bottom: 66px;
+  bottom: 53px;
   position: fixed;
 `;
 
@@ -180,8 +180,18 @@ const Team = () => {
   const [teamDescription, setTeamDescription] = useState();
   const [teamMembers, setTeamMembers] = useState([]);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const onSubmit = async (values: any) => {
-    itemsRef.update({ ...values });
+    itemsRef.update({ ...values }, (error) => {
+      if (error) {
+        setIsOpen(true);
+        setIsError(true);
+      } else {
+        setIsOpen(true);
+        setIsError(false);
+      }
+    });
   };
 
   const beginUpload = (tag: any, index: number) => {
@@ -327,6 +337,7 @@ const Team = () => {
           </StyledForm>
         )}
       />
+      <StyledModal isOpen={isOpen} setIsOpen={setIsOpen} error={isError} />
     </Wrapper>
   );
 };

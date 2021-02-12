@@ -244,7 +244,9 @@ const Sports = () => {
                 >
                   ביטול
                 </ClearButton>
-                <SaveButton type="submit">שמירה</SaveButton>
+                <SaveButton type="submit" disabled={submitting || pristine}>
+                  שמירה
+                </SaveButton>
               </Buttons>
             </Footer>
           </StyledForm>

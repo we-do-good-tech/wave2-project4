@@ -38,6 +38,13 @@ export const SaveButton = styled(StyledButton)`
     background: ${({ theme }: { theme: any }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.active.border};
   }
+  &:disabled {
+    color: ${({ theme }: { theme: any }) => theme.button.primary.disabled.color};
+    background: ${({ theme }: { theme: any }) => theme.button.primary.disabled.background};
+    border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.disabled.border};
+    cursor: default;
+    font-weight: 400;
+  }
 `;
 
 export const ClearButton = styled(StyledButton)`
@@ -53,5 +60,12 @@ export const ClearButton = styled(StyledButton)`
     color: ${({ theme }: { theme: any }) => theme.button.secondary.active.color};
     background: ${({ theme }: { theme: any }) => theme.button.secondary.active.background};
     border: 2px solid ${({ theme }: { theme: any }) => theme.button.secondary.active.border};
+  }
+  &:disabled {
+    color: ${({ theme }: { theme: any }) => theme.button.secondary.disabled.color};
+    background: ${({ theme }: { theme: any }) => theme.button.secondary.disabled.background};
+    border: 2px solid ${({ theme }: { theme: any }) => theme.button.secondary.disabled.border};
+    cursor: default;
+    font-weight: 400;
   }
 `;

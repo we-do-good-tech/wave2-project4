@@ -4,6 +4,7 @@ import arrayMutators from 'final-form-arrays';
 import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
 import { BiImage } from 'react-icons/bi';
+import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
@@ -15,8 +16,8 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   flex: 0 0 85%;
-  max-height: 500px;
-  overflow-y: auto;
+  max-height: calc(100vh - 460px);
+  overflow-y: none;
 `;
 
 const Input = styled.input`
@@ -90,6 +91,14 @@ const UploadImageButton = styled.button`
   margin-bottom: 31px;
 `;
 
+const Footer = styled.div`
+  ${flexColumnCenter};
+  width: 100%;
+  min-width: 1280px;
+  bottom: 53px;
+  position: fixed;
+`;
+
 const Sports = () => {
   const itemsRef = firebase.database().ref('info');
 
@@ -155,17 +164,21 @@ const Sports = () => {
                 )}
               />
             </TextInputGroup>
-            <Buttons>
-              <ClearButton
-                disabled={submitting || pristine}
-                onClick={() => {
-                  form.reset();
-                }}
-              >
-                ביטול
-              </ClearButton>
-              <SaveButton type="submit">שמירה</SaveButton>
-            </Buttons>
+            <Footer>
+              <Buttons>
+                <ClearButton
+                  disabled={submitting || pristine}
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  ביטול
+                </ClearButton>
+                <SaveButton type="submit" disabled={submitting || pristine}>
+                  שמירה
+                </SaveButton>
+              </Buttons>
+            </Footer>
           </StyledForm>
         )}
       />

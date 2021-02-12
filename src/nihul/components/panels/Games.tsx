@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
+import { flexColumnCenter } from 'shared/components';
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
 import { StyledForm } from '../../shared/StyledForm';
@@ -8,7 +9,8 @@ import { Wrapper } from '../../shared/Wrapper';
 
 const TextArea = styled.textarea`
   width: 900px;
-  height: 300px;
+  min-height: calc(100vh - 460px);
+  max-height: calc(100vh - 460px);
   margin-top: 40px;
   margin-bottom: 33px;
   color: black;
@@ -28,10 +30,13 @@ const TextArea = styled.textarea`
   font-family: 'Assistant';
 `;
 
-const StyledButtons = styled(Buttons)`
-  position: fixed;
-  bottom: 53px;
+const Footer = styled.div`
+  ${flexColumnCenter};
   width: 100%;
+  min-width: 1280px;
+  height: 150px;
+  bottom: 2px;
+  position: fixed;
 `;
 
 const Games = () => {
@@ -55,7 +60,7 @@ const Games = () => {
         initialValues={{ gamesDescription }}
         onSubmit={onSubmit}
         // validate={validate}
-        render={({ handleSubmit, form }) => (
+        render={({ handleSubmit, pristine, form, submitting }) => (
           <StyledForm onSubmit={handleSubmit}>
             <Field
               value="hi"
@@ -67,16 +72,21 @@ const Games = () => {
                 </div>
               )}
             />
-            <StyledButtons>
-              <ClearButton
-                onClick={() => {
-                  form.reset();
-                }}
-              >
-                ביטול
-              </ClearButton>
-              <SaveButton type="submit">שמירה</SaveButton>
-            </StyledButtons>
+            <Footer>
+              <Buttons>
+                <ClearButton
+                  disabled={submitting || pristine}
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  ביטול
+                </ClearButton>
+                <SaveButton type="submit" disabled={submitting || pristine}>
+                  שמירה
+                </SaveButton>
+              </Buttons>
+            </Footer>
           </StyledForm>
         )}
       />

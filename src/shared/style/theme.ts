@@ -1,5 +1,3 @@
-// import { darken } from 'polished';
-
 const colors = {
   primary: '#ff6e40',
   secondary: '#ffc13b',
@@ -40,6 +38,11 @@ const theme = {
         color: colors.white,
         border: colors.white,
       },
+      disabled: {
+        background: 'transparent',
+        color: colors.darkMagenta,
+        border: colors.darkMagenta,
+      },
     },
     secondary: {
       normal: {
@@ -56,6 +59,11 @@ const theme = {
         background: colors.purple,
         color: colors.white,
         border: colors.white,
+      },
+      disabled: {
+        background: 'transparent',
+        color: colors.darkMagenta,
+        border: colors.darkMagenta,
       },
     },
   },
