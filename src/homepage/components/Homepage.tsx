@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, flexCenter, flexCenterMiddle, flexColumnCenterBottom } from 'shared/components';
-// import theme from 'shared/style/theme';
-
-import logo from 'assets/images/logo-information.png';
+import commiteeLogo from 'assets/images/commitee-logo.png';
 import mapBg from 'assets/images/map_bg.svg';
+import unionLogo from 'assets/images/union-logo.png';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
@@ -67,7 +66,8 @@ const Circle = styled.a`
 `;
 
 const StyledImg = styled.img`
-  margin: 0;
+  height: 78px;
+  margin: 5px 10px 0 10px;
 `;
 
 const Footer = styled.div`
@@ -95,7 +95,8 @@ const Homepage = () => {
         >
           הסבר לצוות החינוכי
         </Circle>
-        <StyledImg src={logo} />
+        <StyledImg src={unionLogo} />
+        <StyledImg src={commiteeLogo} />
       </Footer>
     </Wrapper>
   );
