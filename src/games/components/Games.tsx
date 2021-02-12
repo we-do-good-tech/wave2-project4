@@ -24,7 +24,7 @@ const TextArea = styled.textarea`
   max-height: calc(100vh - 540px);
   color: black;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
   background: transparent;
   border: none;

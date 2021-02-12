@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, flexCenter, flexColumnCenterBottom } from 'shared/components';
+import { Link, flexCenter, flexCenterMiddle, flexColumnCenterBottom } from 'shared/components';
 // import theme from 'shared/style/theme';
 
 import logo from 'assets/images/logo-information.png';
@@ -44,6 +44,28 @@ const StyledButton = styled(Link)`
   }
 `;
 
+const Circle = styled.a`
+  ${flexCenterMiddle};
+  border-radius: 50%;
+  width: 168px;
+  height: 168px;
+  background: #03345a;
+  border: 4px solid white;
+  color: #ffffff !important;
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  bottom: 7px;
+  right: 10%;
+  padding: 15px;
+  text-align: center;
+  pointer: cursor;
+  &:hover {
+    text-decoration: none;
+    font-weight: 800;
+  }
+`;
+
 const StyledImg = styled.img`
   margin: 0;
 `;
@@ -67,6 +89,12 @@ const Homepage = () => {
         בואו נתחיל
       </StyledButton>
       <Footer>
+        <Circle
+          href="https://res.cloudinary.com/dhocrufiz/image/upload/v1612562292/anpuyzdy3wwvycgvvqtg.pdf"
+          target="_blank"
+        >
+          הסבר לצוות החינוכי
+        </Circle>
         <StyledImg src={logo} />
       </Footer>
     </Wrapper>
