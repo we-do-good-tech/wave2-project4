@@ -147,6 +147,7 @@ const TextButton = styled.button`
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s;
+  outline: 0 !important;
   &:hover {
     background-color: #afd9e3;
     transition: all 0.2s;

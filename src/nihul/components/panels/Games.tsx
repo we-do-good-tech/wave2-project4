@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { flexColumnCenter } from 'shared/components';
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
+import StyledModal from '../../shared/Modal';
 import { StyledForm } from '../../shared/StyledForm';
 import { Wrapper } from '../../shared/Wrapper';
 
@@ -43,9 +44,18 @@ const Games = () => {
   const itemsRef = firebase.database().ref('games');
 
   const [gamesDescription, setGamesDescription] = useState();
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const onSubmit = async (values: any) => {
-    itemsRef.update({ ...values });
+    itemsRef.update({ ...values }, (error) => {
+      if (error) {
+        setIsOpen(true);
+        setIsError(true);
+      } else {
+        setIsOpen(true);
+        setIsError(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -90,6 +100,7 @@ const Games = () => {
           </StyledForm>
         )}
       />
+      <StyledModal isOpen={isOpen} setIsOpen={setIsOpen} error={isError} />
     </Wrapper>
   );
 };

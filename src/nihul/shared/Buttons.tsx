@@ -17,7 +17,7 @@ export const StyledButton = styled.button`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
-  outline: 0;
+  outline: 0 !important;
   &:hover {
     text-decoration: none;
   }

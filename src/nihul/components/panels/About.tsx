@@ -61,6 +61,7 @@ const TextButton = styled.button`
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s;
+  outline: 0 !important;
   &:hover {
     background-color: #afd9e3;
     transition: all 0.2s;
@@ -231,7 +232,7 @@ const About = () => {
                             render={({ input, meta }) => (
                               <span>
                                 <TextInput {...input} />
-                                {meta.touched && meta.error && <StyledError>{meta.error}</StyledError>}
+                                {submitting && meta.touched && meta.error && <StyledError>{meta.error}</StyledError>}
                               </span>
                             )}
                           />
@@ -248,6 +249,8 @@ const About = () => {
             <TextButton
               onClick={() => {
                 push('aboutLinks', undefined);
+                const e = (document.getElementById('scroll') as unknown) as HTMLElement;
+                if (e) e.scrollTop = 20;
                 // console.log('stop here!');
               }}
             >

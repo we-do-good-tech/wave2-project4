@@ -50,6 +50,7 @@ const StyledCloseBtn = styled.button`
   font-size: 24px;
   cursor: pointer;
   transition: all 0.2s;
+  outline: 0 !important;
   &:hover {
     background: #4f015f;
     transition: all 0.2s;
