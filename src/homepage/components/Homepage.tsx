@@ -183,7 +183,7 @@ const Homepage = () => {
         <GamesModal>
           <Container>
             <Title>{gamesHeader}</Title>
-            <TextArea readOnly>{gamesDescription}</TextArea>
+            <TextArea readOnly value={gamesDescription} />
           </Container>
           <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
         </GamesModal>
