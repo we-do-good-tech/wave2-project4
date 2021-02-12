@@ -10,10 +10,8 @@ import { Wrapper } from '../../shared/Wrapper';
 
 const TextArea = styled.textarea`
   width: 900px;
-  min-height: calc(100vh - 460px);
-  max-height: calc(100vh - 460px);
-  margin-top: 40px;
-  margin-bottom: 33px;
+  min-height: calc(100vh - 540px);
+  max-height: calc(100vh - 540px);
   color: black;
   font-size: 20px;
   font-weight: 400;
@@ -25,7 +23,29 @@ const TextArea = styled.textarea`
   border-radius: 30px;
   outline: 0;
   resize: none;
-  text-align: right;
+  text-align: center;
+  font-stretch: ultra-condensed;
+  direction: rtl;
+  font-family: 'Assistant';
+`;
+
+const HeaderInput = styled.input`
+  width: 435px;
+  height: 40px;
+  margin-top: 40px;
+  margin-bottom: 33px;
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0 35px;
+  background: #fffafa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: 30px;
+  outline: 0;
+  resize: none;
+  text-align: center;
   font-stretch: ultra-condensed;
   direction: rtl;
   font-family: 'Assistant';
@@ -43,6 +63,7 @@ const Footer = styled.div`
 const Games = () => {
   const itemsRef = firebase.database().ref('games');
 
+  const [gamesHeader, setGamesHeader] = useState();
   const [gamesDescription, setGamesDescription] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -60,6 +81,7 @@ const Games = () => {
 
   useEffect(() => {
     itemsRef.on('value', (snapshot: any) => {
+      setGamesHeader(snapshot.val().gamesHeader);
       setGamesDescription(snapshot.val().gamesDescription);
     });
   }, [itemsRef]);
@@ -67,11 +89,21 @@ const Games = () => {
   return (
     <Wrapper>
       <Form
-        initialValues={{ gamesDescription }}
+        initialValues={{ gamesHeader, gamesDescription }}
         onSubmit={onSubmit}
         // validate={validate}
         render={({ handleSubmit, pristine, form, submitting }) => (
           <StyledForm onSubmit={handleSubmit}>
+            <Field
+              value="hi"
+              name="gamesHeader"
+              render={({ input, meta }) => (
+                <div>
+                  <HeaderInput {...input} />
+                  {meta.touched && meta.error && <span>{meta.error}</span>}
+                </div>
+              )}
+            />
             <Field
               value="hi"
               name="gamesDescription"

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
 import theme from 'shared/style/theme';
 import mapBg from '../../assets/images/map_bg.svg';
 import mapPin from '../../assets/images/map_pin.svg';
+import firebase from '../../firebase';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
@@ -15,6 +16,27 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  min-height: calc(100vh - 540px);
+  max-height: calc(100vh - 540px);
+  color: black;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: normal;
+  background: transparent;
+  border: none;
+  outline: 0;
+  resize: none;
+  font-stretch: ultra-condensed;
+  cursor: default;
+  font-size: ${({ theme }) => theme.text.paragraph.fontSize};
+  font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
+  color: ${({ theme }) => theme.text.paragraph.color};
+  line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
+  text-align: center;
 `;
 
 const GamesModal = styled(FlexColumn)`
@@ -33,7 +55,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 90%;
   height: 60%;
   margin-top: 90px;
 `;
@@ -43,14 +65,7 @@ const Title = styled.h2`
   font-weight: ${({ theme }) => theme.text.title.fontWeight};
   color: ${({ theme }) => theme.text.title.color};
   line-height: ${({ theme }) => theme.text.title.lineHeight};
-`;
-
-const Content = styled.p`
-  font-size: ${({ theme }) => theme.text.paragraph.fontSize};
-  font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
-  color: ${({ theme }) => theme.text.paragraph.color};
-  line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
-  text-align: center;
+  cursor: default;
 `;
 
 const ContinueBtn = styled(Button)`
@@ -60,15 +75,17 @@ const ContinueBtn = styled(Button)`
   bottom: 25px;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
-  border: ${({ theme }) => theme.button.primary.normal.border};
+  border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
   border-radius: 50px;
-
+  outline: 0 !important;
   &:hover {
     font-weight: ${({ theme }) => theme.button.primary.hover.fontWeight};
+    border: 2px solid ${({ theme }) => theme.button.primary.hover.border};
   }
 
   &:active {
     background: ${({ theme }) => theme.button.primary.active.background};
+    border: 2px solid ${({ theme }) => theme.button.primary.active.border};
   }
 `;
 
@@ -128,6 +145,7 @@ const CloseBtn = styled.button`
   border-radius: 50%;
   cursor: pointer;
   animation: ${popup} 0.8s;
+  outline: 0 !important;
 `;
 
 const Homepage = () => {
@@ -148,15 +166,24 @@ const Homepage = () => {
     });
   };
 
+  const gamesRef = firebase.database().ref('games');
+  const [gamesHeader, setGAmesHeader] = useState('');
+  const [gamesDescription, setGAmesDescription] = useState('');
+
+  useEffect(() => {
+    gamesRef.once('value').then((snapshot: any) => {
+      setGAmesHeader(snapshot.val()?.gamesHeader || '');
+      setGAmesDescription(snapshot.val()?.gamesDescription || '');
+    });
+  }, [gamesRef]);
+
   return (
     <Wrapper>
       {isModalOpen && (
         <GamesModal>
           <Container>
-            <Title>מהם משחקים פראלימפיים</Title>
-            <Content>
-              משמעות המילה פראלימפי היא מקביל, כלומר המשחקים הפראלימפיים הם משחקים המקבילים למשחקים האולימפיים
-            </Content>
+            <Title>{gamesHeader}</Title>
+            <TextArea readOnly>{gamesDescription}</TextArea>
           </Container>
           <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
         </GamesModal>

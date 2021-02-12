@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
+import { Scrollers, Background } from 'shared/components/';
 import goldLogo from '../../assets/images/gold_logo.png';
-
 import firebase from '../../firebase';
-import { Scrollers, Background } from '../../shared/components/index';
-
-/* import { Flex } from '../../shared/components/Flex/Flex'; */
 
 const StyledHeader = styled.header`
   display: grid;
@@ -97,7 +94,7 @@ const Team = () => {
 
   useEffect(() => {
     if (!teamMembers) setTeamMembers([]);
-    itemsRef.on('value', (snapshot: any) => {
+    itemsRef.once('value').then((snapshot: any) => {
       setTeamDescription(snapshot.val()?.teamDescription || '');
       if (!isEqual(teamMembers, snapshot.val()?.teamMembers) && snapshot.val()?.teamMembers)
         setTeamMembers(snapshot.val()?.teamMembers);
