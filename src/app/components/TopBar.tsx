@@ -43,6 +43,7 @@ const StyledLink = styled(Link)`
   min-width: 191px;
   max-height: 50px;
   text-decoration: none;
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 600)};
   color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
     $isActiveItem ? theme.link.primary.active.color : theme.link.primary.normal.color};
   background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
@@ -51,11 +52,18 @@ const StyledLink = styled(Link)`
   border-radius: 50px;
 
   &:hover {
+    font-weight: 700;
     text-decoration: none;
     background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
       $isActiveItem ? theme.link.primary.active.background : theme.link.primary.hover.background};
     color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
       $isActiveItem ? theme.link.primary.active.color : theme.link.primary.hover.color};
+  }
+  &:focus {
+    font-weight: 700;
+    text-decoration: none;
+    background: ${({ theme }: { theme: any }) => theme.link.primary.active.background};
+    color: ${({ theme }: { theme: any }) => theme.link.primary.active.color};
   }
 `;
 
@@ -67,13 +75,28 @@ const StyledAboutLink = styled(Link)`
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : 'normal')};
   background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
     $isActiveItem ? theme.link.secondary.active.background : theme.link.secondary.normal.background};
-  border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)};
+  border-width: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 1 : 0)}px;
   border-style: solid;
   border-radius: 50px;
   text-decoration: none;
-
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 600)};
   &:hover {
-    font-weight: ${({ theme }) => theme.link.secondary.hover.fontWeight};
+    font-weight: 700;
+    color: ${({ theme }) => theme.link.secondary.normal.color};
+    text-decoration: none;
+  }
+  &:focus {
+    font-weight: 700;
+    border-width: 1px;
+    background: ${({ theme }) => theme.link.secondary.active.background};
+    color: ${({ theme }) => theme.link.secondary.normal.color};
+    text-decoration: none;
+  }
+  &:active {
+    font-weight: 700;
+    background: ${({ theme }) => theme.link.secondary.active.background};
+    color: ${({ theme }) => theme.link.secondary.normal.color};
+    text-decoration: none;
   }
 `;
 
@@ -81,9 +104,9 @@ const StyledLinkText = styled.h3`
   font-style: normal;
   font-size: 18px;
   line-height: 23.5px;
-  font-weight: 700;
+  font-weight: inherit;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0;
   margin: 0;
 `;
 
