@@ -5,7 +5,7 @@ import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash, BiImage } from 'react-icons/bi';
-import { flexColumnCenter } from 'shared/components';
+// import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
@@ -13,6 +13,7 @@ import StyledModal from '../../shared/Modal';
 import { Wrapper } from '../../shared/Wrapper';
 
 const FieldArrayWrapper = styled.div`
+  min-height: 189px;
   max-height: calc(100vh - 274px);
   overflow-y: auto;
 `;
@@ -22,7 +23,7 @@ const StyledForm = styled.form`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  max-height: calc(100vh - 460px);
+  max-height: calc(100vh - 294px);
   overflow-y: none;
 `;
 
@@ -162,13 +163,13 @@ const TeamMember = styled.div`
   min-width: 1200px;
 `;
 
-const Footer = styled.div`
-  ${flexColumnCenter};
-  width: 100%;
-  min-width: 1280px;
-  bottom: 53px;
-  position: fixed;
-`;
+// const Footer = styled.div`
+//   ${flexColumnCenter};
+//   width: 100%;
+//   min-width: 1280px;
+//   bottom: 53px;
+//   position: fixed;
+// `;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -317,24 +318,24 @@ const Team = () => {
                 }
               </FieldArray>
             </FieldArrayWrapper>
-            <Footer>
-              <ButtonWrapper>
-                <TextButton onClick={() => push('teamMembers', newMember)}>הוספה</TextButton>
-              </ButtonWrapper>
-              <Buttons>
-                <ClearButton
-                  disabled={submitting || pristine}
-                  onClick={() => {
-                    form.reset();
-                  }}
-                >
-                  ביטול
-                </ClearButton>
-                <SaveButton type="submit" disabled={submitting || pristine}>
-                  שמירה
-                </SaveButton>
-              </Buttons>
-            </Footer>
+            {/* <Footer> */}
+            <ButtonWrapper>
+              <TextButton onClick={() => push('teamMembers', newMember)}>הוספה</TextButton>
+            </ButtonWrapper>
+            <Buttons>
+              <ClearButton
+                disabled={submitting || pristine}
+                onClick={() => {
+                  form.reset();
+                }}
+              >
+                ביטול
+              </ClearButton>
+              <SaveButton type="submit" disabled={submitting || pristine}>
+                שמירה
+              </SaveButton>
+            </Buttons>
+            {/* </Footer> */}
           </StyledForm>
         )}
       />

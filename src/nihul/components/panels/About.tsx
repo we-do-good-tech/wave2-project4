@@ -6,7 +6,6 @@ import { Scrollbars } from 'rc-scrollbars';
 import { Form, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { BiTrash } from 'react-icons/bi';
-// import { flexColumnCenter } from 'shared/components';
 import firebase from '../../../firebase';
 import { Scrollers } from '../../../shared/components/index';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
@@ -16,10 +15,13 @@ import { Wrapper } from '../../shared/Wrapper';
 
 const StyledWrapper = styled(Wrapper)`
   flex-direction: column;
+  justify-content: flex-start;
   padding: 1rem;
   direction: rtl;
   max-width: 89%;
   margin: 0 auto;
+  min-height: 189px;
+  max-height: calc(100vh - 274px);
 `;
 
 const DeleteButton = styled.button`
@@ -39,9 +41,8 @@ const TextInputWrapper = styled.div`
   display: flex;
   max-width: 97%;
   min-width: 97%;
-  flex: 1;
+  margin-bottom: 18px;
   flex-wrap: wrap;
-  margin-top: 1.5rem;
   justify-content: space-around;
   align-items: center;
   &:hover > ${DeleteButton} {
