@@ -16,6 +16,11 @@ const colors = {
   darkMagenta: '#7D0396',
   purple: '#6C0382',
   modalBackground: '#afd9e3',
+  shiraBgPurple: '#5671B2',
+  tomerBgGreen: '#6DC85E',
+  shiraActionPuprle: '#971B81',
+  nirActionPurple: '#1B1464',
+  tomerActionYellow: '#F9AE00',
 };
 
 const theme = {
