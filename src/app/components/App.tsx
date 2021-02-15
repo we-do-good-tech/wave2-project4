@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Game from 'game';
+import Games from 'games';
 import Homepage from 'homepage';
 import Information from 'information';
 import Nihul from 'nihul';
@@ -21,6 +22,9 @@ const App = () => (
         </Route>
         <Route path="/game">
           <Game />
+        </Route>
+        <Route path="/games">
+          <Games />
         </Route>
         <Route path="/team">
           <Team />

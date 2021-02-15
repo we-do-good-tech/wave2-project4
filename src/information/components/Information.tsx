@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logo from '../../assets/images/logo-information.png';
-import { Background } from '../../shared/components/index';
+import { BackgroundWrapper } from 'shared/components';
+import logo from 'assets/images/logo-information.png';
 
 const P = styled.p`
   font-family: Assistant;
@@ -57,10 +57,9 @@ const StyledImg = styled.img`
 `;
 
 const Team = () => {
-  const { Wrapper } = Background;
-
+  console.log('hi');
   return (
-    <Wrapper>
+    <BackgroundWrapper>
       <WhiteWapper>
         <MainWrapper>
           <Main>
@@ -91,7 +90,7 @@ const Team = () => {
           </Main>
         </MainWrapper>
       </WhiteWapper>
-    </Wrapper>
+    </BackgroundWrapper>
   );
 };
 

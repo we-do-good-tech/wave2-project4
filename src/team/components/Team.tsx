@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
-import { Scrollers, Background } from 'shared/components/';
+import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper } from 'shared/components/';
 import goldLogo from '../../assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
@@ -86,7 +86,6 @@ const Avatar = styled.div<{ image?: string }>`
 `;
 
 const Team = () => {
-  const { Wrapper, WhiteWapper } = Background;
   const { thumbVertical, trackVertical } = Scrollers;
   const itemsRef = firebase.database().ref('team');
   const [teamDescription, setTeamDescription] = useState();
@@ -102,8 +101,8 @@ const Team = () => {
   }, [itemsRef, teamMembers]);
 
   return (
-    <Wrapper>
-      <WhiteWapper>
+    <BackgroundWrapper>
+      <BackgroundWhiteWrapper>
         <StyledHeader>
           <div>
             <H2>נעים להכיר, המשלחת הפראלימפית הישראלית </H2>
@@ -129,8 +128,8 @@ const Team = () => {
             </Main>
           </Scrollbars>
         </MainWrapper>
-      </WhiteWapper>
-    </Wrapper>
+      </BackgroundWhiteWrapper>
+    </BackgroundWrapper>
   );
 };
 
