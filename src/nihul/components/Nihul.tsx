@@ -173,7 +173,7 @@ const Nihul = () => {
   if (!user.loggedIn) {
     return (
       <LoginWrapper>
-        <Header>היי, הגעת למסך העריכה הראשי נעבור אדמינים</Header>
+        <Header>היי, הגעת למסך העריכה הראשי עבור אדמינים</Header>
         <ErrorWrapper>
           <Error error={error}>שם משתמש או סיסמה לא נכונים</Error>
         </ErrorWrapper>
