@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+
 import isEqual from 'lodash.isequal';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
-import mapBg from 'assets/images/map_bg.svg';
-import mapPin from 'assets/images/map_pin.svg';
+import theme from 'shared/style/theme';
+import mapBg from '../../assets/images/map_bg.svg';
+import mapPin from '../../assets/images/map_pin.svg';
 import firebase from '../../firebase';
 import mapPinIcons from '../consts';
 
@@ -23,6 +25,10 @@ const TextArea = styled.textarea`
   width: 100%;
   min-height: calc(100vh - 540px);
   max-height: calc(100vh - 540px);
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+  font-style: normal;
   background: transparent;
   border: none;
   outline: 0;
@@ -88,8 +94,8 @@ const ContinueBtn = styled(Button)`
 
 const MapPin = styled.div<{ index: number }>`
   position: absolute;
-  left: ${({ index }) => mapPinIcons[index].position.left}%};
-  top: ${({ index }) => mapPinIcons[index].position.top}%};
+  left: ${({ theme, index }) => theme.mapPinIcons[index].position.left}%;
+  top: ${({ theme, index }) => theme.mapPinIcons[index].position.top}%;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
@@ -166,6 +172,7 @@ const Games = () => {
   const gamesRef = firebase.database().ref('games');
   const [gamesHeader, setGAmesHeader] = useState('');
   const [gamesDescription, setGAmesDescription] = useState('');
+
   const [sports, setSports] = useState([]);
 
   useEffect(() => {
@@ -189,6 +196,7 @@ const Games = () => {
           <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
         </GamesModal>
       )}
+
       {sports.map((icon: string, index: number) => (
         <MapPin index={index} data-name={icon} key={index} onClick={(e) => handleOnClick(e)}>
           <h5>{icon}</h5>
