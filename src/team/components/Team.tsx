@@ -97,6 +97,7 @@ const Team = () => {
       setTeamDescription(snapshot.val()?.teamDescription || '');
       if (!isEqual(teamMembers, snapshot.val()?.teamMembers) && snapshot.val()?.teamMembers)
         setTeamMembers(snapshot.val()?.teamMembers);
+      console.log(snapshot.val());
     });
   }, [itemsRef, teamMembers]);
 
