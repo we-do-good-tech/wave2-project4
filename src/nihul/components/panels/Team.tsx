@@ -163,14 +163,6 @@ const TeamMember = styled.div`
   min-width: 1200px;
 `;
 
-// const Footer = styled.div`
-//   ${flexColumnCenter};
-//   width: 100%;
-//   min-width: 1280px;
-//   bottom: 53px;
-//   position: fixed;
-// `;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -318,7 +310,6 @@ const Team = () => {
                 }
               </FieldArray>
             </FieldArrayWrapper>
-            {/* <Footer> */}
             <ButtonWrapper>
               <TextButton onClick={() => push('teamMembers', newMember)}>הוספה</TextButton>
             </ButtonWrapper>
@@ -335,7 +326,6 @@ const Team = () => {
                 שמירה
               </SaveButton>
             </Buttons>
-            {/* </Footer> */}
           </StyledForm>
         )}
       />

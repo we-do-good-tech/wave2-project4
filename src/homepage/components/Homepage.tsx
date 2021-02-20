@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import { Link, flexCenter, flexCenterMiddle, flexColumnCenterBottom } from 'shared/components';
 import commiteeLogo from 'assets/images/commitee-logo.png';
-import mapBg from 'assets/images/map_bg.svg';
+import homepageBg from 'assets/images/homepage_bg.svg';
 import unionLogo from 'assets/images/union-logo.png';
+import firebase from '../../firebase';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
@@ -11,7 +13,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   flex: 1;
   width: 100%;
   height: 100%;
-  background-image: url(${mapBg});
+  background-image: url(${homepageBg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -82,17 +84,23 @@ const Footer = styled.div`
 `;
 
 const Homepage = () => {
-  console.log('hi');
+  const pdfRef = firebase.database().ref('info');
+  const [pdf, setPdf] = useState('');
+
+  useEffect(() => {
+    if (!pdf) setPdf('');
+    pdfRef.once('value').then((snapshot: any) => {
+      if (!isEqual(pdf, snapshot.val()?.pdf) && snapshot.val()?.pdf) setPdf(snapshot.val()?.pdf);
+    });
+  }, [pdfRef, pdf]);
+
   return (
     <Wrapper>
       <StyledButton to="/games" $isActiveItem={false}>
         בואו נתחיל
       </StyledButton>
       <Footer>
-        <Circle
-          href="https://res.cloudinary.com/dhocrufiz/image/upload/v1612562292/anpuyzdy3wwvycgvvqtg.pdf"
-          target="_blank"
-        >
+        <Circle href={pdf} target="_blank">
           הסבר לצוות החינוכי
         </Circle>
         <StyledImg src={unionLogo} />

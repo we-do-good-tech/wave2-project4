@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
-import { Switch } from 'react-router-dom';
+import { Switch, useLocation } from 'react-router-dom';
 import { flexColumnCenter, Link } from 'shared/components';
+import { ReactComponent as NihulIcon } from 'assets/images/nihul_intro.svg';
 import firebase from '../../firebase';
-import { Buttons, SaveButton } from '../shared/Buttons';
-// import { Wrapper as LoginWrapper } from '../shared/Wrapper';
+import { Buttons, SaveButton, ClearButton } from '../shared/Buttons';
 import About from './panels/About';
 import Games from './panels/Games';
 import Info from './panels/Info';
@@ -17,7 +16,7 @@ import TopBar from './TopBar';
 
 require('firebase/auth');
 
-const ExitButton = styled(SaveButton)`
+const ExitButton = styled(ClearButton)`
   position: absolute;
   top: 40px;
   left: 35px;
@@ -100,6 +99,7 @@ const ForgotPasswordWrapper = styled.div`
   width: 490px;
   padding-left: 25px;
 `;
+
 const ForgotPassword = styled(Link)`
   font-size: 15px;
   line-height: 10px;
@@ -130,6 +130,14 @@ const Error = styled.div<{ error: any }>`
   opacity: ${({ error }) => (error.length > 0 ? '1' : '0')};
 `;
 
+const IconsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 160px);
+  width: 100%;
+`;
+
 function onAuthStateChange(callback: any) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -155,6 +163,7 @@ function logout() {
 }
 
 const Nihul = () => {
+  const location = useLocation();
   const [user, setUser] = useState({ loggedIn: false });
   const [error, setError] = useState('');
 
@@ -231,8 +240,17 @@ const Nihul = () => {
       <ExitButton onClick={logout} type="submit">
         יציאה
       </ExitButton>
+
       <Header>ברוכים הבאים, מה תרצו לערוך?</Header>
+
       <TopBar />
+
+      {location.pathname === '/nihul' && (
+        <IconsContainer>
+          <NihulIcon />
+        </IconsContainer>
+      )}
+
       <Switch>
         {/* <Route component={() => <Login />} path="/nihul" exact /> */}
         <PrivateRoute isAuthenticated={user.loggedIn} component={About} path="/nihul/about" />

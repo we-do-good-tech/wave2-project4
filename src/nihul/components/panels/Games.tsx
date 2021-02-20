@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
 import { flexColumnCenter } from 'shared/components';
 import firebase from '../../../firebase';
@@ -65,10 +66,15 @@ const Games = () => {
 
   const [gamesHeader, setGamesHeader] = useState();
   const [gamesDescription, setGamesDescription] = useState();
+  const [sports, setSports] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const onSubmit = async (values: any) => {
-    itemsRef.update({ ...values }, (error) => {
+    const data = {
+      ...values,
+      sports,
+    };
+    itemsRef.update({ ...data }, (error) => {
       if (error) {
         setIsOpen(true);
         setIsError(true);
@@ -81,10 +87,16 @@ const Games = () => {
 
   useEffect(() => {
     itemsRef.on('value', (snapshot: any) => {
-      setGamesHeader(snapshot.val().gamesHeader);
-      setGamesDescription(snapshot.val().gamesDescription);
+      if (
+        (!isEqual(gamesHeader, snapshot.val()?.gamesHeader) && snapshot.val()?.gamesHeader) ||
+        (!isEqual(gamesDescription, snapshot.val()?.gamesDescription) && snapshot.val()?.gamesDescription)
+      ) {
+        setGamesHeader(snapshot.val().gamesHeader);
+        setGamesDescription(snapshot.val().gamesDescription);
+        setSports(snapshot.val()?.sports);
+      }
     });
-  }, [itemsRef]);
+  }, [itemsRef, gamesDescription, gamesHeader]);
 
   return (
     <Wrapper>

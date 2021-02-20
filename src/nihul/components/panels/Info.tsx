@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import arrayMutators from 'final-form-arrays';
 import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
-import { BiImage } from 'react-icons/bi';
+// import { BiImage } from 'react-icons/bi';
 import { flexColumnCenter } from 'shared/components';
-import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
+// import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
 import { Wrapper } from '../../shared/Wrapper';
@@ -20,23 +20,55 @@ export const StyledForm = styled.form`
   overflow-y: none;
 `;
 
-const Input = styled.input`
+const HeaderInput = styled.input`
+  width: 435px;
+  height: 40px;
+  margin: 45px 0;
   color: black;
-  width: 220px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 20px;
   font-weight: 400;
   font-style: normal;
-  background: transparent;
+  padding: 0 15px;
+  background: #fffafa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border: none;
+  border-radius: 30px;
   outline: 0;
   resize: none;
-  text-align: left;
+  text-align: right;
   font-stretch: ultra-condensed;
+  direction: rtl;
   font-family: 'Assistant';
 `;
+
+const TextInput = styled(HeaderInput)`
+  width: 655px;
+  margin: 0;
+  margin-bottom: 31px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ltr;
+`;
+
+// const Input = styled.input`
+//   color: black;
+//   width: 420px;
+//   padding: 0 15px;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   font-size: 20px;
+//   font-weight: 400;
+//   font-style: normal;
+//   background: transparent;
+//   border: none;
+//   outline: 0;
+//   resize: none;
+//   text-align: left;
+//   font-stretch: ultra-condensed;
+//   font-family: 'Assistant';
+// `;
 
 const TextInputGroup = styled.div`
   display: flex;
@@ -55,41 +87,41 @@ const StyledLabel = styled.label`
   margin-bottom: 31px;
 `;
 
-const StyledBiImage = styled(BiImage).attrs({ transform: 'scale(1.5 1.5)' })``;
+// const StyledBiImage = styled(BiImage).attrs({ transform: 'scale(1.5 1.5)' })``;
 
-const IconContainer = styled.div`
-  width: 24px;
-  height: 20px;
-  margin: 0 10px 0 15px;
-  padding: 0;
-  display: flex;
-  flex: 1;
-  margin-bottom: 0;
-`;
+// const IconContainer = styled.div`
+//   width: 24px;
+//   height: 20px;
+//   margin: 0 10px 0 15px;
+//   padding: 0;
+//   display: flex;
+//   flex: 1;
+//   margin-bottom: 0;
+// `;
 
-const UploadImageButton = styled.button`
-  width: 220px;
-  height: 40px;
-  color: black;
-  font-size: 20px;
-  font-weight: 400;
-  font-style: normal;
-  padding: 0 35px 0 5px;
-  background: #fffafa;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  border: none;
-  border-radius: 30px;
-  outline: 0;
-  resize: none;
-  text-align: right;
-  font-stretch: ultra-condensed;
-  direction: rtl;
-  font-family: 'Assistant';
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 31px;
-`;
+// const UploadImageButton = styled.button`
+//   width: 220px;
+//   height: 40px;
+//   color: black;
+//   font-size: 20px;
+//   font-weight: 400;
+//   font-style: normal;
+//   padding: 0 35px 0 5px;
+//   background: #fffafa;
+//   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+//   border: none;
+//   border-radius: 30px;
+//   outline: 0;
+//   resize: none;
+//   text-align: right;
+//   font-stretch: ultra-condensed;
+//   direction: rtl;
+//   font-family: 'Assistant';
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-bottom: 31px;
+// `;
 
 const Footer = styled.div`
   ${flexColumnCenter};
@@ -108,24 +140,24 @@ const Sports = () => {
     itemsRef.update({ ...values });
   };
 
-  const beginUpload = (tag: any) => {
-    const uploadOptions = {
-      cloudName: 'dhocrufiz',
-      tags: [tag],
-      uploadPreset: 'fyp2qfsx',
-    };
+  // const beginUpload = (tag: any) => {
+  //   const uploadOptions = {
+  //     cloudName: 'dhocrufiz',
+  //     tags: [tag],
+  //     uploadPreset: 'fyp2qfsx',
+  //   };
 
-    openUploadWidget(uploadOptions, (error: any, photos: any) => {
-      if (!error) {
-        if (photos.event === 'success') {
-          const data = {
-            pdf: photos.info.secure_url,
-          };
-          itemsRef.update({ ...data });
-        }
-      }
-    });
-  };
+  //   openUploadWidget(uploadOptions, (error: any, photos: any) => {
+  //     if (!error) {
+  //       if (photos.event === 'success') {
+  //         const data = {
+  //           pdf: photos.info.secure_url,
+  //         };
+  //         itemsRef.update({ ...data });
+  //       }
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     if (!pdf) setPdf('');
@@ -150,18 +182,25 @@ const Sports = () => {
               <Field
                 name="pdf"
                 render={({ input, meta }) => (
-                  <UploadImageButton
-                    onClick={() => {
-                      beginUpload('info');
-                    }}
-                  >
-                    <Input dir="ltr" {...input} />
-                    <IconContainer>
-                      <StyledBiImage />
-                    </IconContainer>
+                  <span>
+                    <TextInput {...input} />
                     {meta.touched && meta.error && <span>{meta.error}</span>}
-                  </UploadImageButton>
+                  </span>
                 )}
+                // render={({ input }) => (
+                //   // render={({ input, meta }) => (
+                //   // <UploadImageButton
+                //   //   onClick={() => {
+                //   //     beginUpload('info');
+                //   //   }}
+                //   // >
+                //   <Input dir="ltr" {...input} />
+                //   // <IconContainer>
+                //   // <StyledBiImage />
+                //   // </IconContainer>
+                //   // {meta.touched && meta.error && <span>{meta.error}</span>}
+                //   // </UploadImageButton>
+                // )}
               />
             </TextInputGroup>
             <Footer>

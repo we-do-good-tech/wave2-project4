@@ -9,6 +9,7 @@ import { flexColumnCenter } from 'shared/components';
 import { openUploadWidget } from 'shared/services/CloudinaryService'; // fetchPhotos,
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
+import StyledModal from '../../shared/Modal';
 import { Wrapper } from '../../shared/Wrapper';
 
 export const StyledForm = styled.form`
@@ -136,12 +137,29 @@ const Footer = styled.div`
 `;
 
 const Sports = () => {
-  const itemsRef = firebase.database().ref('sports');
+  const itemsRef = firebase.database().ref('games');
 
+  const [gamesHeader, setGamesHeader] = useState();
+  const [gamesDescription, setGamesDescription] = useState();
   const [sports, setSports] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const onSubmit = async (values: any) => {
-    itemsRef.update({ ...values });
+    const data = {
+      ...values,
+      gamesHeader,
+      gamesDescription,
+    };
+    itemsRef.update({ ...data }, (error) => {
+      if (error) {
+        setIsOpen(true);
+        setIsError(true);
+      } else {
+        setIsOpen(true);
+        setIsError(false);
+      }
+    });
   };
 
   const beginUpload = (tag: any, index: number) => {
@@ -157,7 +175,11 @@ const Sports = () => {
           const sportsArr = sports.map((m: any) => m);
           sportsArr[index].image = photos.info.secure_url;
           const data = {
-            ...sportsArr,
+            sports: {
+              ...sportsArr,
+            },
+            gamesHeader,
+            gamesDescription,
           };
           itemsRef.update({ ...data });
         }
@@ -168,7 +190,11 @@ const Sports = () => {
   useEffect(() => {
     if (!sports) setSports([]);
     itemsRef.on('value', (snapshot: any) => {
-      if (!isEqual(sports, snapshot.val()?.sports) && snapshot.val()?.sports) setSports(snapshot.val()?.sports);
+      if (!isEqual(sports, snapshot.val()?.sports) && snapshot.val()?.sports) {
+        setGamesHeader(snapshot.val().gamesHeader);
+        setGamesDescription(snapshot.val().gamesDescription);
+        setSports(snapshot.val()?.sports);
+      }
     });
   }, [itemsRef, sports]);
 
@@ -252,6 +278,7 @@ const Sports = () => {
           </StyledForm>
         )}
       />
+      <StyledModal isOpen={isOpen} setIsOpen={setIsOpen} error={isError} />
     </Wrapper>
   );
 };
