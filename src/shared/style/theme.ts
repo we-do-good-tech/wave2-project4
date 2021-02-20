@@ -23,8 +23,24 @@ const colors = {
   tomerActionYellow: '#F9AE00',
 };
 
+const breakPoints = {
+  small: '962px',
+  medium: '1232px',
+  big: '1494px',
+};
+
+const typing = {
+  mediaRules: {
+    fromSmall: `(min-width: ${breakPoints.small})`,
+    untilSmall: `(max-width: ${breakPoints.small})`,
+    untilMedium: `(max-width: ${breakPoints.medium})`,
+    untilBig: `(max-width: ${breakPoints.big})`,
+  },
+};
+
 const theme = {
   colors,
+  typing,
   button: {
     primary: {
       normal: {

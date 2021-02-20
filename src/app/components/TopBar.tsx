@@ -11,6 +11,10 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.topbar.border};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    max-height: 33px;
+    max-width: 100vw;
+  }
 `;
 
 const Logo = styled.a`
@@ -19,15 +23,29 @@ const Logo = styled.a`
   margin-top: 40px;
   margin-right: 30px;
   background-image: url(${logo});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   z-index: 1000;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-top: 20px;
+    margin-right: 15px;
+    width: 100px;
+    height: 25px;
+  }
 `;
 
 const Menu = styled.ul`
   list-style-type: none;
   display: flex;
+  justufy-content: flex-end;
   height: 50px;
   margin: 0 16px;
   padding-inline-start: 0px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 25px;
+    margin: 0 8px;
+  }
 `;
 
 const MenuItem = styled.li`
@@ -36,6 +54,11 @@ const MenuItem = styled.li`
   a {
     width: auto;
     align-items: center;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-left: 0;
+    margin-right: 15px;
+    margin-bottom: 7px;
   }
 `;
 
@@ -64,6 +87,10 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     background: ${({ theme }: { theme: any }) => theme.link.primary.active.background};
     color: ${({ theme }: { theme: any }) => theme.link.primary.active.color};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 95px;
+    max-height: 25px;
   }
 `;
 
@@ -98,6 +125,10 @@ const StyledAboutLink = styled(Link)`
     color: ${({ theme }) => theme.link.secondary.normal.color};
     text-decoration: none;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 67px;
+    max-height: 25px;
+  }
 `;
 
 const StyledLinkText = styled.h3`
@@ -108,6 +139,16 @@ const StyledLinkText = styled.h3`
   text-align: center;
   padding: 20px 0;
   margin: 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    line-height: 17x;
+    padding: 20px 10px;
+  }
+`;
+
+const RightWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 type MenuItemType = {
@@ -124,16 +165,16 @@ const items: MenuItemType[] = [
     name: 'בואו נשחק!',
     path: '/game',
   },
-  {
-    name: 'הנבחרת',
-    path: '/team',
-  },
+  // {
+  //   name: 'הנבחרת',
+  //   path: '/team',
+  // },
 ];
 const itemsLeft: MenuItemType[] = [
-  {
-    name: 'ניהול',
-    path: '/nihul',
-  },
+  // {
+  //   name: 'ניהול',
+  //   path: '/nihul',
+  // },
   // {
   //   name: 'אודות',
   //   path: '/information',
@@ -144,16 +185,18 @@ const SideBar = () => {
   const location = useLocation();
   return (
     <Wrapper>
-      <Logo href="/" />
-      <Menu>
-        {items.map((i: MenuItemType) => (
-          <MenuItem key={i.name}>
-            <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-              <StyledLinkText>{i.name}</StyledLinkText>
-            </StyledLink>
-          </MenuItem>
-        ))}
-      </Menu>
+      <RightWrapper>
+        <Logo href="/" />
+        <Menu>
+          {items.map((i: MenuItemType) => (
+            <MenuItem key={i.name}>
+              <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
+                <StyledLinkText>{i.name}</StyledLinkText>
+              </StyledLink>
+            </MenuItem>
+          ))}
+        </Menu>
+      </RightWrapper>
       <Menu>
         {itemsLeft.map((i: MenuItemType) => (
           <MenuItem key={i.name}>

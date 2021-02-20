@@ -31,12 +31,18 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  min-height: calc(100vh - 540px);
-  max-height: calc(100vh - 540px);
+  min-height: calc(100vh - 240px);
+  max-height: calc(100vh - 240px);
   color: black;
   font-size: 20px;
   font-weight: 600;
@@ -52,6 +58,11 @@ const TextArea = styled.textarea`
   color: ${({ theme }) => theme.text.paragraph.color};
   line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
   text-align: center;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 16px;
+    min-height: calc(100vh - 120px);
+    max-height: calc(100vh - 120px);
+  }
 `;
 
 const GamesModal = styled(FlexColumn)`
@@ -64,6 +75,11 @@ const GamesModal = styled(FlexColumn)`
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 80vw;
+    margin: 10px auto;
+    height: 70vh;
+  }
 `;
 
 const Container = styled.div`
@@ -73,6 +89,9 @@ const Container = styled.div`
   width: 90%;
   height: 60%;
   margin-top: 90px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-top: 15px;
+  }
 `;
 
 const Title = styled.h2`
@@ -81,6 +100,9 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.text.title.color};
   line-height: ${({ theme }) => theme.text.title.lineHeight};
   cursor: default;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 20px;
+  }
 `;
 
 const ContinueBtn = styled(Button)`
@@ -101,6 +123,11 @@ const ContinueBtn = styled(Button)`
   &:active {
     background: ${({ theme }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 100px;
+    height: 30px;
+    bottom: 10px;
   }
 `;
 
@@ -128,9 +155,19 @@ const MapPin = styled.div<{ index: number }>`
   }
   h5 {
     padding-bottom: 18px;
+    @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
   }
   &:active {
     background: url(${mapPinActive}) no-repeat;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 72px;
+    top: ${({ index }) => mapPinIcons[index].position.top - 5}%};
   }
 `;
 
@@ -157,6 +194,16 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   align-items: center;
   h5 {
     padding-bottom: 18px;
+    @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 72px;
+    top: ${({ top }) => top - 5}%};
   }
 `;
 
@@ -183,6 +230,13 @@ const GameTooltip = styled.div<{ left: number }>`
   text-align: center;
   background: ${({ theme }) => theme.modal.background};
   animation: ${popup} 0.5s;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    padding: 8px 12px 0px;
+    left: calc(${({ left }) => left}% - 90px);
+    top: calc(50% - 140px);
+    width: 180px;
+    height: 210px;
+  }
 `;
 
 const GameTooltipHeader = styled.div`
@@ -190,6 +244,10 @@ const GameTooltipHeader = styled.div`
   font-size: 25px;
   text-align: right;
   padding: 10px 10px 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    padding: 3px 3px 0;
+  }
 `;
 
 const GameTooltipText = styled.div`
@@ -199,6 +257,11 @@ const GameTooltipText = styled.div`
   text-align: right;
   line-height: 25px;
   padding: 0 10px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 10px;
+    line-height: 11px;
+    padding: 0;
+  }
 `;
 
 const CloseBtn = styled.button`
@@ -217,6 +280,12 @@ const CloseBtn = styled.button`
   cursor: pointer;
   animation: ${popup} 0.8s;
   outline: 0 !important;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    top: -17px;
+    right: -17px;
+    width: 31px;
+    height: 31px;
+  }
 `;
 
 const MapPinText = styled.h5`
@@ -243,6 +312,10 @@ const ModalImageWrapper = styled.div`
   width: 327px;
   height: 207px;
   border: 2px solid #fff;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 120px;
+    height: 80px;
+  }
 `;
 
 const Games = () => {
