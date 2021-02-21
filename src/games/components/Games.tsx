@@ -133,8 +133,8 @@ const ContinueBtn = styled(Button)`
 
 const MapPin = styled.div<{ index: number }>`
   position: absolute;
-  left: ${({ index }) => mapPinIcons[index].position.left}%};
-  top: ${({ index }) => mapPinIcons[index].position.top}%};
+  left: ${({ index }) => mapPinIcons[index].position.left}%;
+  top: ${({ index }) => mapPinIcons[index].position.top}%;
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
@@ -167,15 +167,15 @@ const MapPin = styled.div<{ index: number }>`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 50px;
     height: 72px;
-    top: ${({ index }) => mapPinIcons[index].position.top - 5}%};
+    top: ${({ index }) => mapPinIcons[index].position.top - 5}%;
   }
 `;
 
 const MapPinModal = styled.div<{ left: number; top: number }>`
   position: absolute;
   z-index: 501;
-  left: ${({ left }) => left}%};
-  top: ${({ top }) => top}%};
+  left: ${({ left }) => left}%;
+  top: ${({ top }) => top}%;
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
@@ -203,7 +203,7 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 50px;
     height: 72px;
-    top: ${({ top }) => top - 5}%};
+    top: ${({ top }) => top - 5}%;
   }
 `;
 
