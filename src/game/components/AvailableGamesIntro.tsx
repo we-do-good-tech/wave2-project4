@@ -3,11 +3,43 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
 import { Link } from 'shared/components/index';
+import theme from 'shared/style/theme';
+import nir from 'assets/images/Nir.svg';
+import shira from 'assets/images/Shira.svg';
 import speechBubble from 'assets/images/speechBubble.svg';
 import SpeechBubble_border from 'assets/images/speechBubble_border.svg';
+import tomer from 'assets/images/Tomer.svg';
+
+type Player = {
+  name: string;
+  path: string;
+  image: string;
+  bgColor: string;
+};
+
+const players: Player[] = [
+  {
+    name: 'תומר',
+    path: 'tomer',
+    image: tomer,
+    bgColor: theme.colors.tomerBgGreen,
+  },
+  {
+    name: 'ניר',
+    path: 'nir',
+    image: nir,
+    bgColor: theme.colors.modalBackground,
+  },
+  {
+    name: 'שירה',
+    path: 'shira',
+    image: shira,
+    bgColor: theme.colors.shiraBgPurple,
+  },
+];
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
-  grid-area: 1/1/1/4;
+  flex: 1;
   display: flex;
 `;
 
@@ -50,13 +82,7 @@ const SpeechBubble = styled.div`
   bottom: 40%;
   left: 20%;
   padding: 70px 0;
-  font-family: Assistant;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 33px;
   text-align: center;
-
   color: #092468;
 `;
 const SpeechBubbleBorder = styled.div`
@@ -67,6 +93,18 @@ const SpeechBubbleBorder = styled.div`
   width: 100%;
   right: 1%;
   top: 1%;
+`;
+
+const SpeechBubbleTitle = styled.div`
+  font-size: 36px;
+  font-weight: 600;
+  padding-top: 40px;
+  margin-bottom: 40px;
+`;
+
+const SpeechBubbleText = styled.div`
+  font-size: 25px;
+  font-weight: 400;
 `;
 
 const StyledButton = styled(Link)`
@@ -107,22 +145,24 @@ const StyledButton = styled(Link)`
   }
 `;
 
-const PlayerGame = (props: any) => {
+const AvailableGamesIntro = () => {
   const playerPath = useParams<any>();
-  const { players } = props;
 
   const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
-
   return (
     <Wrapper>
-      <PlayerContainer bg={currentPlayer.bgColor}>
+      <PlayerContainer bg={currentPlayer!.bgColor}>
         <SpeechBubble>
           <SpeechBubbleBorder />
-          היי אני {currentPlayer.name} <br />
-          ופה אני אספר לכם על המוגבלות שיש לי...
+          <SpeechBubbleTitle>
+            {`באיזה משחקים פאראלימפיים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לשחק?`}
+          </SpeechBubbleTitle>
+          <SpeechBubbleText>
+            {`סמנו את ענפי הספורט בהם אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} להשתתף`}
+          </SpeechBubbleText>
         </SpeechBubble>
-        <PlayerImg src={currentPlayer.image} alt={currentPlayer.name} />
-        <StyledButton $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer.path}`}>
+        <PlayerImg src={currentPlayer!.image} alt={currentPlayer!.name} />
+        <StyledButton $isActiveItem={false} to={`/availableGames/${currentPlayer!.path}`}>
           המשך
         </StyledButton>
       </PlayerContainer>
@@ -130,4 +170,4 @@ const PlayerGame = (props: any) => {
   );
 };
 
-export default PlayerGame;
+export default AvailableGamesIntro;

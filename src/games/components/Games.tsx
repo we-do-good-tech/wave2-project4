@@ -307,8 +307,8 @@ const GameModal = styled.div`
 
 const ModalImageWrapper = styled.div`
   display: flex;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: center;
+  align-items: center;
   width: 327px;
   height: 207px;
   border: 2px solid #fff;

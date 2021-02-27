@@ -8,6 +8,7 @@ const colors = {
   background: '#f5f0e1',
   link: '#1e3d59',
   pageHeader: '#ffc13b',
+  sapphire: '#082366',
   sapphireLight: '#112E78',
   sapphireLightMedium: '#0C2D80',
   sapphireMedium: '#021B5B',
@@ -132,6 +133,39 @@ const theme = {
       },
     },
   },
+  linkBig: {
+    primary: {
+      normal: {
+        background: colors.sapphireDark,
+        color: colors.white,
+        border: colors.white,
+      },
+      hover: {
+        background: colors.sapphireDark,
+        color: colors.white,
+        border: colors.white,
+      },
+      active: {
+        background: colors.frenchPass,
+        color: colors.black,
+        border: colors.white,
+      },
+    },
+    secondary: {
+      normal: {
+        background: 'transparent',
+        color: colors.white,
+        border: 'none',
+      },
+      hover: {
+        fontWeight: '700',
+      },
+      active: {
+        border: colors.white,
+        background: colors.darkMagenta,
+      },
+    },
+  },
   page: {
     background: colors.sapphireDark,
     header: {
@@ -156,10 +190,16 @@ const theme = {
   },
   text: {
     title: {
-      fontSize: '25px',
+      fontSize: '36px',
       fontWeight: '700',
-      lineHeight: '33px',
-      color: colors.sapphireLightMedium,
+      lineHeight: '36px',
+      color: colors.sapphire,
+    },
+    linksTitle: {
+      fontSize: '30px',
+      fontWeight: '400',
+      lineHeight: '30px',
+      color: colors.sapphire,
     },
     paragraph: {
       fontSize: '20px',

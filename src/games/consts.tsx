@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import basketballIconSVG from '../assets/images/basketball.svg';
 import bikeIconSVG from '../assets/images/bike.svg';
-import bucheIconSVG from '../assets/images/buche.svg';
+import bucheIconSVG from '../assets/images/buchia.svg';
 import goalBallIconSVG from '../assets/images/goalball.svg';
 import pingpongIconSVG from '../assets/images/pingpong.svg';
 import runningIconSVG from '../assets/images/running.svg';
@@ -113,7 +113,19 @@ const TennisIcon = styled.div`
   z-index: -1;
 `;
 
-const mapPinIcons = [
+type AvailableGamesType = {
+  [key: string]: boolean;
+};
+
+type MapPinIconType = {
+  title: string;
+  position: any;
+  icon: any;
+  left: number;
+  availableGames: AvailableGamesType;
+};
+
+const mapPinIcons: MapPinIconType[] = [
   {
     title: 'בוצ׳ה',
     position: {
@@ -122,6 +134,11 @@ const mapPinIcons = [
     },
     icon: <BucheIcon />,
     left: 50,
+    availableGames: {
+      tomer: false,
+      nir: true,
+      shira: false,
+    },
   },
   {
     title: 'טניס בכסאות גלגלים',
@@ -131,6 +148,11 @@ const mapPinIcons = [
     },
     icon: <TennisIcon />,
     left: 37,
+    availableGames: {
+      tomer: true,
+      nir: true,
+      shira: false,
+    },
   },
   {
     title: 'כדורסל',
@@ -140,6 +162,11 @@ const mapPinIcons = [
     },
     icon: <BasketballIcon />,
     left: 64,
+    availableGames: {
+      tomer: true,
+      nir: true,
+      shira: false,
+    },
   },
   {
     title: 'שחיה',
@@ -149,6 +176,11 @@ const mapPinIcons = [
     },
     icon: <SwimmingIcon />,
     left: 50,
+    availableGames: {
+      tomer: true,
+      nir: true,
+      shira: true,
+    },
   },
   {
     title: 'אופניים זוגיים טנדם',
@@ -158,6 +190,11 @@ const mapPinIcons = [
     },
     icon: <BikeIcon />,
     left: 60,
+    availableGames: {
+      tomer: false,
+      nir: false,
+      shira: true,
+    },
   },
   {
     title: 'טניס שולחן',
@@ -167,6 +204,11 @@ const mapPinIcons = [
     },
     icon: <PingpongIcon />,
     left: 37,
+    availableGames: {
+      tomer: true,
+      nir: true,
+      shira: false,
+    },
   },
   {
     title: 'ריצה',
@@ -176,6 +218,11 @@ const mapPinIcons = [
     },
     icon: <RunningIcon />,
     left: 76,
+    availableGames: {
+      tomer: true,
+      nir: false,
+      shira: true,
+    },
   },
   {
     title: 'כדור שער',
@@ -185,6 +232,11 @@ const mapPinIcons = [
     },
     icon: <GoalBallIcon />,
     left: 76,
+    availableGames: {
+      tomer: false,
+      nir: false,
+      shira: true,
+    },
   },
 ];
 
