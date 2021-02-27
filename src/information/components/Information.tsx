@@ -87,7 +87,7 @@ const Team = () => {
                 העיצוב והפיתוח המרכיבים את צוותי המוצר.
               </P>
             </StyledSection>
-            <StyledImg src={logo} />
+            <StyledImg src={logo} alt="לוגו ההתאחדות הישראלית לספורט נכים ולוגו הוועד הפאראלימפי הישראלי" />
           </Main>
         </MainWrapper>
       </WhiteWapper>
