@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Game from 'game';
 import AvailableGames from 'game/components/AvailableGames';
 import AvailableGamesIntro from 'game/components/AvailableGamesIntro';
+import AvailbleActions from 'game/components/AvailbleActions';
 import Games from 'games';
 import Homepage from 'homepage';
 import Information from 'information';
@@ -30,6 +31,9 @@ const App = () => (
         </Route>
         <Route path="/availableGames/:playerRoute">
           <AvailableGames />
+        </Route>
+        <Route path="/AvailbleActions/:playerRoute">
+          <AvailbleActions />
         </Route>
         <Route path="/availableGamesIntro/:playerRoute">
           <AvailableGamesIntro />

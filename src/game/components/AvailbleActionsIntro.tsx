@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'shared/components/index';
 import speechBubble from 'assets/images/speechBubble.svg';
 import SpeechBubble_border from 'assets/images/speechBubble_border.svg';
+import Players from '../consts';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   grid-area: 1/1/1/4;
@@ -20,7 +21,7 @@ const PlayerContainer = styled.div<{ bg?: string }>`
   flex: 0 0 100%;
   max-width: 100%;
   position: relative;
-  padding: 5%;
+  padding: 50px 140px;
   overflow: hidden;
   &:before {
     content: '';
@@ -39,6 +40,7 @@ const PlayerContainer = styled.div<{ bg?: string }>`
 const PlayerImg = styled.img`
   display: block;
   z-index: 1;
+  max-width: 20%;
 `;
 
 const SpeechBubble = styled.div`
@@ -107,22 +109,21 @@ const StyledButton = styled(Link)`
   }
 `;
 
-const PlayerGame = (props: any) => {
+const AvailbleActionsIntro = () => {
   const playerPath = useParams<any>();
-  const { players } = props;
 
-  const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
+  const currentPlayer = Players.find(({ path }: any) => path === playerPath.playerRoute);
 
   return (
     <Wrapper>
-      <PlayerContainer bg={currentPlayer.bgColor}>
+      <PlayerContainer bg={currentPlayer?.bgColor}>
         <SpeechBubble>
           <SpeechBubbleBorder />
-          היי אני {currentPlayer.name} <br />
+          היי אני {currentPlayer?.name} <br />
           ופה אני אספר לכם על המוגבלות שיש לי...
         </SpeechBubble>
-        <PlayerImg src={currentPlayer.image} alt={currentPlayer.name} />
-        <StyledButton $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer.path}`}>
+        <PlayerImg src={currentPlayer?.images.hello} alt={currentPlayer?.name} />
+        <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
         </StyledButton>
       </PlayerContainer>
@@ -130,4 +131,4 @@ const PlayerGame = (props: any) => {
   );
 };
 
-export default PlayerGame;
+export default AvailbleActionsIntro;
