@@ -2,30 +2,20 @@
 import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 import { useDrag } from 'react-dnd';
+import { Item } from '../consts';
 
-const ActionItem = styled.div`
-  width: 128px;
-  height: 128px;
-  background: linear-gradient(180deg, #052a86 0%, #04206b 100%);
-  border-radius: 50%;
-  color: white;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-right: 5px;
-  white-space: break-spaces;
+const ActionItem = styled(Item)`
+  width: 128;
+  height: 128;
+  font-size: 20px;
 `;
 
 export interface BoxProps {
   name: string;
   type: string;
-  isDropped: boolean;
 }
 
-export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type, isDropped }) => {
-  console.log('stop!!!');
+export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type }) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
       item: { name, type },
@@ -38,7 +28,7 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type, isDropped })
 
   return (
     <ActionItem ref={drag} role="Box" style={{ opacity }}>
-      {isDropped ? <s>{name}</s> : name}
+      {name}
     </ActionItem>
   );
 });

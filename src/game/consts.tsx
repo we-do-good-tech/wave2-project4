@@ -123,4 +123,17 @@ export const Instruction = styled.div`
   padding: 0 20px;
 `;
 
+export const Item = styled.div`
+  background: linear-gradient(180deg, #052a86 0%, #04206b 100%);
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 5px;
+  white-space: break-spaces;
+`;
+
 export default players;

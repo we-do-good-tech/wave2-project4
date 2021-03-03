@@ -64,24 +64,24 @@ const ArrowRight = (
   </RightArrow>
 );
 
-const MenuItem = ({ name, type, isDropped }: any) => (
-  <DraggbleActionItem name={name} type={type} isDropped={isDropped}>
+const MenuItem = ({ name, type }: any) => (
+  <DraggbleActionItem name={name} type={type}>
     {name}
   </DraggbleActionItem>
 );
 
 // All items component
 // Important! add unique key
-export const Menu = (actions: any, isDropped: any) =>
+export const Menu = (actions: any) =>
   actions.map((el: any, index: number) => {
     const { name, type } = el;
 
-    return <MenuItem name={name} key={index} type={type} isDropped={isDropped(name)} />;
+    return <MenuItem name={name} key={index} type={type} />;
   });
 const ActionsContainer = (props: any) => {
-  const { currentPlayer, isDropped, actions } = props;
+  const { currentPlayer, actions } = props;
 
-  const menu = Menu(actions, isDropped);
+  const menu = Menu(actions);
 
   return (
     <ActionsWrapper>
@@ -91,6 +91,7 @@ const ActionsContainer = (props: any) => {
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           hideSingleArrow
+          dragging={false}
           innerWrapperStyle={{ display: 'flex' }}
           data={menu}
           menuStyle={{ width: '100%' }}

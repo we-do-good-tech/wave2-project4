@@ -100,12 +100,12 @@ interface ActionState {
 
 interface BinState {
   accepts: string[];
-  lastDroppedItem: any;
+  droppedActionNames: string[];
 }
 
 export interface DustbinSpec {
   accepts: string[];
-  lastDroppedItem: any;
+  droppedActionNames: string[];
 }
 export interface BoxSpec {
   name: string;
@@ -123,57 +123,54 @@ const AvailableActions = () => {
   const list = currentPlayer?.actions ? currentPlayer?.actions : [];
 
   const [bins, setBins] = useState<BinState[]>([
-    { accepts: ['CAN'], lastDroppedItem: null },
-    { accepts: ['CANT'], lastDroppedItem: null },
+    { accepts: ['CAN'], droppedActionNames: [] },
+    { accepts: ['CANT'], droppedActionNames: [] },
   ]);
-  const [actions] = useState<ActionState[]>(list.map((action: any) => ({ name: action.action, type: action.able })));
+  const [actions, setActions] = useState<ActionState[]>(
+    list.map((action: any) => ({ name: action.action, type: action.able })),
+  );
 
   const [droppedActionNames, setDroppedActionName] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    /* if (!droppedActionNames) setDroppedActionName([]); */
-    if (droppedActionNames.length === actions.length) {
+    if (!actions.length) {
       setIsModalOpen(true);
     }
   }, [droppedActionNames, actions]);
 
-  function isDropped(actionName: string) {
-    console.log('isDropped!!');
-
-    return droppedActionNames.indexOf(actionName) > -1;
-  }
-
   const handleDrop = useCallback(
-    (index: number, item: { name: string }) => {
+    (index: number, item: ActionState) => {
+      console.log(item);
       const { name } = item;
       setDroppedActionName(update(droppedActionNames, name ? { $push: [name] } : { $push: [] }));
       setBins(
         update(bins, {
           [index]: {
-            lastDroppedItem: {
-              $set: item,
+            droppedActionNames: {
+              $set: droppedActionNames,
             },
           },
         }),
       );
+      setActions(update(actions, { $splice: [[index, 1]] }));
     },
-    [bins, droppedActionNames],
+    [bins, droppedActionNames, actions],
   );
 
   return (
     <Wrapper>
       <DndProvider backend={HTML5Backend}>
         <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
-        {bins.map(({ accepts, lastDroppedItem }, index) => (
+        {bins.map(({ accepts, droppedActionNames }, index) => (
           <DroppableBin
             accept={accepts}
-            lastDroppedItem={lastDroppedItem}
+            droppedActionNames={droppedActionNames}
             onDrop={(item) => handleDrop(index, item)}
             key={index}
           />
         ))}
-        <ActionsContainer list={list} currentPlayer={currentPlayer} isDropped={isDropped} actions={actions} />
+        <ActionsContainer currentPlayer={currentPlayer} actions={actions} />
       </DndProvider>
       {isModalOpen && (
         <EndGameModal>

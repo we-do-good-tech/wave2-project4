@@ -2,6 +2,7 @@
 import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 import { useDrop } from 'react-dnd';
+import { Item } from '../consts';
 
 const CanDo = styled.div`
   grid-area: 1/1;
@@ -13,13 +14,19 @@ const CantDo = styled.div`
   background: ${({ theme }) => theme.colors.lightGreen};
 `;
 
+const SmallActionItem = styled(Item)`
+  width: 64px;
+  height: 64px;
+  font-size: 12;
+`;
+
 export interface BininProps {
   accept: string[];
-  lastDroppedItem?: any;
+  droppedActionNames?: string[];
   onDrop: (item: any) => void;
 }
 
-export const DroppableBin: FC<BininProps> = memo(({ accept, onDrop }) => {
+export const DroppableBin: FC<BininProps> = memo(({ accept, onDrop, droppedActionNames }) => {
   const [{ isOver }, drop] = useDrop(
     () => ({
       accept,
@@ -39,9 +46,13 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, onDrop }) => {
   return (
     <>
       {accept[0] === 'CAN' ? (
-        <CanDo ref={drop} role="bin" style={{ backgroundColor }} />
+        <CanDo ref={drop} role="bin" style={{ backgroundColor }}>
+          {droppedActionNames && droppedActionNames.map((item: string) => <SmallActionItem> {item} </SmallActionItem>)}
+        </CanDo>
       ) : (
-        <CantDo ref={drop} role="bin" style={{ backgroundColor }} />
+        <CantDo ref={drop} role="bin" style={{ backgroundColor }}>
+          {droppedActionNames && droppedActionNames.map((item: string) => <SmallActionItem> {item} </SmallActionItem>)}
+        </CantDo>
       )}
     </>
   );
