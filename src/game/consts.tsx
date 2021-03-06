@@ -15,14 +15,19 @@ import TomerAvailable from 'assets/images/TomerAvailable.svg';
 import TomerAvailableWin from 'assets/images/TomerAvailableWin.svg';
 import TomerFail from 'assets/images/TomerFail.svg';
 import TomerSuccess from 'assets/images/TomerSuccess.svg';
+import Check from 'assets/images/V.svg';
+import Wrong from 'assets/images/X.svg';
 
 type AvailableActionsType = Array<{
   able: string;
   action: string;
+  id: number;
+  position: string;
+  info: string;
 }>;
 
 type PlayerImagesType = {
-  [key: string]: string;
+  [key: string]: string[];
 };
 
 type Player = {
@@ -39,66 +44,66 @@ const players: Player[] = [
     name: 'תומר',
     path: 'tomer',
     images: {
-      hello: Tomer,
-      availble: TomerAvailable,
-      win: TomerAvailableWin,
-      fail: TomerFail,
-      success: TomerSuccess,
+      hello: [Tomer],
+      availble: [TomerAvailable],
+      win: [TomerAvailableWin],
+      fail: [TomerFail, Wrong],
+      success: [TomerSuccess, Check],
     },
     bgColor: theme.colors.tomerBgGreen,
     btnColor: theme.colors.tomerActionYellow,
     actions: [
-      { able: 'CAN', action: 'לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לעשות כלים' },
-      { able: 'CAN', action: 'לעשות כלים' },
-      { able: 'CANT', action: 'לא לרוץ מהר מאוד' },
-      { able: 'CAN', action: 'לרוץ מהר מאוד' },
-      { able: 'CANT', action: 'לא לקפוץ על רגל אחת' },
+      { able: 'CANT', action: 'לנסוע באוטובוס לאימון', id: 1, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון', id: 2, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לא לעשות כלים', id: 3, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לעשות כלים', id: 4, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לרוץ מהר מאוד', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לרוץ מהר מאוד', id: 6, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לקפוץ על רגל אחת', id: 7, position: 'INIT', info: '' },
     ],
   },
   {
     name: 'ניר',
     path: 'nir',
     images: {
-      hello: Nir,
-      availble: NirAvailable,
-      win: NirAvailableWin,
-      fail: NirFail,
-      success: NirSuccess,
+      hello: [Nir],
+      availble: [NirAvailable],
+      win: [NirAvailableWin],
+      fail: [NirFail, Wrong],
+      success: [NirSuccess, Check],
     },
     bgColor: theme.colors.modalBackground,
     btnColor: theme.colors.nirActionPurple,
     actions: [
-      { able: 'CAN', action: 'לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לעשות כלים' },
-      { able: 'CAN', action: 'לעשות כלים' },
-      { able: 'CANT', action: 'לא לרוץ מהר מאוד' },
-      { able: 'CAN', action: 'לרוץ מהר מאוד' },
-      { able: 'CANT', action: 'לא לקפוץ על רגל אחת' },
+      { able: 'CAN', action: 'לנסוע באוטובוס לאימון', id: 1, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון', id: 2, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לעשות כלים', id: 3, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לעשות כלים', id: 4, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לרוץ מהר מאוד', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לרוץ מהר מאוד', id: 6, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לקפוץ על רגל אחת', id: 7, position: 'INIT', info: '' },
     ],
   },
   {
     name: 'שירה',
     path: 'shira',
     images: {
-      hello: Shira,
-      availble: ShiraAvailable,
-      win: ShiraAvailableWin,
-      fail: ShiraFail,
-      success: ShiraSuccess,
+      hello: [Shira],
+      availble: [ShiraAvailable],
+      win: [ShiraAvailableWin],
+      fail: [ShiraFail, Wrong],
+      success: [ShiraSuccess, Check],
     },
     bgColor: theme.colors.shiraBgPurple,
     btnColor: theme.colors.shiraActionPuprle,
     actions: [
-      { able: 'CAN', action: 'לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון' },
-      { able: 'CANT', action: 'לא לעשות כלים' },
-      { able: 'CAN', action: 'לעשות כלים' },
-      { able: 'CANT', action: 'לא לרוץ מהר מאוד' },
-      { able: 'CAN', action: 'לרוץ מהר מאוד' },
-      { able: 'CANT', action: 'לא לקפוץ על רגל אחת' },
+      { able: 'CAN', action: 'לנסוע באוטובוס לאימון', id: 1, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון', id: 2, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לעשות כלים', id: 3, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לעשות כלים', id: 4, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לרוץ מהר מאוד', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לרוץ מהר מאוד', id: 6, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לא לקפוץ על רגל אחת', id: 7, position: 'INIT', info: '' },
     ],
   },
 ];

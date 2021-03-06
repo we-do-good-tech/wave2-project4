@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
 import { Link } from 'shared/components/index';
-import speechBubble from 'assets/images/speechBubble.svg';
-import SpeechBubble_border from 'assets/images/speechBubble_border.svg';
+import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import Players from '../consts';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -41,34 +40,6 @@ const PlayerImg = styled.img`
   display: block;
   z-index: 1;
   max-width: 20%;
-`;
-
-const SpeechBubble = styled.div`
-  background: url(${speechBubble}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 50%;
-  width: 50%;
-  bottom: 40%;
-  left: 20%;
-  padding: 70px 0;
-  font-family: Assistant;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 33px;
-  text-align: center;
-
-  color: #092468;
-`;
-const SpeechBubbleBorder = styled.div`
-  background: url(${SpeechBubble_border}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  right: 1%;
-  top: 1%;
 `;
 
 const StyledButton = styled(Link)`
@@ -117,12 +88,12 @@ const AvailbleActionsIntro = () => {
   return (
     <Wrapper>
       <PlayerContainer bg={currentPlayer?.bgColor}>
-        <SpeechBubble>
+        <SpeechBubbleWrapper>
           <SpeechBubbleBorder />
           היי אני {currentPlayer?.name} <br />
           ופה אני אספר לכם על המוגבלות שיש לי...
-        </SpeechBubble>
-        <PlayerImg src={currentPlayer?.images.hello} alt={currentPlayer?.name} />
+        </SpeechBubbleWrapper>
+        <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
         <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
         </StyledButton>

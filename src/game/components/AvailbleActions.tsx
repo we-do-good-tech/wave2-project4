@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import update from 'immutability-helper';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useParams, Link } from 'react-router-dom';
+
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
 import { DroppableBin } from './DroppableBin';
@@ -96,16 +96,17 @@ const ContinueBtn = styled(Link)`
 interface ActionState {
   name: string;
   type: string;
+  id: number;
+  position: string;
 }
 
 interface BinState {
-  accepts: string[];
-  droppedActionNames: string[];
+  accept: string;
 }
 
 export interface DustbinSpec {
-  accepts: string[];
-  droppedActionNames: string[];
+  accept: string;
+  droppedActions: ActionState[];
 }
 export interface BoxSpec {
   name: string;
@@ -120,57 +121,38 @@ export interface ContainerState {
 const AvailableActions = () => {
   const playerPath = useParams<any>();
   const currentPlayer = Players.find(({ path }: any) => path === playerPath.playerRoute);
-  const list = currentPlayer?.actions ? currentPlayer?.actions : [];
-
-  const [bins, setBins] = useState<BinState[]>([
-    { accepts: ['CAN'], droppedActionNames: [] },
-    { accepts: ['CANT'], droppedActionNames: [] },
-  ]);
+  const [bins] = useState<BinState[]>([{ accept: 'CAN' }, { accept: 'CANT' }]);
   const [actions, setActions] = useState<ActionState[]>(
-    list.map((action: any) => ({ name: action.action, type: action.able })),
+    currentPlayer!.actions.map((action: any) => ({
+      name: action.action,
+      type: action.able,
+      id: action.id,
+      position: action.position,
+    })),
   );
 
-  const [droppedActionNames, setDroppedActionName] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const returnActionsForColumn = (accept: string) => actions.filter((action) => action.position === accept);
 
   useEffect(() => {
-    if (!actions.length) {
+    console.log('actions updated');
+    if (returnActionsForColumn('INIT').length < 1) {
       setIsModalOpen(true);
     }
-  }, [droppedActionNames, actions]);
-
-  const handleDrop = useCallback(
-    (index: number, item: ActionState) => {
-      console.log(item);
-      const { name } = item;
-      setDroppedActionName(update(droppedActionNames, name ? { $push: [name] } : { $push: [] }));
-      setBins(
-        update(bins, {
-          [index]: {
-            droppedActionNames: {
-              $set: droppedActionNames,
-            },
-          },
-        }),
-      );
-      setActions(update(actions, { $splice: [[index, 1]] }));
-    },
-    [bins, droppedActionNames, actions],
-  );
+  }, [returnActionsForColumn]);
 
   return (
     <Wrapper>
       <DndProvider backend={HTML5Backend}>
         <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
-        {bins.map(({ accepts, droppedActionNames }, index) => (
-          <DroppableBin
-            accept={accepts}
-            droppedActionNames={droppedActionNames}
-            onDrop={(item) => handleDrop(index, item)}
-            key={index}
-          />
+        {bins.map(({ accept }, index) => (
+          <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
         ))}
-        <ActionsContainer currentPlayer={currentPlayer} actions={actions} />
+        <ActionsContainer
+          setActions={setActions}
+          currentPlayer={currentPlayer}
+          actions={returnActionsForColumn('INIT')}
+        />
       </DndProvider>
       {isModalOpen && (
         <EndGameModal>

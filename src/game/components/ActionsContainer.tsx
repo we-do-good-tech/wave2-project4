@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs';
+import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import { DraggbleActionItem } from './DraggbleActionItem';
 
 const ActionsWrapper = styled.div`
@@ -16,15 +17,21 @@ bottom: 1%;
 background-color: rgba(255, 255, 255, 0.8);
 `;
 
-const PlayerImg = styled.img`
-  display: block;
+const PlayerImageWrapper = styled.div`
   position: absolute;
   z-index: 1;
-  display: block;
-  max-width: 12%;
   right: 5%;
   bottom: 20%;
 `;
+
+const PlayerImg = styled.img`
+  z-index: 1;
+  display: block;
+  max-width: 261px;
+  max-height: 386px;
+`;
+
+const Marker = styled.img``;
 
 const ScrollActionsWrapper = styled.div`
   width: 60%;
@@ -36,6 +43,20 @@ const ScrollActionsWrapper = styled.div`
   & .scroll-menu-arrow--disabled {
     visibility: hidden;
   }
+`;
+
+const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
+  position: absolute;
+  height: 153px;
+  min-width: 212px;
+  right: 75%;
+  bottom: 75%;
+  z-index: 1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 33px;
+  text-align: center;
 `;
 
 const LefttArrow = styled.span`
@@ -64,24 +85,44 @@ const ArrowRight = (
   </RightArrow>
 );
 
-const MenuItem = ({ name, type }: any) => (
-  <DraggbleActionItem name={name} type={type}>
+export const MenuItem = ({ name, type, index, currentPosition, setActions, id, changeImage }: any) => (
+  <DraggbleActionItem
+    key={id}
+    name={name}
+    type={type}
+    index={index}
+    setActions={setActions}
+    currentPosition={currentPosition}
+    changeImage={changeImage}
+  >
     {name}
   </DraggbleActionItem>
 );
 
-// All items component
-// Important! add unique key
-export const Menu = (actions: any) =>
-  actions.map((el: any, index: number) => {
-    const { name, type } = el;
-
-    return <MenuItem name={name} key={index} type={type} />;
+export const Menu = (actions: any, setActions: any, changeImage: any) =>
+  actions.map((action: any) => {
+    const { name, type, index, currentPosition, id } = action;
+    return (
+      <MenuItem
+        setActions={setActions}
+        name={name}
+        key={id}
+        type={type}
+        index={index}
+        currentPosition={currentPosition}
+        id={id}
+        changeImage={changeImage}
+      />
+    );
   });
 const ActionsContainer = (props: any) => {
-  const { currentPlayer, actions } = props;
-
-  const menu = Menu(actions);
+  const { currentPlayer, actions, setActions } = props;
+  const allPlayerImages = currentPlayer?.images;
+  const [playerImage, setPlayerImage] = useState(allPlayerImages.availble);
+  const changeImage = (image: string) => {
+    setPlayerImage(allPlayerImages[image]);
+  };
+  const menu = Menu(actions, setActions, changeImage);
 
   return (
     <ActionsWrapper>
@@ -97,7 +138,15 @@ const ActionsContainer = (props: any) => {
           menuStyle={{ width: '100%' }}
         />
       </ScrollActionsWrapper>
-      <PlayerImg src={currentPlayer?.images.availble} alt={currentPlayer?.name} />
+      <PlayerImageWrapper>
+        {playerImage !== allPlayerImages.availble && (
+          <StyledSpeechBubbleWrapper>
+            <SpeechBubbleBorder />
+            <Marker src={playerImage[1]} />
+          </StyledSpeechBubbleWrapper>
+        )}
+        <PlayerImg src={playerImage[0]} alt={currentPlayer?.name} />
+      </PlayerImageWrapper>
     </ActionsWrapper>
   );
 };
