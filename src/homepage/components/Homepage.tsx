@@ -103,8 +103,8 @@ const Homepage = () => {
         <Circle href={pdf} target="_blank">
           הסבר לצוות החינוכי
         </Circle>
-        <StyledImg src={unionLogo} />
-        <StyledImg src={commiteeLogo} />
+        <StyledImg src={unionLogo} alt="לוגו ההתאחדות הישראלית לספורט נכים" />
+        <StyledImg src={commiteeLogo} alt="לוגו הוועד הפאראלימפי הישראלי" />
       </Footer>
     </Wrapper>
   );
