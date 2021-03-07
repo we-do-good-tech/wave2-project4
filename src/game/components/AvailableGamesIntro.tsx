@@ -50,6 +50,7 @@ const PlayerContainer = styled.div<{ bg?: string }>`
   display: flex;
   flex: 0 0 100%;
   max-width: 100%;
+  max-height: 100%;
   position: relative;
   padding: 5%;
   overflow: hidden;
@@ -70,6 +71,7 @@ const PlayerContainer = styled.div<{ bg?: string }>`
 const PlayerImg = styled.img`
   display: block;
   z-index: 1;
+  max-width: 20%;
 `;
 
 const SpeechBubbleTitle = styled.div`
