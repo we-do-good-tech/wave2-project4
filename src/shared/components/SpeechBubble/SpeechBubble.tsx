@@ -10,7 +10,6 @@ export const SpeechBubbleWrapper = styled.div`
   width: 50%;
   bottom: 40%;
   left: 20%;
-  padding: 70px 0;
   font-family: Assistant;
   font-style: normal;
   font-weight: 600;

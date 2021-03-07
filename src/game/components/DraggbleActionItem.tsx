@@ -12,15 +12,12 @@ const ActionItem = styled(Item)`
 `;
 
 export interface BoxProps {
-  name: string;
-  type: string;
-  currentPosition: string;
-  index: number;
+  action: any;
   setActions: any;
   changeImage: any;
 }
 
-export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type, setActions, changeImage }) => {
+export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, changeImage }) => {
   const changeActionPosition = (currentItem: any, columnName: any) => {
     setActions((prevState: any) =>
       prevState.map((e: { name: any; position: any }) => ({
@@ -31,22 +28,22 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type, setActions, 
   };
 
   const [{ isDragging }, drag] = useDrag({
-    item: { name, type },
+    item: action,
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      console.log('endDrag');
       if (dropResult) {
         const { name } = dropResult;
-        if (item?.type !== name) {
-          return changeImage('fail');
+        if (item!.type !== name) {
+          return changeImage('fail', item!.info);
         }
-        changeImage('success');
         switch (name) {
           case 'CAN':
             changeActionPosition(item, 'CAN');
+            changeImage('success');
             break;
           case 'CANT':
             changeActionPosition(item, 'CANT');
+            changeImage('success');
             break;
           default:
             break;
@@ -60,7 +57,7 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ name, type, setActions, 
   const opacity = isDragging ? 0.4 : 1;
   return (
     <ActionItem ref={drag} role="Box" style={{ opacity }}>
-      {name}
+      {action.name}
     </ActionItem>
   );
 });

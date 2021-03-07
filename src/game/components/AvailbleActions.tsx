@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -13,6 +13,13 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   display: grid;
   flex: 1;
   position: relative;
+`;
+
+const PlayerImg = styled.img`
+  position: absolute;
+  right: -120px;
+  bottom: -10%;
+  max-height: 450px;
 `;
 
 const EndGameModal = styled.div`
@@ -98,6 +105,7 @@ interface ActionState {
   type: string;
   id: number;
   position: string;
+  info: string;
 }
 
 interface BinState {
@@ -128,31 +136,41 @@ const AvailableActions = () => {
       type: action.able,
       id: action.id,
       position: action.position,
+      info: action.info,
     })),
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const returnActionsForColumn = (accept: string) => actions.filter((action) => action.position === accept);
+
+  const returnActionsForColumn = useCallback((accept) => actions.filter((action) => action.position === accept), [
+    actions,
+  ]);
 
   useEffect(() => {
-    console.log('actions updated');
     if (returnActionsForColumn('INIT').length < 1) {
       setIsModalOpen(true);
     }
+    /*     if (actions !== returnActionsForColumn('INIT')) {
+      setActions(returnActionsForColumn('INIT'));
+    } */
   }, [returnActionsForColumn]);
 
   return (
     <Wrapper>
       <DndProvider backend={HTML5Backend}>
-        <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
         ))}
-        <ActionsContainer
-          setActions={setActions}
-          currentPlayer={currentPlayer}
-          actions={returnActionsForColumn('INIT')}
-        />
+        {returnActionsForColumn('INIT').length > 0 && (
+          <>
+            <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
+            <ActionsContainer
+              setActions={setActions}
+              currentPlayer={currentPlayer}
+              actions={returnActionsForColumn('INIT')}
+            />
+          </>
+        )}
       </DndProvider>
       {isModalOpen && (
         <EndGameModal>
@@ -162,6 +180,7 @@ const AvailableActions = () => {
               כמה דברים אני יכול לעשות!
             </Title>
           </Container>
+          <PlayerImg src={currentPlayer?.images.availble[0]} />
           <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`}> המשך </ContinueBtn>
         </EndGameModal>
       )}

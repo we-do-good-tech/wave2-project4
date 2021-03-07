@@ -31,8 +31,6 @@ const PlayerImg = styled.img`
   max-height: 386px;
 `;
 
-const Marker = styled.img``;
-
 const ScrollActionsWrapper = styled.div`
   width: 60%;
   padding: 0 15px;
@@ -51,12 +49,12 @@ const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
   min-width: 212px;
   right: 75%;
   bottom: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 33px;
-  text-align: center;
+  flex-direction: column;
+  padding: 10px 20px;
 `;
 
 const LefttArrow = styled.span`
@@ -66,6 +64,7 @@ const LefttArrow = styled.span`
   align-items: center;
   cursor: pointer;
 `;
+
 const RightArrow = styled.span`
   align-self: stretch;
   font-size: 40px;
@@ -74,53 +73,51 @@ const RightArrow = styled.span`
   cursor: pointer;
 `;
 
+const StyledImage = styled.img`
+  flex: 1 1 10%;
+  max-height: 75%;
+  min-height: 10%;
+`;
+
+const SpeechBubbleText = styled.div`
+  font-size: 20px;
+  line-height: 22.16px;
+  flex: 1 1 40%;
+  margin-top: 15px;
+`;
+
 const ArrowLeft = (
   <LefttArrow>
     <BsChevronLeft />
   </LefttArrow>
 );
+
 const ArrowRight = (
   <RightArrow>
     <BsChevronRight />
   </RightArrow>
 );
 
-export const MenuItem = ({ name, type, index, currentPosition, setActions, id, changeImage }: any) => (
-  <DraggbleActionItem
-    key={id}
-    name={name}
-    type={type}
-    index={index}
-    setActions={setActions}
-    currentPosition={currentPosition}
-    changeImage={changeImage}
-  >
-    {name}
-  </DraggbleActionItem>
+export const MenuItem = ({ setActions, changeImage, action, id }: any) => (
+  /* const { id } = action; */
+  <DraggbleActionItem key={id} setActions={setActions} changeImage={changeImage} action={action} />
 );
 
 export const Menu = (actions: any, setActions: any, changeImage: any) =>
-  actions.map((action: any) => {
-    const { name, type, index, currentPosition, id } = action;
-    return (
-      <MenuItem
-        setActions={setActions}
-        name={name}
-        key={id}
-        type={type}
-        index={index}
-        currentPosition={currentPosition}
-        id={id}
-        changeImage={changeImage}
-      />
-    );
-  });
+  actions.map((action: any, index: number) => (
+    /* const { id } = action; */
+    <MenuItem setActions={setActions} key={index} action={action} id={index} changeImage={changeImage} />
+  ));
+
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
   const allPlayerImages = currentPlayer?.images;
-  const [playerImage, setPlayerImage] = useState(allPlayerImages.availble);
-  const changeImage = (image: string) => {
-    setPlayerImage(allPlayerImages[image]);
+  const [playerImage, setPlayerImage] = useState({ image: allPlayerImages.availble, info: '' });
+  const [menuRef, setMenuRef] = useState<ScrollMenu | null>(null);
+
+  const changeImage = (image: string, info: string) => {
+    setPlayerImage({ image: allPlayerImages[image], info });
+    menuRef!.scrollTo('0');
   };
   const menu = Menu(actions, setActions, changeImage);
 
@@ -128,7 +125,7 @@ const ActionsContainer = (props: any) => {
     <ActionsWrapper>
       <ScrollActionsWrapper>
         <ScrollMenu
-          alignCenter
+          ref={(el) => setMenuRef(el)}
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           hideSingleArrow
@@ -139,13 +136,14 @@ const ActionsContainer = (props: any) => {
         />
       </ScrollActionsWrapper>
       <PlayerImageWrapper>
-        {playerImage !== allPlayerImages.availble && (
+        {playerImage.image !== allPlayerImages.availble && (
           <StyledSpeechBubbleWrapper>
             <SpeechBubbleBorder />
-            <Marker src={playerImage[1]} />
+            <StyledImage src={playerImage.image[1]} alt="" />
+            {playerImage.info && <SpeechBubbleText>{playerImage.info}</SpeechBubbleText>}
           </StyledSpeechBubbleWrapper>
         )}
-        <PlayerImg src={playerImage[0]} alt={currentPlayer?.name} />
+        <PlayerImg src={playerImage.image[0]} alt={currentPlayer?.name} />
       </PlayerImageWrapper>
     </ActionsWrapper>
   );

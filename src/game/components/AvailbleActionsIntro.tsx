@@ -36,6 +36,10 @@ const PlayerContainer = styled.div<{ bg?: string }>`
   }
 `;
 
+const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
+  padding: 70px 0;
+`;
+
 const PlayerImg = styled.img`
   display: block;
   z-index: 1;
@@ -88,11 +92,11 @@ const AvailbleActionsIntro = () => {
   return (
     <Wrapper>
       <PlayerContainer bg={currentPlayer?.bgColor}>
-        <SpeechBubbleWrapper>
+        <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
           היי אני {currentPlayer?.name} <br />
           ופה אני אספר לכם על המוגבלות שיש לי...
-        </SpeechBubbleWrapper>
+        </StyledSpeechBubbleWrapper>
         <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
         <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
