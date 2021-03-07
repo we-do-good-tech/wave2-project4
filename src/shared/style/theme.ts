@@ -22,6 +22,8 @@ const colors = {
   shiraActionPuprle: '#971B81',
   nirActionPurple: '#1B1464',
   tomerActionYellow: '#F9AE00',
+  lightRed: '#FB8676',
+  lightGreen: '#98D866',
 };
 
 const breakPoints = {

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
 import { Link } from 'shared/components/index';
+import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import theme from 'shared/style/theme';
 import nir from 'assets/images/Nir.svg';
 import shira from 'assets/images/Shira.svg';
-import speechBubble from 'assets/images/speechBubble.svg';
-import SpeechBubble_border from 'assets/images/speechBubble_border.svg';
 import tomer from 'assets/images/Tomer.svg';
 
 type Player = {
@@ -73,28 +72,6 @@ const PlayerImg = styled.img`
   z-index: 1;
 `;
 
-const SpeechBubble = styled.div`
-  background: url(${speechBubble}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 50%;
-  width: 50%;
-  bottom: 40%;
-  left: 20%;
-  padding: 70px 0;
-  text-align: center;
-  color: #092468;
-`;
-const SpeechBubbleBorder = styled.div`
-  background: url(${SpeechBubble_border}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  right: 1%;
-  top: 1%;
-`;
-
 const SpeechBubbleTitle = styled.div`
   font-size: 36px;
   font-weight: 600;
@@ -105,6 +82,10 @@ const SpeechBubbleTitle = styled.div`
 const SpeechBubbleText = styled.div`
   font-size: 25px;
   font-weight: 400;
+`;
+
+const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
+  padding: 70px;
 `;
 
 const StyledButton = styled(Link)`
@@ -152,7 +133,7 @@ const AvailableGamesIntro = () => {
   return (
     <Wrapper>
       <PlayerContainer bg={currentPlayer!.bgColor}>
-        <SpeechBubble>
+        <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
           <SpeechBubbleTitle>
             {`באיזה משחקים פאראלימפיים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לשחק?`}
@@ -160,7 +141,7 @@ const AvailableGamesIntro = () => {
           <SpeechBubbleText>
             {`סמנו את ענפי הספורט בהם אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} להשתתף`}
           </SpeechBubbleText>
-        </SpeechBubble>
+        </StyledSpeechBubbleWrapper>
         <PlayerImg src={currentPlayer!.image} alt={currentPlayer!.name} />
         <StyledButton $isActiveItem={false} to={`/availableGames/${currentPlayer!.path}`}>
           המשך

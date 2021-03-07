@@ -2,25 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
+import { Flex } from 'shared/components/Flex';
 import { Link } from 'shared/components/index';
-import speechBubble from 'assets/images/speechBubble.svg';
-import SpeechBubble_border from 'assets/images/speechBubble_border.svg';
+import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
+import Players from '../consts';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled(Flex).attrs({ dir: 'rtl' })`
   grid-area: 1/1/1/4;
-  display: flex;
 `;
 
-const PlayerContainer = styled.div<{ bg?: string }>`
+const PlayerContainer = styled(Flex)<{ bg?: string }>`
   background-color: ${(props) => props.bg};
-  display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  display: flex;
   flex: 0 0 100%;
   max-width: 100%;
   position: relative;
-  padding: 5%;
+  padding: 50px 140px;
   overflow: hidden;
   &:before {
     content: '';
@@ -36,37 +34,14 @@ const PlayerContainer = styled.div<{ bg?: string }>`
   }
 `;
 
+const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
+  padding: 70px 0;
+`;
+
 const PlayerImg = styled.img`
   display: block;
   z-index: 1;
-`;
-
-const SpeechBubble = styled.div`
-  background: url(${speechBubble}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 50%;
-  width: 50%;
-  bottom: 40%;
-  left: 20%;
-  padding: 70px 0;
-  font-family: Assistant;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 33px;
-  text-align: center;
-
-  color: #092468;
-`;
-const SpeechBubbleBorder = styled.div`
-  background: url(${SpeechBubble_border}) no-repeat;
-  background-size: contain;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  right: 1%;
-  top: 1%;
+  max-width: 20%;
 `;
 
 const StyledButton = styled(Link)`
@@ -107,22 +82,21 @@ const StyledButton = styled(Link)`
   }
 `;
 
-const PlayerGame = (props: any) => {
+const AvailbleActionsIntro = () => {
   const playerPath = useParams<any>();
-  const { players } = props;
 
-  const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
+  const currentPlayer = Players.find(({ path }: any) => path === playerPath.playerRoute);
 
   return (
     <Wrapper>
-      <PlayerContainer bg={currentPlayer.bgColor}>
-        <SpeechBubble>
+      <PlayerContainer bg={currentPlayer?.bgColor}>
+        <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
-          היי אני {currentPlayer.name} <br />
+          היי אני {currentPlayer?.name} <br />
           ופה אני אספר לכם על המוגבלות שיש לי...
-        </SpeechBubble>
-        <PlayerImg src={currentPlayer.image} alt={currentPlayer.name} />
-        <StyledButton $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer.path}`}>
+        </StyledSpeechBubbleWrapper>
+        <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
+        <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
         </StyledButton>
       </PlayerContainer>
@@ -130,4 +104,4 @@ const PlayerGame = (props: any) => {
   );
 };
 
-export default PlayerGame;
+export default AvailbleActionsIntro;
