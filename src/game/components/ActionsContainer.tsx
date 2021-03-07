@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs';
+import { FlexCenterMiddle, flexColumnCenter, Flex } from 'shared/components/Flex';
 import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import { DraggbleActionItem } from './DraggbleActionItem';
 
-const ActionsWrapper = styled.div`
-position: absolute;
-grid-area: 1 / 1;
-min-width: 100%;
-min-height: 144px;
-display flex;
-align-items:center;
-justify-content: center;
-bottom: 1%;
-background-color: rgba(255, 255, 255, 0.8);
+const ActionsWrapper = styled(FlexCenterMiddle)`
+  position: absolute;
+  grid-area: 1 / 1;
+  min-width: 100%;
+  min-height: 144px;
+  bottom: 1%;
+  background-color: rgba(255, 255, 255, 0.8);
 `;
 
 const PlayerImageWrapper = styled.div`
@@ -31,11 +29,10 @@ const PlayerImg = styled.img`
   max-height: 386px;
 `;
 
-const ScrollActionsWrapper = styled.div`
+const ScrollActionsWrapper = styled(Flex)`
   width: 60%;
   padding: 0 15px;
   height: 100%;
-  display: flex;
   justify-content: space-around;
   direction: ltr;
   & .scroll-menu-arrow--disabled {
@@ -44,32 +41,26 @@ const ScrollActionsWrapper = styled.div`
 `;
 
 const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
+  ${flexColumnCenter};
   position: absolute;
   height: 153px;
   min-width: 212px;
   right: 75%;
   bottom: 75%;
-  display: flex;
   align-items: center;
-  justify-content: center;
   z-index: 1;
-  flex-direction: column;
   padding: 10px 20px;
 `;
 
-const LefttArrow = styled.span`
+const LefttArrow = styled(FlexCenterMiddle)`
   align-self: stretch;
   font-size: 40px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
 `;
 
-const RightArrow = styled.span`
+const RightArrow = styled(FlexCenterMiddle)`
   align-self: stretch;
   font-size: 40px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
 `;
 

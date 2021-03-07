@@ -1,30 +1,29 @@
 /* eslint-disable jsx-a11y/aria-role */
 import React, { FC, memo } from 'react';
 import styled from 'styled-components';
+import { darken } from 'polished';
 import { useDrop } from 'react-dnd';
+import { FlexColumn, Flex, FlexCenter } from 'shared/components/Flex';
 import { Item } from '../consts';
 
-const CanDo = styled.div`
+const CanDo = styled(FlexColumn)<{ amount: number }>`
   grid-area: 1/1;
   background: ${({ theme }) => theme.colors.lightGreen};
-  display: flex;
   direction: ltr;
-  flex-direction: column;
   align-items: flex-start;
+  background-color: ${(props) => darken(props.amount, props.theme.colors.lightGreen)};
 `;
 
-const CantDo = styled.div`
+const CantDo = styled(FlexColumn)<{ amount: number }>`
   grid-area: 1/2;
   background: ${({ theme }) => theme.colors.lightRed};
-  display: flex;
-  flex-direction: column;
   align-items: flex-start;
+  background-color: ${(props) => darken(props.amount, props.theme.colors.lightRed)};
 `;
 
-const SmallActionsContainer = styled.div`
+const SmallActionsContainer = styled(Flex)`
   flex: 0 0 50%;
   width: 50%;
-  display: flex;
   flex-wrap: wrap;
   flex-wrap: wrap-reverse;
 `;
@@ -37,18 +36,17 @@ const SmallActionItem = styled(Item)`
   font-size: 12px;
 `;
 
-const StyledH3 = styled.h3`
+const StyledH3 = styled(FlexCenter)`
   font-family: Assistant;
   font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 110.8%;
   color: ${({ theme }) => theme.colors.sapphire};
-  display: flex;
   text-align: center;
   min-width: 100%;
-  justify-content: center;
   margin-top: 15%;
+  transition: 0.2s;
 `;
 
 interface ActionState {
@@ -71,15 +69,15 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
     }),
   }));
 
-  let backgroundColor = '';
+  let amount = 0;
   if (isOver) {
-    backgroundColor = 'darkkhaki';
+    amount = 0.05;
   }
 
   return (
     <>
       {accept === 'CAN' ? (
-        <CanDo ref={drop} role="bin" style={{ backgroundColor }}>
+        <CanDo ref={drop} role="bin" amount={amount}>
           <StyledH3>יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
@@ -88,7 +86,7 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
           </SmallActionsContainer>
         </CanDo>
       ) : (
-        <CantDo ref={drop} role="bin" style={{ backgroundColor }}>
+        <CantDo ref={drop} role="bin" amount={amount}>
           <StyledH3>לא יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (

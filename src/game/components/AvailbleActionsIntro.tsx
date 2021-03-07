@@ -2,21 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
+import { Flex } from 'shared/components/Flex';
 import { Link } from 'shared/components/index';
 import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import Players from '../consts';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled(Flex).attrs({ dir: 'rtl' })`
   grid-area: 1/1/1/4;
-  display: flex;
 `;
 
-const PlayerContainer = styled.div<{ bg?: string }>`
+const PlayerContainer = styled(Flex)<{ bg?: string }>`
   background-color: ${(props) => props.bg};
-  display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  display: flex;
   flex: 0 0 100%;
   max-width: 100%;
   position: relative;

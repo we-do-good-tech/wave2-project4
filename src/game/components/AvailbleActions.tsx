@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useParams, Link } from 'react-router-dom';
-
+import { FlexColumn, flexColumn } from 'shared/components/Flex';
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
 import { DroppableBin } from './DroppableBin';
@@ -11,8 +11,8 @@ import { DroppableBin } from './DroppableBin';
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   grid-template-columns: repeat(2, 1fr);
   display: grid;
-  flex: 1;
   position: relative;
+  min-height: 100%;
 `;
 
 const PlayerImg = styled.img`
@@ -22,11 +22,9 @@ const PlayerImg = styled.img`
   max-height: 450px;
 `;
 
-const EndGameModal = styled.div`
+const EndGameModal = styled(FlexColumn)`
   position: absolute;
-  flex-direction: column;
   padding: 5%;
-  display: flex;
   text-align: right;
   justify-content: center;
   align-self: center;
@@ -45,9 +43,7 @@ const EndGameModal = styled.div`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+const Container = styled(FlexColumn)`
   align-items: center;
   width: 90%;
   height: 60%;
@@ -69,8 +65,7 @@ const Title = styled.h2`
 `;
 
 const ContinueBtn = styled(Link)`
-  display: flex;
-  flex-direction: column;
+  ${flexColumn};
   justify-content: center;
   align-items: center;
   cursor: pointer;
