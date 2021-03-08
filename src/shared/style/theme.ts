@@ -8,6 +8,7 @@ const colors = {
   background: '#f5f0e1',
   link: '#1e3d59',
   pageHeader: '#ffc13b',
+  sapphire: '#082366',
   sapphireLight: '#112E78',
   sapphireLightMedium: '#0C2D80',
   sapphireMedium: '#021B5B',
@@ -21,10 +22,28 @@ const colors = {
   shiraActionPuprle: '#971B81',
   nirActionPurple: '#1B1464',
   tomerActionYellow: '#F9AE00',
+  lightRed: '#FB8676',
+  lightGreen: '#98D866',
+};
+
+const breakPoints = {
+  small: '962px',
+  medium: '1232px',
+  big: '1494px',
+};
+
+const typing = {
+  mediaRules: {
+    fromSmall: `(min-width: ${breakPoints.small})`,
+    untilSmall: `(max-width: ${breakPoints.small})`,
+    untilMedium: `(max-width: ${breakPoints.medium})`,
+    untilBig: `(max-width: ${breakPoints.big})`,
+  },
 };
 
 const theme = {
   colors,
+  typing,
   button: {
     primary: {
       normal: {
@@ -116,6 +135,39 @@ const theme = {
       },
     },
   },
+  linkBig: {
+    primary: {
+      normal: {
+        background: colors.sapphireDark,
+        color: colors.white,
+        border: colors.white,
+      },
+      hover: {
+        background: colors.sapphireDark,
+        color: colors.white,
+        border: colors.white,
+      },
+      active: {
+        background: colors.frenchPass,
+        color: colors.black,
+        border: colors.white,
+      },
+    },
+    secondary: {
+      normal: {
+        background: 'transparent',
+        color: colors.white,
+        border: 'none',
+      },
+      hover: {
+        fontWeight: '700',
+      },
+      active: {
+        border: colors.white,
+        background: colors.darkMagenta,
+      },
+    },
+  },
   page: {
     background: colors.sapphireDark,
     header: {
@@ -140,10 +192,16 @@ const theme = {
   },
   text: {
     title: {
-      fontSize: '25px',
+      fontSize: '36px',
       fontWeight: '700',
-      lineHeight: '33px',
-      color: colors.sapphireLightMedium,
+      lineHeight: '36px',
+      color: colors.sapphire,
+    },
+    linksTitle: {
+      fontSize: '30px',
+      fontWeight: '400',
+      lineHeight: '30px',
+      color: colors.sapphire,
     },
     paragraph: {
       fontSize: '20px',
@@ -152,65 +210,6 @@ const theme = {
       color: colors.sapphireLightMedium,
     },
   },
-  mapPinIcons: [
-    {
-      title: "בוצ'ה",
-      position: {
-        left: 17,
-        top: 45,
-        background: colors.sapphireLightMedium,
-      },
-    },
-    {
-      title: 'כדורסל',
-      position: {
-        left: 32,
-        top: 19,
-      },
-    },
-    {
-      title: 'ריצה',
-      position: {
-        left: 44,
-        top: 12,
-      },
-    },
-    {
-      title: 'טניס',
-      position: {
-        left: 62,
-        top: 17,
-      },
-    },
-    {
-      title: 'שחיה',
-      position: {
-        left: 81,
-        top: 30,
-      },
-    },
-    {
-      title: 'פינג פונג',
-      position: {
-        left: 61,
-        top: 41,
-      },
-    },
-    {
-      title: 'כדורשת',
-      position: {
-        left: 43,
-        top: 35,
-      },
-    },
-    {
-      title: 'אופניים זוגים',
-      position: {
-        left: 32,
-        top: 52,
-      },
-    },
-  ],
 };
 
 export default theme;

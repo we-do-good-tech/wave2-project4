@@ -252,7 +252,6 @@ const About = () => {
                 push('aboutLinks', undefined);
                 const e = (document.getElementById('scroll') as unknown) as HTMLElement;
                 if (e) e.scrollTop = 20;
-                // console.log('stop here!');
               }}
             >
               הוספה

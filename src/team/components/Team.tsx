@@ -108,7 +108,7 @@ const Team = () => {
             <H2>נעים להכיר, המשלחת הפראלימפית הישראלית </H2>
             <H1>{teamDescription}</H1>
           </div>
-          <img src={goldLogo} alt="logo" />
+          <img src={goldLogo} alt="לוגו שווים זהב" />
         </StyledHeader>
         <MainWrapper>
           <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>

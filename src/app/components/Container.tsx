@@ -9,8 +9,17 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr;
   height: 100vh;
   width: 100vw;
-  min-width: 1280px;
+  // min-width: 1280px;
   overflow: hidden;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    grid-template-rows: 33px 1fr;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-width: 100vw !important;
+    min-height: auto !important;
+    max-width: 100vw !important;
+    max-height: auto !important;
+  }
 `;
 
 const Content = styled(FlexColumn)`
