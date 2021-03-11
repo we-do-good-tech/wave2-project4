@@ -12,6 +12,7 @@ import { ReactComponent as ShiraWin } from 'assets/images/ShiraAvailableWin.svg'
 import { ReactComponent as Tomer } from 'assets/images/TomerAvailable.svg';
 import { ReactComponent as TomerWin } from 'assets/images/TomerAvailableWin.svg';
 import mapBg from '../../assets/images/map_bg.svg';
+import mapBgTop from '../../assets/images/map_bg_top.svg';
 import mapPin from '../../assets/images/map_pin.svg';
 import mapPinActive from '../../assets/images/map_pin_active.svg';
 import firebase from '../../firebase';
@@ -94,6 +95,64 @@ const GamesBg = styled.div`
   flex: 1;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const Pins = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+`;
+
+const BgGames = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+`;
+
+const BgTop = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  background-image: url(${mapBgTop});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -328,14 +387,7 @@ const MapPinText = styled.h5`
 
 const Games = () => {
   const gamesRef = firebase.database().ref('games');
-  //   const [gamesHeader, setGAmesHeader] = useState('');
-  //   const [gamesDescription, setGAmesDescription] = useState('');
   const [sports, setSports] = useState([]);
-  //   const [isGameModal, setIsGameModal] = useState({
-  //     open: false,
-  //     selectedGame: { name: '', description: '', image: '' },
-  //   });
-  //   const [gameConsts, setGameConsts] = useState<any>(undefined);
 
   const playerPath = useParams<any>();
 
@@ -382,6 +434,13 @@ const Games = () => {
   return (
     <GamesBg>
       <Wrapper>
+        <BgGames>
+          {mapPinIcons.map((obj: any) => {
+            if (obj.title === 'אופניים זוגיים טנדם') return;
+            return obj.icon;
+          })}
+        </BgGames>
+        <BgTop />
         {showVideo && (
           <GamesModal>
             <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
@@ -402,37 +461,38 @@ const Games = () => {
             </LinksContainer>
           </GamesModal>
         )}
-
-        {sports.map((icon: any, index: number) => {
-          if (gamesStatus[index] === true) {
+        <Pins>
+          {sports.map((icon: any, index: number) => {
+            if (gamesStatus[index] === true) {
+              return (
+                <MapPinCorrect key={index} index={index}>
+                  <MapPinText>{icon.name}</MapPinText>
+                </MapPinCorrect>
+              );
+            }
+            if (gamesStatus[index] === false) {
+              return (
+                <MapPinIncorrect key={index} index={index}>
+                  <StyledMapPinX />
+                  <MapPinText>{icon.name}</MapPinText>
+                </MapPinIncorrect>
+              );
+            }
             return (
-              <MapPinCorrect key={index} index={index}>
-                <MapPinText>{icon.name}</MapPinText>
-              </MapPinCorrect>
+              <MapPin
+                index={index}
+                data-index={index}
+                data-name={icon.name}
+                key={index}
+                onClick={(e) => handleOnClick(e)}
+              >
+                <MapPinText data-index={index} data-name={icon.name}>
+                  {icon.name}
+                </MapPinText>
+              </MapPin>
             );
-          }
-          if (gamesStatus[index] === false) {
-            return (
-              <MapPinIncorrect key={index} index={index}>
-                <StyledMapPinX />
-                <MapPinText>{icon.name}</MapPinText>
-              </MapPinIncorrect>
-            );
-          }
-          return (
-            <MapPin
-              index={index}
-              data-index={index}
-              data-name={icon.name}
-              key={index}
-              onClick={(e) => handleOnClick(e)}
-            >
-              <MapPinText data-index={index} data-name={icon.name}>
-                {icon.name}
-              </MapPinText>
-            </MapPin>
-          );
-        })}
+          })}
+        </Pins>
         {isWinner ? (
           <IconWrapper>{currentPlayer?.iconWin}</IconWrapper>
         ) : (

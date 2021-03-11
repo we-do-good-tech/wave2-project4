@@ -4,6 +4,7 @@ import isEqual from 'lodash.isequal';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
 import mapBg from '../../assets/images/map_bg.svg';
+import mapBgTop from '../../assets/images/map_bg_top.svg';
 import mapPin from '../../assets/images/map_pin.svg';
 import mapPinActive from '../../assets/images/map_pin_active.svg';
 import { ReactComponent as TooltipX } from '../../assets/images/tooltip_x.svg';
@@ -28,6 +29,64 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   min-width: 1280px;
   min-height: 724px;
   background-image: url(${mapBg});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+`;
+
+const Pins = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+`;
+
+const BgGames = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-width: 100vw;
+    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+`;
+
+const BgTop = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  min-height: 724px;
+  background-image: url(${mapBgTop});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -299,7 +358,8 @@ const ModalImage = styled.img`
 `;
 
 const GameModal = styled.div`
-  position: relative;
+  position: absolute;
+  z-index: 4;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.85);
@@ -359,6 +419,13 @@ const Games = () => {
   return (
     <GamesBg>
       <Wrapper>
+        <BgGames>
+          {mapPinIcons.map((obj: any) => {
+            if (obj.title === 'אופניים זוגיים טנדם') return;
+            return obj.icon;
+          })}
+        </BgGames>
+        <BgTop />
         {isModalOpen && (
           <GamesModal>
             <Container>
@@ -368,17 +435,19 @@ const Games = () => {
             <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
           </GamesModal>
         )}
-
-        {sports.map((icon: any, index: number) => (
-          <MapPin index={index} data-name={icon.name} key={index} onClick={(e) => handleOnClick(e)}>
-            <MapPinText data-name={icon.name}>{icon.name}</MapPinText>
-          </MapPin>
-        ))}
+        <Pins>
+          {sports.map((icon: any, index: number) => (
+            <MapPin index={index} data-name={icon.name} key={index} onClick={(e) => handleOnClick(e)}>
+              <MapPinText data-name={icon.name}>{icon.name}</MapPinText>
+            </MapPin>
+          ))}
+        </Pins>
         {isGameModal.open && (
           <GameModal>
             <div
               style={{
                 position: 'absolute',
+                zIndex: 5,
                 width: '100%',
                 height: '100%',
                 left: '50%',
