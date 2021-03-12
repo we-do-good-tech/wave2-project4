@@ -5,7 +5,6 @@ import { BackgroundWrapper } from 'shared/components';
 import logo from 'assets/images/logo-information.png';
 
 const P = styled.p`
-  font-family: Assistant;
   width: 80%;
   font-style: normal;
   font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
@@ -13,10 +12,14 @@ const P = styled.p`
   line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
   text-align: right;
   color: ${({ theme }) => theme.text.paragraph.color};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 90%;
+    font-size: 14px;
+    line-height: 15px;
+  }
 `;
 
 const H5 = styled.h5`
-  font-family: Assistant;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -24,6 +27,10 @@ const H5 = styled.h5`
   letter-spacing: 0em;
   text-align: right;
   color: ${({ theme }) => theme.text.paragraph.color};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 14px;
+    line-height: 15px;
+  }
 `;
 
 const MainWrapper = styled.div`
@@ -34,6 +41,9 @@ const MainWrapper = styled.div`
 const Main = styled.main`
   padding: 20px 50px;
   direction: rtl;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    padding: 10px 25px;
+  }
 `;
 
 const WhiteWapper = styled.div`
@@ -54,6 +64,7 @@ const StyledSection = styled.div`
 `;
 
 const StyledImg = styled.img`
+  width: 100%;
   margin-top: 1.5rem;
 `;
 

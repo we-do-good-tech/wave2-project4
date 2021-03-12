@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, FlexColumn, FlexCenter } from 'shared/components';
+import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, FlexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -127,10 +127,6 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
   background-image: url(${mapBgTop});
   background-repeat: no-repeat;
   background-size: cover;
@@ -154,12 +150,12 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   }
 `;
 
-const GamesModal = styled(FlexColumn)`
+const GamesModal = styled(FlexColumnCenter)`
   position: relative;
-  align-items: center;
   width: 80%;
   height: 92%;
   margin: 20px auto;
+  align-items: center;
   background: ${({ theme }) => theme.modal.background};
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
@@ -176,10 +172,7 @@ const GamesModal = styled(FlexColumn)`
   }
 `;
 
-const VideoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const VideoContainer = styled(FlexColumnCenter)`
   width: 90%;
   height: 60%;
   margin-top: 10px;
@@ -210,16 +203,14 @@ const Title = styled.h2`
 `;
 
 const LinksTitle = styled.h2`
-  margin-top: 20px;
-  margin-bottom: 15px;
+  margin: 20px 0 15px 0;
   font-size: ${({ theme }) => theme.text.linksTitle.fontSize};
   font-weight: ${({ theme }) => theme.text.linksTitle.fontWeight};
   color: ${({ theme }) => theme.text.linksTitle.color};
   line-height: ${({ theme }) => theme.text.linksTitle.lineHeight};
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 5px 0;
     font-size: 16px;
   }
 `;
@@ -269,7 +260,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const MapPin = styled.div<{ index: number }>`
+const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -285,9 +276,6 @@ const MapPin = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   &:hover {
     transform: scale(1.2);
   }

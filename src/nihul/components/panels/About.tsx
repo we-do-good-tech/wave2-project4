@@ -87,7 +87,6 @@ const TextArea = styled.textarea`
   text-align: right;
   font-stretch: ultra-condensed;
   direction: rtl;
-  font-family: 'Assistant';
 `;
 
 const TextInput = styled.input`
@@ -130,16 +129,6 @@ const StyledError = styled.span`
   font-size: 20px;
   pointer-events: none;
 `;
-
-// const Footer = styled.div`
-//   ${flexColumnCenter};
-//   width: 100%;
-//   height: 150px;
-//   padding-bottom: 51px;
-//   position: fixed;
-//   bottom: 0;
-//   right: 0;
-// `;
 
 const About = () => {
   const { thumbVertical, trackVertical } = Scrollers;

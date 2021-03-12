@@ -214,6 +214,9 @@ const theme = {
   games: {
     background: colors.mantis,
   },
+  team: {
+    color: colors.sapphireLight,
+  },
 };
 
 export default theme;

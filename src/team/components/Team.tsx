@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
-import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper } from 'shared/components/';
+import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper, flexCenter } from 'shared/components/';
 import goldLogo from '../../assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
@@ -18,42 +18,65 @@ const StyledHeader = styled.header`
     grid-column-start: 3;
     grid-column-end: 5;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 10%;
+  }
+`;
+
+const StyledGoldLogo = styled.img`
+  width: 136px;
+  height: 132px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 68px;
+    height: 66px;
+  }
 `;
 
 const H1 = styled.h1`
   font-weight: 700;
-  font-style: normal;
   font-size: 63px;
   line-height: 82.4px;
-  color: #112f78;
+  color: ${({ theme }) => theme.team.color};
   margin: 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 30px;
+    line-height: 32px;
+  }
 `;
 
 const H3 = styled.h3`
   font-size: 18px;
-  color: #112f78;
+  color: ${({ theme }) => theme.team.color};
   font-weight: 700;
   line-hight: 23.54px;
   text-align: center;
   margin: 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 10px;
+  }
 `;
 
 const H2 = styled.h2`
-  font-family: Assistant;
-  font-style: normal;
   font-weight: 600;
   font-size: 28px;
   line-height: 37px;
   text-align: center;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 15px;
+    line-height: 17px;
+  }
 `;
 
 const P = styled.p`
   font-size: 18px;
-  color: #112f78;
+  color: ${({ theme }) => theme.team.color};
   text-align: center;
   font-weight: 400;
   line-hight: 23.54px;
   margin: 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+  }
 `;
 
 const MainWrapper = styled.div`
@@ -62,11 +85,10 @@ const MainWrapper = styled.div`
 `;
 
 const Main = styled.main`
+  ${flexCenter};
   margin-top: 5%;
-  display: flex;
   flex-wrap: wrap;
   padding: 20px 50px;
-  justify-content: center;
   direction: rtl;
 `;
 
@@ -74,6 +96,9 @@ const TeamMember = styled.div`
   min-height: 184px;
   text-align: center;
   flex: 0 0 20%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    min-height: 92px;
+  }
 `;
 
 const Avatar = styled.div<{ image?: string }>`
@@ -83,6 +108,10 @@ const Avatar = styled.div<{ image?: string }>`
   height: 124px;
   border-radius: 50%;
   margin: 0 auto;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 62px;
+    height: 62px;
+  }
 `;
 
 const Team = () => {
@@ -108,7 +137,7 @@ const Team = () => {
             <H2>נעים להכיר, המשלחת הפראלימפית הישראלית </H2>
             <H1>{teamDescription}</H1>
           </div>
-          <img src={goldLogo} alt="לוגו שווים זהב" />
+          <StyledGoldLogo src={goldLogo} alt="לוגו שווים זהב" />
         </StyledHeader>
         <MainWrapper>
           <Scrollbars renderThumbVertical={thumbVertical} renderTrackVertical={trackVertical} hideTracksWhenNotNeeded>
