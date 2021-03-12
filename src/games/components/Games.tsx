@@ -25,11 +25,17 @@ const sizeNormal = css`
 `;
 
 const sizeSmall = css`
-  width: 100vw;
-  height: calc(100vw / 2);
-  min-width: 640px;
-  min-height: 320px;
+  width: 100vh;
+  height: calc(100vh / 2);
+  min-width: 100vh;
+  min-height: calc(100vh / 2);
   overflow: auto;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -106,12 +112,15 @@ const TextArea = styled.textarea`
   text-align: center;
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    margin-top: -8px;
+    width: 110%;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 15px;
     min-height: calc(100vh - 120px);
     max-height: calc(100vh - 120px);
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 110%;
     font-size: 14px;
     line-height: 16px;
     min-height: calc(100vw - 120px);
@@ -133,13 +142,13 @@ const GamesModal = styled(FlexColumn)`
     border: 2px solid ${({ theme }) => theme.colors.white};
     width: 80vw;
     margin: 10px auto;
-    height: 85vh;
+    height: 68vh;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     border: 2px solid ${({ theme }) => theme.colors.white};
-    width: 80vh;
-    margin: 10px auto;
-    height: 85vw;
+    width: 83vh;
+    margin: 20px auto;
+    height: 73vw;
   }
 `;
 
@@ -387,8 +396,8 @@ const GameFixedModal = styled.div`
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     top: 50%;
-    left: 0;
-    transform: translate(0, -50%);
+    left: -1.6%;
+    transform: translate(-1.6%, -50%);
   }
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {

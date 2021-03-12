@@ -76,10 +76,17 @@ const SpeechBubbleTitle = styled.div`
   font-weight: 600;
   padding-top: 40px;
   margin-bottom: 40px;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     font-size: 18px;
     line-height: 18px;
-    padding-top: 20px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    font-size: 18px;
+    line-height: 18px;
+    padding-top: 10px;
     margin-bottom: 5px;
   }
 `;

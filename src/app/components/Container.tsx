@@ -22,13 +22,13 @@ const Wrapper = styled.div`
   // }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     grid-template-rows: 33px 1fr;
-    height: 100vh;
+    height: calc(100vh - 40px);
     width: 100vw;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     grid-template-rows: 33px 1fr;
     height: 100vw;
-    width: 100vh;
+    width: calc(100vh - 40px);
     transform: rotate(90deg) translateY(-100%);
     transform-origin: top left;
   }

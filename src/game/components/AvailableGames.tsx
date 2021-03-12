@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer } from 'shared/components';
-import { FlexColumn } from 'shared/components/Flex/FlexColumn';
+import { Link, VideoPlayer, FlexColumn, FlexCenter } from 'shared/components';
+import mapBg from 'assets/images/map_bg.svg';
+import mapBgTop from 'assets/images/map_bg_top.svg';
+import mapPin from 'assets/images/map_pin.svg';
+import mapPinActive from 'assets/images/map_pin_active.svg';
 import { ReactComponent as MapPinX } from 'assets/images/map_pin_x.svg';
 import { ReactComponent as Nir } from 'assets/images/NirAvailable.svg';
 import { ReactComponent as NirWin } from 'assets/images/NirAvailableWin.svg';
@@ -11,12 +14,8 @@ import { ReactComponent as Shira } from 'assets/images/ShiraAvailable.svg';
 import { ReactComponent as ShiraWin } from 'assets/images/ShiraAvailableWin.svg';
 import { ReactComponent as Tomer } from 'assets/images/TomerAvailable.svg';
 import { ReactComponent as TomerWin } from 'assets/images/TomerAvailableWin.svg';
-import mapBg from '../../assets/images/map_bg.svg';
-import mapBgTop from '../../assets/images/map_bg_top.svg';
-import mapPin from '../../assets/images/map_pin.svg';
-import mapPinActive from '../../assets/images/map_pin_active.svg';
+import mapPinIcons from 'games/consts';
 import firebase from '../../firebase';
-import mapPinIcons from '../../games/consts';
 
 type Player = {
   name: string;
@@ -26,10 +25,32 @@ type Player = {
   video: string;
 };
 
+const sizeNormal = css`
+  width: 100vw;
+  height: calc(100vw / 2);
+  min-width: 1280px;
+  min-height: 640px;
+`;
+
+const sizeSmall = css`
+  width: 100vh;
+  height: calc(100vh / 2);
+  min-width: 100vh;
+  min-height: calc(100vh / 2);
+  overflow: auto;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
+`;
+
 const StyledMapPinX = styled(MapPinX)`
   position: absolute;
   top: 20%;
 `;
+
 const IconWrapper = styled.div`
   position: absolute;
   height: 60%;
@@ -68,37 +89,11 @@ const StyledShiraWin = styled(ShiraWin)`
   height: 100%;
 `;
 
-const players: Player[] = [
-  {
-    name: 'תומר',
-    path: 'tomer',
-    icon: <StyledTomer />,
-    iconWin: <StyledTomerWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-  {
-    name: 'ניר',
-    path: 'nir',
-    icon: <StyledNir />,
-    iconWin: <StyledNirWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-  {
-    name: 'שירה',
-    path: 'shira',
-    icon: <StyledShira />,
-    iconWin: <StyledShiraWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-];
-
-const GamesBg = styled.div`
+const GamesBg = styled(FlexCenter)`
   width: 100%;
   height: 100%;
-  background: #8ccb71;
-  display: flex;
+  background: ${({ theme }) => theme.games.background};
   flex: 1;
-  justify-content: center;
   align-items: flex-start;
 `;
 
@@ -108,15 +103,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -126,15 +115,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -152,30 +135,22 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
   background-image: url(${mapBg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -192,7 +167,7 @@ const GamesModal = styled(FlexColumn)`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 80vw;
     margin: 10px auto;
-    height: 85vh;
+    height: 75vh;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     width: 80vh;
@@ -208,7 +183,13 @@ const VideoContainer = styled.div`
   width: 90%;
   height: 60%;
   margin-top: 10px;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 72%;
+    height: 48%;
+    margin-top: 5px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     width: 81%;
     height: 54%;
     margin-top: 5px;
@@ -407,6 +388,30 @@ const MapPinText = styled.h5`
   cursor: pointer;
   line-height: 20px;
 `;
+
+const players: Player[] = [
+  {
+    name: 'תומר',
+    path: 'tomer',
+    icon: <StyledTomer />,
+    iconWin: <StyledTomerWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+  {
+    name: 'ניר',
+    path: 'nir',
+    icon: <StyledNir />,
+    iconWin: <StyledNirWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+  {
+    name: 'שירה',
+    path: 'shira',
+    icon: <StyledShira />,
+    iconWin: <StyledShiraWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+];
 
 const Games = () => {
   const gamesRef = firebase.database().ref('games');
