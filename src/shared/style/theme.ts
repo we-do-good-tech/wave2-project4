@@ -24,6 +24,7 @@ const colors = {
   tomerActionYellow: '#F9AE00',
   lightRed: '#FB8676',
   lightGreen: '#98D866',
+  mantis: '#8ccb71',
 };
 
 const breakPoints = {
@@ -209,6 +210,9 @@ const theme = {
       lineHeight: '26px',
       color: colors.sapphireLightMedium,
     },
+  },
+  games: {
+    background: colors.mantis,
   },
 };
 

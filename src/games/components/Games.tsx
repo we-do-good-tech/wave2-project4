@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import isEqual from 'lodash.isequal';
-import { Button } from 'shared/components';
-import { FlexColumn } from 'shared/components/Flex/FlexColumn';
-import mapBg from '../../assets/images/map_bg.svg';
-import mapBgTop from '../../assets/images/map_bg_top.svg';
-import mapPin from '../../assets/images/map_pin.svg';
-import mapPinActive from '../../assets/images/map_pin_active.svg';
-import { ReactComponent as TooltipX } from '../../assets/images/tooltip_x.svg';
+import { Button, FlexCenter, FlexColumn, FlexCenterMiddle } from 'shared/components';
+import mapBg from 'assets/images/map_bg.svg';
+import mapBgTop from 'assets/images/map_bg_top.svg';
+import mapPin from 'assets/images/map_pin.svg';
+import mapPinActive from 'assets/images/map_pin_active.svg';
+import { ReactComponent as TooltipX } from 'assets/images/tooltip_x.svg';
 import firebase from '../../firebase';
 import mapPinIcons from '../consts';
 
-const GamesBg = styled.div`
+const GamesBg = styled(FlexCenter)`
   width: 100%;
   height: 100%;
-  background: #8ccb71;
-  display: flex;
-  flex: 1;
-  justify-content: center;
+  background: ${({ theme }) => theme.games.background};
   align-items: flex-start;
 `;
 
@@ -110,14 +106,14 @@ const TextArea = styled.textarea`
   text-align: center;
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 16px;
     min-height: calc(100vh - 120px);
     max-height: calc(100vh - 120px);
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    font-size: 16px;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 16px;
     min-height: calc(100vw - 120px);
     max-height: calc(100vw - 120px);
   }
@@ -134,11 +130,13 @@ const GamesModal = styled(FlexColumn)`
   border-radius: 20px;
   z-index: 100;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    border: 2px solid ${({ theme }) => theme.colors.white};
     width: 80vw;
     margin: 10px auto;
     height: 85vh;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    border: 2px solid ${({ theme }) => theme.colors.white};
     width: 80vh;
     margin: 10px auto;
     height: 85vw;
@@ -280,7 +278,8 @@ const popup = keyframes`
   to {oacity: 1, transform: scale(1)}
 `;
 
-const GameTooltip = styled.div<{ left: number }>`
+const GameTooltip = styled(FlexColumn)<{ left: number }>`
+  align-items: flex-end;
   left: calc(${({ left }) => left}% - 180px);
   top: calc(50% - 260px);
   position: absolute;
@@ -295,9 +294,10 @@ const GameTooltip = styled.div<{ left: number }>`
   background: ${({ theme }) => theme.modal.background};
   animation: ${popup} 0.5s;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    border: 2px solid #fff;
     padding: 8px 12px 0px;
     left: calc(${({ left }) => left}% - 90px);
-    top: calc(50% - 140px);
+    top: calc(50% - 110px);
     width: 180px;
     height: 210px;
   }
@@ -324,7 +324,7 @@ const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
   padding: 0 10px;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 10px;
-    line-height: 11px;
+    line-height: 10px;
     padding: 0;
   }
 `;
@@ -346,6 +346,7 @@ const CloseBtn = styled.button`
   animation: ${popup} 0.8s;
   outline: 0 !important;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    border: 2px solid #fff;
     top: -17px;
     right: -17px;
     width: 31px;
@@ -395,16 +396,13 @@ const GameFixedModal = styled.div`
   }
 `;
 
-const ModalImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const ModalImageWrapper = styled(FlexCenterMiddle)`
   width: 327px;
   height: 207px;
   border: 2px solid #fff;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    width: 147px;
-    height: 94px;
+    width: 152px;
+    height: 96px;
   }
 `;
 
