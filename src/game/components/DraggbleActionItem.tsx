@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import { useDrag } from 'react-dnd';
 import { Item } from '../consts';
 
-const ActionItem = styled(Item)`
+const ActionItem = styled(Item)<{ opacity: number }>`
+  opacity: ${(props) => props.opacity};
   width: 128px;
   height: 128px;
   font-size: 20px;
   padding: 5px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export interface BoxProps {
@@ -29,6 +33,7 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
 
   const [{ isDragging }, drag] = useDrag({
     item: action,
+    begin: () => changeImage('availble', ''),
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (dropResult) {
@@ -54,9 +59,9 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = isDragging ? 0.4 : 1;
+  const opacity = isDragging ? 0 : 1;
   return (
-    <ActionItem ref={drag} role="Box" style={{ opacity }}>
+    <ActionItem ref={drag} role="Box" opacity={opacity}>
       {action.name}
     </ActionItem>
   );

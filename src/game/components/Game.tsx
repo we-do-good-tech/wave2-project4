@@ -22,9 +22,9 @@ const PlayerBtn = styled.button<{ bg?: string }>`
   background-color: ${(props) => props.bg};
   border: none;
   color: white;
+  z-index: 100;
   border-radius: 20px;
   font-style: normal;
-  box-sizing: content-box;
   font-weight: normal;
   font-size: 40px;
   line-height: 44px;

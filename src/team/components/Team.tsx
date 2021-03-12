@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
 import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper } from 'shared/components/';
+import Link from 'shared/components/Link';
 import goldLogo from '../../assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
 const StyledHeader = styled.header`
   display: grid;
-  margin-top: 4%;
+  margin-top: 2%;
   grid-template-columns: auto auto auto auto auto;
   direction: rtl;
   flex: 0 0 20%;
@@ -17,6 +18,23 @@ const StyledHeader = styled.header`
     display: inline-grid;
     grid-column-start: 3;
     grid-column-end: 5;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  max-width: 191px;
+  max-height: 50px;
+  font-size: 20px;
+  margin-top: 2%;
+  font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : '400')};
+  text-decoration: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 'underline' : 'none')};
+  color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+    $isActiveItem ? theme.link.nihul.active.color : theme.link.nihul.normal.color};
+  border-radius: 50px;
+  &:hover {
+    text-decoration: underline;
+    color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
+      $isActiveItem ? theme.link.nihul.active.color : theme.link.nihul.hover.color};
   }
 `;
 
@@ -103,6 +121,9 @@ const Team = () => {
   return (
     <BackgroundWrapper>
       <BackgroundWhiteWrapper>
+        <StyledLink $isActiveItem={false} to="availableGames/nir">
+          חזרה
+        </StyledLink>
         <StyledHeader>
           <div>
             <H2>נעים להכיר, המשלחת הפראלימפית הישראלית </H2>
