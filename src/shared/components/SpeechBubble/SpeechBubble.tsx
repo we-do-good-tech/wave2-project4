@@ -10,13 +10,11 @@ export const SpeechBubbleWrapper = styled.div`
   width: 50%;
   bottom: 40%;
   left: 20%;
-  font-family: Assistant;
-  font-style: normal;
   font-weight: 600;
   font-size: 25px;
   line-height: 33px;
   text-align: center;
-  color: #092468;
+  color: ${({ theme }) => theme.speechBubble.color};
 `;
 export const SpeechBubbleBorder = styled.div`
   background: url(${speechBubble_border}) no-repeat;

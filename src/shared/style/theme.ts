@@ -9,6 +9,7 @@ const colors = {
   link: '#1e3d59',
   pageHeader: '#ffc13b',
   sapphire: '#082366',
+  sapphireLightLight: '#092468',
   sapphireLight: '#112E78',
   sapphireLightMedium: '#0C2D80',
   sapphireMedium: '#021B5B',
@@ -16,6 +17,7 @@ const colors = {
   frenchPass: '#96D5E4',
   darkMagenta: '#7D0396',
   purple: '#6C0382',
+  midnightExpress: '#0f1e43',
   modalBackground: '#afd9e3',
   shiraBgPurple: '#5671B2',
   tomerBgGreen: '#6DC85E',
@@ -24,6 +26,8 @@ const colors = {
   tomerActionYellow: '#F9AE00',
   lightRed: '#FB8676',
   lightGreen: '#98D866',
+  mantis: '#8ccb71',
+  prussianBlue: '#03345a',
 };
 
 const breakPoints = {
@@ -209,6 +213,30 @@ const theme = {
       lineHeight: '26px',
       color: colors.sapphireLightMedium,
     },
+  },
+  games: {
+    background: colors.mantis,
+    gameTooltipColor: colors.midnightExpress,
+    gameTooltipBorder: colors.white,
+    gameTooltipTextColor: colors.sapphireLightMedium,
+    mapPinColor: colors.white,
+    mapPinModalColor: colors.white,
+    closeButtonColor: colors.white,
+  },
+  team: {
+    color: colors.sapphireLight,
+  },
+  information: {
+    whitePaperBackground: colors.white,
+  },
+  homepage: {
+    circle: {
+      color: colors.white,
+      background: colors.prussianBlue,
+    },
+  },
+  speechBubble: {
+    color: colors.sapphireLightLight,
   },
 };
 

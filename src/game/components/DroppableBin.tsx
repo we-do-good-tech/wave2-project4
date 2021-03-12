@@ -37,8 +37,6 @@ const SmallActionItem = styled(Item)`
 `;
 
 const StyledH3 = styled(FlexCenter)`
-  font-family: Assistant;
-  font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 110.8%;

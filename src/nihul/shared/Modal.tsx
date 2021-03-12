@@ -4,11 +4,6 @@ import { Modal } from 'react-bootstrap';
 import check from '../../assets/images/check.svg';
 import errorX from '../../assets/images/errorX.svg';
 
-/* const styles: Styles = {
-
-,
-}; */
-
 const ModelContant = styled.div`
   position: relative;
   width: 21%;
@@ -22,19 +17,6 @@ const ModelContant = styled.div`
   margin: 0 auto;
   top: 20%;
 `;
-
-/* const overlay = ` 
-  position: fixed,
-  zIndex: 1000,
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: rgba(0, 0, 0, 0.6),
-  display: flex,
-  alignItems: center,
-  justifyContent: center,
-`; */
 
 const StyledCloseBtn = styled.button`
   position: absolute;
@@ -58,8 +40,6 @@ const StyledCloseBtn = styled.button`
 `;
 
 const Styledh3 = styled.h3`
-  font-family: Assistant;
-  font-style: normal;
   font-weight: 600;
   font-size: 25px;
   line-height: 33px;

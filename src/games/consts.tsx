@@ -11,15 +11,15 @@ import tennisIconSVG from '../assets/images/tennis.svg';
 
 const BasketballIcon = styled.div`
   position: absolute;
-  top: 23.5%;
-  left: 25.1%;
+  top: 24%;
+  left: 25.2%;
   width: 17.3%;
-  height: 30.5%;
+  height: 30.9%;
   background-image: url(${basketballIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 0;
 `;
 
 const BikeIcon = styled.div`
@@ -37,80 +37,80 @@ const BikeIcon = styled.div`
 
 const BucheIcon = styled.div`
   position: absolute;
-  top: 43.3%;
-  left: 5.9%;
-  width: 23.8%;
-  height: 43.3%;
+  top: 43.4%;
+  left: 6.6%;
+  width: 23.6%;
+  height: 42.9%;
   background-image: url(${bucheIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 const GoalBallIcon = styled.div`
   position: absolute;
-  top: 42.9%;
-  left: 35%;
-  width: 21%;
-  height: 26%;
+  top: 43.6%;
+  left: 34.4%;
+  width: 22.3%;
+  height: 25.9%;
   background-image: url(${goalBallIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 const PingpongIcon = styled.div`
   position: absolute;
-  top: 47.8%;
-  left: 54.9%;
-  width: 22.8%;
-  height: 35%;
+  top: 46.2%;
+  left: 56.3%;
+  width: 22.4%;
+  height: 36.5%;
   background-image: url(${pingpongIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 const RunningIcon = styled.div`
   position: absolute;
-  top: 13.7%;
-  left: 37.7%;
-  width: 19.7%;
-  height: 21.7%;
+  top: 14.8%;
+  left: 37.9%;
+  width: 19.4%;
+  height: 21.4%;
   background-image: url(${runningIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 0;
 `;
 
 const SwimmingIcon = styled.div`
   position: absolute;
-  top: 33.1%;
-  left: 71.7%;
-  width: 21.7%;
-  height: 31.3%;
+  top: 33.5%;
+  left: 71.6%;
+  width: 21.6%;
+  height: 31.9%;
   background-image: url(${swimmingIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 const TennisIcon = styled.div`
   position: absolute;
-  top: 16.2%;
-  left: 55.5%;
-  width: 16.6%;
+  top: 17%;
+  left: 55.7%;
+  width: 16.2%;
   height: 30.1%;
   background-image: url(${tennisIconSVG});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 type AvailableGamesType = {
@@ -186,7 +186,7 @@ const mapPinIcons: MapPinIconType[] = [
     title: 'אופניים זוגיים טנדם',
     position: {
       left: 32,
-      top: 52,
+      top: 57,
     },
     icon: <BikeIcon />,
     left: 60,

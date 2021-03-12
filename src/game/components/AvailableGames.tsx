@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer } from 'shared/components';
-import { FlexColumn } from 'shared/components/Flex/FlexColumn';
+import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, FlexCenterMiddle } from 'shared/components';
+import mapBg from 'assets/images/map_bg.svg';
+import mapBgTop from 'assets/images/map_bg_top.svg';
+import mapPin from 'assets/images/map_pin.svg';
+import mapPinActive from 'assets/images/map_pin_active.svg';
 import { ReactComponent as MapPinX } from 'assets/images/map_pin_x.svg';
 import { ReactComponent as Nir } from 'assets/images/NirAvailable.svg';
 import { ReactComponent as NirWin } from 'assets/images/NirAvailableWin.svg';
@@ -11,11 +14,8 @@ import { ReactComponent as Shira } from 'assets/images/ShiraAvailable.svg';
 import { ReactComponent as ShiraWin } from 'assets/images/ShiraAvailableWin.svg';
 import { ReactComponent as Tomer } from 'assets/images/TomerAvailable.svg';
 import { ReactComponent as TomerWin } from 'assets/images/TomerAvailableWin.svg';
-import mapBg from '../../assets/images/map_bg.svg';
-import mapPin from '../../assets/images/map_pin.svg';
-import mapPinActive from '../../assets/images/map_pin_active.svg';
+import mapPinIcons from 'games/consts';
 import firebase from '../../firebase';
-import mapPinIcons from '../../games/consts';
 
 type Player = {
   name: string;
@@ -25,10 +25,32 @@ type Player = {
   video: string;
 };
 
+const sizeNormal = css`
+  width: 100vw;
+  height: calc(100vw / 2);
+  min-width: 1280px;
+  min-height: 640px;
+`;
+
+const sizeSmall = css`
+  width: 100vh;
+  height: calc(100vh / 2);
+  min-width: 100vh;
+  min-height: calc(100vh / 2);
+  overflow: auto;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
+`;
+
 const StyledMapPinX = styled(MapPinX)`
   position: absolute;
   top: 20%;
 `;
+
 const IconWrapper = styled.div`
   position: absolute;
   height: 60%;
@@ -36,6 +58,11 @@ const IconWrapper = styled.div`
   bottom: 5%;
   z-index: 101;
   pointer-events: none;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 48%;
+    right: -18%;
+    bottom: 11%;
+  }
 `;
 
 const StyledTomer = styled(Tomer)`
@@ -62,85 +89,103 @@ const StyledShiraWin = styled(ShiraWin)`
   height: 100%;
 `;
 
-const players: Player[] = [
-  {
-    name: 'תומר',
-    path: 'tomer',
-    icon: <StyledTomer />,
-    iconWin: <StyledTomerWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-  {
-    name: 'ניר',
-    path: 'nir',
-    icon: <StyledNir />,
-    iconWin: <StyledNirWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-  {
-    name: 'שירה',
-    path: 'shira',
-    icon: <StyledShira />,
-    iconWin: <StyledShiraWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
-  },
-];
-
-const GamesBg = styled.div`
+const GamesBg = styled(FlexCenter)`
   width: 100%;
   height: 100%;
-  background: #8ccb71;
-  display: flex;
+  background: ${({ theme }) => theme.games.background};
   flex: 1;
-  justify-content: center;
   align-items: flex-start;
+`;
+
+const Pins = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  flex: 1;
+  ${sizeNormal};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+`;
+
+const BgGames = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  flex: 1;
+  ${sizeNormal};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+`;
+
+const BgTop = styled.div.attrs({ dir: 'rtl' })`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  flex: 1;
+  background-image: url(${mapBgTop});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  ${sizeNormal};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
   background-image: url(${mapBg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
-const GamesModal = styled(FlexColumn)`
+const GamesModal = styled(FlexColumnCenter)`
   position: relative;
-  align-items: center;
   width: 80%;
   height: 92%;
   margin: 20px auto;
+  align-items: center;
   background: ${({ theme }) => theme.modal.background};
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 80vw;
     margin: 10px auto;
-    height: 70vh;
+    height: 75vh;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 80vh;
+    margin: 10px auto;
+    height: 85vw;
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const VideoContainer = styled(FlexColumnCenter)`
   width: 90%;
   height: 60%;
   margin-top: 10px;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    margin-top: 15px;
+
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 72%;
+    height: 48%;
+    margin-top: 5px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 81%;
+    height: 54%;
+    margin-top: 5px;
   }
 `;
 
@@ -152,20 +197,21 @@ const Title = styled.h2`
   line-height: ${({ theme }) => theme.text.title.lineHeight};
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    font-size: 20px;
+    margin-top: 5px;
+    font-size: 19px;
   }
 `;
 
 const LinksTitle = styled.h2`
-  margin-top: 20px;
-  margin-bottom: 15px;
+  margin: 20px 0 15px 0;
   font-size: ${({ theme }) => theme.text.linksTitle.fontSize};
   font-weight: ${({ theme }) => theme.text.linksTitle.fontWeight};
   color: ${({ theme }) => theme.text.linksTitle.color};
   line-height: ${({ theme }) => theme.text.linksTitle.lineHeight};
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    font-size: 20px;
+    margin: 5px 0;
+    font-size: 16px;
   }
 `;
 
@@ -201,19 +247,27 @@ const StyledLink = styled(Link)`
     color: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.color};
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 95px;
-    max-height: 25px;
+    margin: 0 5px;
+    padding: 0 5px;
+    width: 140px;
+    height: 35px;
+    min-width: 140px;
+    min-height: 35px;
+    max-width: 140px;
+    max-height: 35px;
+    font-size: 12px;
+    line-height: 11px;
   }
 `;
 
-const MapPin = styled.div<{ index: number }>`
+const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPin}) no-repeat;
@@ -222,9 +276,6 @@ const MapPin = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   &:hover {
     transform: scale(1.2);
   }
@@ -253,7 +304,7 @@ const MapPinIncorrect = styled.div<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPin}) no-repeat;
@@ -288,7 +339,7 @@ const MapPinCorrect = styled.div<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPinActive}) no-repeat;
@@ -326,16 +377,33 @@ const MapPinText = styled.h5`
   line-height: 20px;
 `;
 
+const players: Player[] = [
+  {
+    name: 'תומר',
+    path: 'tomer',
+    icon: <StyledTomer />,
+    iconWin: <StyledTomerWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+  {
+    name: 'ניר',
+    path: 'nir',
+    icon: <StyledNir />,
+    iconWin: <StyledNirWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+  {
+    name: 'שירה',
+    path: 'shira',
+    icon: <StyledShira />,
+    iconWin: <StyledShiraWin />,
+    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+  },
+];
+
 const Games = () => {
   const gamesRef = firebase.database().ref('games');
-  //   const [gamesHeader, setGAmesHeader] = useState('');
-  //   const [gamesDescription, setGAmesDescription] = useState('');
   const [sports, setSports] = useState([]);
-  //   const [isGameModal, setIsGameModal] = useState({
-  //     open: false,
-  //     selectedGame: { name: '', description: '', image: '' },
-  //   });
-  //   const [gameConsts, setGameConsts] = useState<any>(undefined);
 
   const playerPath = useParams<any>();
 
@@ -382,12 +450,19 @@ const Games = () => {
   return (
     <GamesBg>
       <Wrapper>
+        <BgGames>
+          {mapPinIcons.map((obj: any) => {
+            if (obj.title === 'אופניים זוגיים טנדם') return;
+            return obj.icon;
+          })}
+        </BgGames>
+        <BgTop />
         {showVideo && (
           <GamesModal>
             <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
-            <Container>
+            <VideoContainer>
               <VideoPlayer url={currentPlayer?.video || ''} />
-            </Container>
+            </VideoContainer>
             <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
             <LinksContainer>
               <StyledLink $isActiveItem={false} to="/game">
@@ -402,37 +477,38 @@ const Games = () => {
             </LinksContainer>
           </GamesModal>
         )}
-
-        {sports.map((icon: any, index: number) => {
-          if (gamesStatus[index] === true) {
+        <Pins>
+          {sports.map((icon: any, index: number) => {
+            if (gamesStatus[index] === true) {
+              return (
+                <MapPinCorrect key={index} index={index}>
+                  <MapPinText>{icon.name}</MapPinText>
+                </MapPinCorrect>
+              );
+            }
+            if (gamesStatus[index] === false) {
+              return (
+                <MapPinIncorrect key={index} index={index}>
+                  <StyledMapPinX />
+                  <MapPinText>{icon.name}</MapPinText>
+                </MapPinIncorrect>
+              );
+            }
             return (
-              <MapPinCorrect key={index} index={index}>
-                <MapPinText>{icon.name}</MapPinText>
-              </MapPinCorrect>
+              <MapPin
+                index={index}
+                data-index={index}
+                data-name={icon.name}
+                key={index}
+                onClick={(e) => handleOnClick(e)}
+              >
+                <MapPinText data-index={index} data-name={icon.name}>
+                  {icon.name}
+                </MapPinText>
+              </MapPin>
             );
-          }
-          if (gamesStatus[index] === false) {
-            return (
-              <MapPinIncorrect key={index} index={index}>
-                <StyledMapPinX />
-                <MapPinText>{icon.name}</MapPinText>
-              </MapPinIncorrect>
-            );
-          }
-          return (
-            <MapPin
-              index={index}
-              data-index={index}
-              data-name={icon.name}
-              key={index}
-              onClick={(e) => handleOnClick(e)}
-            >
-              <MapPinText data-index={index} data-name={icon.name}>
-                {icon.name}
-              </MapPinText>
-            </MapPin>
-          );
-        })}
+          })}
+        </Pins>
         {isWinner ? (
           <IconWrapper>{currentPlayer?.iconWin}</IconWrapper>
         ) : (
