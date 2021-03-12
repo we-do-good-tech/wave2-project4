@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Button } from 'shared/components';
 import { FlexColumn } from 'shared/components/Flex/FlexColumn';
@@ -21,22 +21,31 @@ const GamesBg = styled.div`
   align-items: flex-start;
 `;
 
+const sizeNormal = css`
+  width: 100vw;
+  height: calc(100vw / 2);
+  min-width: 1280px;
+  min-height: 640px;
+`;
+
+const sizeSmall = css`
+  width: 100vw;
+  height: calc(100vw / 2);
+  min-width: 640px;
+  min-height: 320px;
+  overflow: auto;
+`;
+
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   background-image: url(${mapBg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -46,15 +55,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -64,15 +67,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -82,19 +79,13 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   top: 0;
   left: 0;
   flex: 1;
-  width: 100%;
-  height: 100%;
-  min-width: 1280px;
-  min-height: 724px;
+  ${sizeNormal};
   background-image: url(${mapBgTop});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
+    ${sizeSmall};
   }
 `;
 
@@ -134,10 +125,15 @@ const GamesModal = styled(FlexColumn)`
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 80vw;
     margin: 10px auto;
     height: 70vh;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 80vh;
+    margin: 10px auto;
+    height: 70vw;
   }
 `;
 
@@ -309,7 +305,7 @@ const GameTooltipHeader = styled.div`
   }
 `;
 
-const GameTooltipText = styled.div`
+const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
   width: 100%;
   color: #0c2d80;
   font-size: 20px;
@@ -358,11 +354,35 @@ const ModalImage = styled.img`
 `;
 
 const GameModal = styled.div`
+  background: rgba(0, 0, 0, 0.85);
   position: absolute;
   z-index: 4;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  ${sizeNormal};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+`;
+
+const GameFixedModal = styled.div`
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+  }
+  ${sizeNormal};
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
 `;
 
 const ModalImageWrapper = styled.div`
@@ -417,63 +437,55 @@ const Games = () => {
   }, [gamesRef, sports]);
 
   return (
-    <GamesBg>
-      <Wrapper>
-        <BgGames>
-          {mapPinIcons.map((obj: any) => {
-            if (obj.title === 'אופניים זוגיים טנדם') return;
-            return obj.icon;
-          })}
-        </BgGames>
-        <BgTop />
-        {isModalOpen && (
-          <GamesModal>
-            <Container>
-              <Title>{gamesHeader}</Title>
-              <TextArea readOnly value={gamesDescription} />
-            </Container>
-            <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
-          </GamesModal>
-        )}
-        <Pins>
-          {sports.map((icon: any, index: number) => (
-            <MapPin index={index} data-name={icon.name} key={index} onClick={(e) => handleOnClick(e)}>
-              <MapPinText data-name={icon.name}>{icon.name}</MapPinText>
-            </MapPin>
-          ))}
-        </Pins>
-        {isGameModal.open && (
-          <GameModal>
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 5,
-                width: '100%',
-                height: '100%',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <GameTooltip left={gameConsts.left}>
-                <ModalImageWrapper>
-                  <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
-                </ModalImageWrapper>
-                <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
-                <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
-                <CloseBtn onClick={handleCloseBtn}>
-                  <TooltipX />
-                </CloseBtn>
-              </GameTooltip>
-              {gameConsts.icon}
-              <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
-                <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
-              </MapPinModal>
-            </div>
-          </GameModal>
-        )}
-      </Wrapper>
-    </GamesBg>
+    <>
+      <GamesBg>
+        <Wrapper>
+          <BgGames>
+            {mapPinIcons.map((obj: any) => {
+              if (obj.title === 'אופניים זוגיים טנדם') return;
+              return obj.icon;
+            })}
+          </BgGames>
+          <BgTop />
+          {isModalOpen && (
+            <GamesModal>
+              <Container>
+                <Title>{gamesHeader}</Title>
+                <TextArea readOnly value={gamesDescription} />
+              </Container>
+              <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
+            </GamesModal>
+          )}
+          <Pins>
+            {sports.map((icon: any, index: number) => (
+              <MapPin index={index} data-name={icon.name} key={index} onClick={(e) => handleOnClick(e)}>
+                <MapPinText data-name={icon.name}>{icon.name}</MapPinText>
+              </MapPin>
+            ))}
+          </Pins>
+        </Wrapper>
+      </GamesBg>
+      {isGameModal.open && (
+        <GameModal>
+          <GameFixedModal>
+            <GameTooltip left={gameConsts.left}>
+              <ModalImageWrapper>
+                <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
+              </ModalImageWrapper>
+              <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
+              <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
+              <CloseBtn onClick={handleCloseBtn}>
+                <TooltipX />
+              </CloseBtn>
+            </GameTooltip>
+            {gameConsts.icon}
+            <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
+              <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
+            </MapPinModal>
+          </GameFixedModal>
+        </GameModal>
+      )}
+    </>
   );
 };
 

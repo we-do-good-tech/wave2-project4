@@ -11,9 +11,13 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.topbar.border};
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     max-height: 33px;
     max-width: 100vw;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    max-height: 33px;
+    max-width: 100vh;
   }
 `;
 
