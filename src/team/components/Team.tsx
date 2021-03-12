@@ -6,11 +6,10 @@ import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper, flexCenter } from
 import goldLogo from '../../assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header.attrs({ dir: 'rtl' })`
   display: grid;
   margin-top: 4%;
   grid-template-columns: auto auto auto auto auto;
-  direction: rtl;
   flex: 0 0 20%;
   height: 20%;
   & div {
@@ -84,12 +83,11 @@ const MainWrapper = styled.div`
   flex: 1 1 80%;
 `;
 
-const Main = styled.main`
+const Main = styled.main.attrs({ dir: 'rtl' })`
   ${flexCenter};
   margin-top: 5%;
   flex-wrap: wrap;
   padding: 20px 50px;
-  direction: rtl;
 `;
 
 const TeamMember = styled.div`

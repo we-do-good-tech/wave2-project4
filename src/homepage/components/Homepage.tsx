@@ -56,9 +56,9 @@ const Circle = styled.a`
   border-radius: 50%;
   width: 168px;
   height: 168px;
-  background: #03345a;
+  background: ${({ theme }) => theme.homepage.circle.background};
   border: 4px solid white;
-  color: #ffffff !important;
+  color: ${({ theme }) => theme.homepage.circle.color} !important;
   font-size: 20px;
   font-weight: 700;
   position: absolute;

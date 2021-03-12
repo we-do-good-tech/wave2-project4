@@ -267,7 +267,7 @@ const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPin}) no-repeat;
@@ -304,7 +304,7 @@ const MapPinIncorrect = styled.div<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPin}) no-repeat;
@@ -339,7 +339,7 @@ const MapPinCorrect = styled.div<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPinActive}) no-repeat;

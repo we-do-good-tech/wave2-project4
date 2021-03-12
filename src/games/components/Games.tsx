@@ -209,7 +209,7 @@ const MapPin = styled.div<{ index: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
   height: 125px;
   background: url(${mapPin}) no-repeat;
@@ -250,7 +250,7 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   font-size: 20px;
   font-weight: 400;
   padding: 0 10px;
-  color: #fff;
+  color: ${({ theme }) => theme.games.mapPinModalColor};
   width: 90px;
   height: 125px;
   background: url(${mapPinActive}) no-repeat;
@@ -292,12 +292,12 @@ const GameTooltip = styled(FlexColumn)<{ left: number }>`
   left: calc(${({ left }) => left}% - 180px);
   top: calc(50% - 260px);
   position: absolute;
-  border: 4px solid #fff;
+  border: 4px solid ${({ theme }) => theme.games.gameTooltipBorder};
   border-radius: 20px;
   padding: 30px 12px 0px;
   width: 360px;
   height: 520px;
-  color: #0f1e43;
+  color: ${({ theme }) => theme.games.gameTooltipColor};
   font-size: ${({ theme }) => theme.text.title.fontSize};
   text-align: center;
   background: ${({ theme }) => theme.modal.background};
@@ -326,7 +326,7 @@ const GameTooltipHeader = styled.div`
 
 const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
   width: 100%;
-  color: #0c2d80;
+  color: ${({ theme }) => theme.games.gameTooltipTextColor};
   font-size: 20px;
   text-align: right;
   line-height: 25px;
@@ -347,7 +347,7 @@ const CloseBtn = styled.button`
   right: -33px;
   width: 63px;
   height: 63px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.games.closeButtonColor};
   background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
   border: 4px solid #fff;
   border-radius: 50%;

@@ -1,12 +1,10 @@
-/* eslint-disable no-console */
 import React from 'react';
 import styled from 'styled-components';
-import { BackgroundWrapper } from 'shared/components';
+import { BackgroundWrapper, FlexColumn } from 'shared/components';
 import logo from 'assets/images/logo-information.png';
 
 const P = styled.p`
   width: 98%;
-  font-style: normal;
   font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
   font-size: ${({ theme }) => theme.text.paragraph.fontSize};
   line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
@@ -21,7 +19,6 @@ const P = styled.p`
 
 const H5 = styled.h5`
   font-size: 20px;
-  font-style: normal;
   font-weight: 700;
   line-height: 26px;
   letter-spacing: 0em;
@@ -38,16 +35,15 @@ const MainWrapper = styled.div`
   flex: 1 1 80%;
 `;
 
-const Main = styled.main`
+const Main = styled.main.attrs({ dir: 'rtl' })`
   padding: 20px 50px;
-  direction: rtl;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     padding: 10px 25px;
   }
 `;
 
-const WhiteWapper = styled.div`
-  background: #ffffff;
+const WhiteWapper = styled(FlexColumn)`
+  background: ${({ theme }) => theme.information.whitePaperBackground};
   box-shadow: 0px 0px 20px rgba(2, 27, 91, 0.25);
   width: 50%;
   margin: 0 auto;
@@ -55,8 +51,6 @@ const WhiteWapper = styled.div`
   flex: 0 0 50%;
   text-align: center;
   direction: ltr;
-  display: flex;
-  flex-direction: column;
 `;
 
 const StyledSection = styled.div`
