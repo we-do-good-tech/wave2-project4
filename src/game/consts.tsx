@@ -126,7 +126,7 @@ export const Instruction = styled.div`
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 39px;
-  min-width: 523px;
+  min-width: 616px;
   height: 71px;
   font-weight: 600;
   font-size: 36px;

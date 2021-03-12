@@ -143,11 +143,10 @@ const AvailableActions = () => {
 
   useEffect(() => {
     if (returnActionsForColumn('INIT').length < 1) {
-      setIsModalOpen(true);
+      setTimeout(() => {
+        setIsModalOpen(true);
+      }, 3000);
     }
-    /*     if (actions !== returnActionsForColumn('INIT')) {
-      setActions(returnActionsForColumn('INIT'));
-    } */
   }, [returnActionsForColumn]);
 
   return (
@@ -156,7 +155,7 @@ const AvailableActions = () => {
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
         ))}
-        {returnActionsForColumn('INIT').length > 0 && (
+        {!isModalOpen && (
           <>
             <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
             <ActionsContainer
@@ -172,7 +171,7 @@ const AvailableActions = () => {
           <Container>
             <Title>
               איזה כיף! <br />
-              כמה דברים אני יכול לעשות!
+              כמה דברים אני יכול{currentPlayer!.path === 'shira' ? 'ה' : ''} לעשות!
             </Title>
           </Container>
           <PlayerImg src={currentPlayer?.images.availble[0]} />
