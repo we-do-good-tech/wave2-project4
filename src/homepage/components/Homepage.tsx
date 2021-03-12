@@ -43,6 +43,12 @@ const StyledButton = styled(Link)`
     background: ${({ theme }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-bottom: 85px;
+    width: 120px;
+    height: 38px;
+    font-size: 15px;
+  }
 `;
 
 const Circle = styled.a`
@@ -65,11 +71,19 @@ const Circle = styled.a`
     text-decoration: none;
     font-weight: 800;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 84px;
+    height: 84px;
+    font-size: 12px;
+  }
 `;
 
 const StyledImg = styled.img`
   height: 78px;
   margin: 5px 10px 0 10px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 39px;
+  }
 `;
 
 const Footer = styled.div`
@@ -81,6 +95,11 @@ const Footer = styled.div`
   position: fixed;
   bottom: 10px;
   left: 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 47px;
+    bottom: 5px;
+    min-width: unset;
+  }
 `;
 
 const Homepage = () => {

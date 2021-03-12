@@ -37,6 +37,11 @@ const IconWrapper = styled.div`
   bottom: 5%;
   z-index: 101;
   pointer-events: none;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    height: 48%;
+    right: -18%;
+    bottom: 11%;
+  }
 `;
 
 const StyledTomer = styled(Tomer)`
@@ -184,14 +189,19 @@ const GamesModal = styled(FlexColumn)`
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 80vw;
     margin: 10px auto;
-    height: 70vh;
+    height: 85vh;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 80vh;
+    margin: 10px auto;
+    height: 85vw;
   }
 `;
 
-const Container = styled.div`
+const VideoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,7 +209,9 @@ const Container = styled.div`
   height: 60%;
   margin-top: 10px;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    margin-top: 15px;
+    width: 81%;
+    height: 54%;
+    margin-top: 5px;
   }
 `;
 
@@ -211,7 +223,8 @@ const Title = styled.h2`
   line-height: ${({ theme }) => theme.text.title.lineHeight};
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    font-size: 20px;
+    margin-top: 5px;
+    font-size: 19px;
   }
 `;
 
@@ -224,7 +237,9 @@ const LinksTitle = styled.h2`
   line-height: ${({ theme }) => theme.text.linksTitle.lineHeight};
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
   }
 `;
 
@@ -260,8 +275,16 @@ const StyledLink = styled(Link)`
     color: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.color};
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    min-width: 95px;
-    max-height: 25px;
+    margin: 0 5px;
+    padding: 0 5px;
+    width: 140px;
+    height: 35px;
+    min-width: 140px;
+    min-height: 35px;
+    max-width: 140px;
+    max-height: 35px;
+    font-size: 12px;
+    line-height: 11px;
   }
 `;
 
@@ -444,9 +467,9 @@ const Games = () => {
         {showVideo && (
           <GamesModal>
             <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
-            <Container>
+            <VideoContainer>
               <VideoPlayer url={currentPlayer?.video || ''} />
-            </Container>
+            </VideoContainer>
             <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
             <LinksContainer>
               <StyledLink $isActiveItem={false} to="/game">

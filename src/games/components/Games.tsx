@@ -108,10 +108,18 @@ const TextArea = styled.textarea`
   color: ${({ theme }) => theme.text.paragraph.color};
   line-height: ${({ theme }) => theme.text.paragraph.lineHeight};
   text-align: center;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     font-size: 16px;
+    line-height: 16px;
     min-height: calc(100vh - 120px);
     max-height: calc(100vh - 120px);
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    font-size: 16px;
+    line-height: 15px;
+    min-height: calc(100vw - 120px);
+    max-height: calc(100vw - 120px);
   }
 `;
 
@@ -128,12 +136,12 @@ const GamesModal = styled(FlexColumn)`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 80vw;
     margin: 10px auto;
-    height: 70vh;
+    height: 85vh;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
     width: 80vh;
     margin: 10px auto;
-    height: 70vw;
+    height: 85vw;
   }
 `;
 
@@ -157,6 +165,7 @@ const Title = styled.h2`
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 20px;
+    line-height: 20px;
   }
 `;
 
@@ -301,6 +310,7 @@ const GameTooltipHeader = styled.div`
   padding: 10px 10px 0;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 12px;
+    line-height: 13px;
     padding: 3px 3px 0;
   }
 `;
@@ -393,8 +403,8 @@ const ModalImageWrapper = styled.div`
   height: 207px;
   border: 2px solid #fff;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    width: 120px;
-    height: 80px;
+    width: 147px;
+    height: 94px;
   }
 `;
 
