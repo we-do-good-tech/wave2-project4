@@ -28,11 +28,11 @@ const PlayerImageWrapper = styled.div`
   }
 `;
 
-const PlayerImg = styled(motion.img)`
+const PlayerImg = styled(motion.img)<{ displayProp: string }>`
   z-index: 1;
-  display: block;
   max-width: 261px;
   max-height: 360px;
+  display: ${(props) => props.displayProp};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     max-width: 140px;
     max-height: 180px;
@@ -137,7 +137,7 @@ const Yvalue = getAnimationValues().y;
 
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
-  const allPlayerImages = currentPlayer?.images;
+  const allPlayerImages = currentPlayer!.images;
   const [playerImage, setPlayerImage] = useState({ image: allPlayerImages.availble, info: '' });
   const [delay, setDelay] = useState(3);
   const [menuRef, setMenuRef] = useState<ScrollMenu | null>(null);
@@ -180,7 +180,7 @@ const ActionsContainer = (props: any) => {
         <PlayerImageWrapper>
           {playerImage.image !== allPlayerImages.availble && (
             <motion.div
-              initial={{ scale: 0, y: Yvalue, x: Xvalue }}
+              initial={{ scale: 0, y: 100, x: 100 }}
               animate={{ scale: 1, y: Yvalue, x: Xvalue }}
               transition={{ duration: 0.2 }}
               exit={{ opacity: 0 }}
@@ -192,15 +192,24 @@ const ActionsContainer = (props: any) => {
               </StyledSpeechBubbleWrapper>
             </motion.div>
           )}
-          <PlayerImg
-            key={playerImage.image[0]}
-            src={playerImage.image[0]}
-            alt={currentPlayer?.name}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.1 }}
-            exit={{ opacity: 0 }}
-          />
+          {Object.entries(allPlayerImages).map(([key]) => {
+            let display = 'none';
+            if (allPlayerImages[key][0] === playerImage.image[0]) {
+              display = 'block';
+            }
+            return (
+              <PlayerImg
+                key={key}
+                displayProp={display}
+                src={allPlayerImages[key][0]}
+                alt={currentPlayer?.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.1 }}
+                exit={{ opacity: 0 }}
+              />
+            );
+          })}
         </PlayerImageWrapper>
       </AnimatePresence>
     </ActionsWrapper>

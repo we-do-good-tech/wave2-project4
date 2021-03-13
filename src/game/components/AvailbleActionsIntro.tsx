@@ -32,6 +32,12 @@ const PlayerContainer = styled(Flex)<{ bg?: string }>`
     z-index: 0;
     background: ${(props) => darken(0.3, props.bg!)};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    padding: 110px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    padding: 30px 90px;
+  }
 `;
 
 const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
@@ -39,12 +45,23 @@ const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
   align-items: center;
   justify-content: center;
   padding: 0 5%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    font-size: 22px;
+    line-height: 120%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    line-height: 110%;
+  }
 `;
 
 const PlayerImg = styled.img`
   display: block;
   z-index: 1;
   max-width: 20%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    max-width: 25%;
+  }
 `;
 
 const StyledButton = styled(Link)`
@@ -95,8 +112,8 @@ const AvailbleActionsIntro = () => {
       <PlayerContainer bg={currentPlayer?.bgColor}>
         <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
-          היי אני {currentPlayer?.name} <br />
-          ופה אני אספר לכם על המוגבלות שיש לי...
+          היי אני {currentPlayer!.name} <br />
+          {currentPlayer!.text}
         </StyledSpeechBubbleWrapper>
         <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
         <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>

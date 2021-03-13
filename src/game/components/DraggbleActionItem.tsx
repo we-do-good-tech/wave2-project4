@@ -44,7 +44,10 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
       if (dropResult) {
         const { name } = dropResult;
         if (item!.type !== name) {
-          return changeImage('fail', item!.info);
+          if (item!.type === 'CANT') {
+            return changeImage('fail', item!.info);
+          }
+          return changeImage('fail');
         }
         switch (name) {
           case 'CAN':
@@ -53,7 +56,7 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
             break;
           case 'CANT':
             changeActionPosition(item, 'CANT');
-            changeImage('success', item!.info);
+            changeImage('success');
             break;
           default:
             break;
