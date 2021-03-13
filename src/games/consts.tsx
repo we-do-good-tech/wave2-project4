@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import basketballIconSVG from '../assets/images/basketball.svg';
 import basketballIconBgSVG from '../assets/images/basketball_bg.svg';
@@ -155,8 +155,8 @@ type AvailableGamesType = {
 type MapPinIconType = {
   title: string;
   position: any;
-  icon: any;
-  iconBg?: any;
+  icon: ReactElement;
+  iconBg?: ReactElement;
   left: number;
   availableGames: AvailableGamesType;
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
@@ -20,8 +20,8 @@ import firebase from '../../firebase';
 type Player = {
   name: string;
   path: string;
-  icon: any;
-  iconWin: any;
+  icon: ReactElement;
+  iconWin: ReactElement;
   video: string;
 };
 
