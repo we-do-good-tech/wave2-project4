@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
+import { isMobileOnly } from 'react-device-detect';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs';
 import { FlexCenterMiddle, flexColumnCenter, Flex } from 'shared/components/Flex';
@@ -11,24 +12,31 @@ const ActionsWrapper = styled(FlexCenterMiddle)`
   position: absolute;
   grid-area: 1 / 1;
   width: 100%;
-  min-height: 144px;
+  min-height: 22%;
   bottom: 1%;
   background-color: rgba(255, 255, 255, 0.8);
 `;
 
 const PlayerImageWrapper = styled.div`
-  min-width: 20%;
+  width: 20%;
   position: absolute;
   z-index: 1;
   right: 5%;
   bottom: 20%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    right: 1%;
+  }
 `;
 
 const PlayerImg = styled(motion.img)`
   z-index: 1;
   display: block;
   max-width: 261px;
-  max-height: 386px;
+  max-height: 360px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    max-width: 140px;
+    max-height: 180px;
+  }
 `;
 
 const ScrollActionsWrapper = styled(Flex)`
@@ -48,14 +56,16 @@ const ScrollActionsWrapper = styled(Flex)`
 
 const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
   ${flexColumnCenter};
-  /* position: relative; */
   height: 153px;
   min-width: 212px;
-  /*   right: 75%; */
-  /* bottom: 75%; */
   align-items: center;
   z-index: 1;
-  padding: 20px 20px;
+  padding: 20px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    padding: 10px;
+    height: 75px;
+    min-width: 105px;
+  }
 `;
 
 const LefttArrow = styled(FlexCenterMiddle)`
@@ -74,6 +84,10 @@ const StyledImage = styled.img`
   flex: 1 1 10%;
   max-height: 75%;
   min-height: 10%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    flex: 1 1 30%;
+    min-height: 30%;
+  }
 `;
 
 const SpeechBubbleText = styled.div`
@@ -81,6 +95,11 @@ const SpeechBubbleText = styled.div`
   line-height: 22.16px;
   flex: 1 1 45%;
   margin-top: 10px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    line-height: 110%;
+    margin-top: 3px;
+  }
 `;
 
 const ArrowLeft = (
@@ -105,6 +124,9 @@ export const Menu = (actions: any, setActions: any, changeImage: any) =>
     /* const { id } = action; */
     <MenuItem setActions={setActions} key={index} action={action} id={index} changeImage={changeImage} />
   ));
+
+const Xvalue = isMobileOnly ? -65 : -130;
+const Yvalue = isMobileOnly ? 40 : 90;
 
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
@@ -152,7 +174,7 @@ const ActionsContainer = (props: any) => {
           {playerImage.image !== allPlayerImages.availble && (
             <motion.div
               initial={{ scale: 0, y: 0, x: 0 }}
-              animate={{ scale: 1, y: 90, x: -130 }}
+              animate={{ scale: 1, y: Yvalue, x: Xvalue }}
               transition={{ duration: 0.2 }}
               exit={{ opacity: 0 }}
             >

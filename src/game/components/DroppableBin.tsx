@@ -25,6 +25,14 @@ const SmallActionsContainer = styled(Flex)`
   width: 50%;
   flex-wrap: wrap-reverse;
   margin: auto 0 20% 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    margin: auto 0 35% 0;
+    width: 60%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin: auto 0 17% 0;
+    width: 60%;
+  }
 `;
 
 const SmallActionItem = styled(Item)`
@@ -33,6 +41,12 @@ const SmallActionItem = styled(Item)`
   height: 80px;
   margin: 5px 10px;
   font-size: 12px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 50px;
+    margin: 3px 3px;
+    font-size: 8px;
+  }
 `;
 
 const StyledH3 = styled(FlexCenter)`
@@ -44,6 +58,14 @@ const StyledH3 = styled(FlexCenter)`
   min-width: 100%;
   margin-top: 15%;
   transition: 0.2s;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    font-size: 26px;
+    margin-top: 20%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 18px;
+    margin-top: 13%;
+  }
 `;
 
 interface ActionState {

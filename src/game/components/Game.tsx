@@ -29,15 +29,18 @@ const PlayerBtn = styled.button<{ bg?: string }>`
   font-weight: normal;
   font-size: 40px;
   line-height: 44px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  width: 252px;
-  height: 72px;
+  margin-bottom: 2%;
+  margin-top: 1%;
+  width: 65%;
+  height: 12.5%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: normal;
   transition: 0.2s border ease-in-out;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 20px;
+  }
 `;
 
 const PlayerImg = styled(motion.img)`

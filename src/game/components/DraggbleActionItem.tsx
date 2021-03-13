@@ -9,9 +9,14 @@ const ActionItem = styled(Item)<{ opacity: number }>`
   width: 128px;
   height: 128px;
   font-size: 17px;
-  padding: 25px 7px;
+  padding: 19% 3%;
   &:focus {
     outline: none;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 65px;
+    height: 65px;
+    font-size: 10px;
   }
 `;
 

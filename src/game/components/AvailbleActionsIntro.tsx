@@ -26,7 +26,7 @@ const PlayerContainer = styled(Flex)<{ bg?: string }>`
     border-radius: 50%;
     opacity: 0.1;
     width: 120%;
-    height: 344px;
+    height: 52%;
     left: -10%;
     bottom: -20%;
     z-index: 0;
@@ -35,7 +35,10 @@ const PlayerContainer = styled(Flex)<{ bg?: string }>`
 `;
 
 const StyledSpeechBubbleWrapper = styled(SpeechBubbleWrapper)`
-  padding: 70px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5%;
 `;
 
 const PlayerImg = styled.img`
