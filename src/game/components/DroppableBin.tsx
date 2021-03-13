@@ -22,17 +22,16 @@ const CantDo = styled(FlexColumn)<{ amount: number }>`
 `;
 
 const SmallActionsContainer = styled(Flex)`
-  flex: 0 0 50%;
   width: 50%;
-  flex-wrap: wrap;
   flex-wrap: wrap-reverse;
+  margin: auto 0 20% 0;
 `;
 
 const SmallActionItem = styled(Item)`
   cursor: auto;
-  width: 64px;
-  height: 64px;
-  margin: 10px 20px;
+  width: 80px;
+  height: 80px;
+  margin: 5px 10px;
   font-size: 12px;
 `;
 
@@ -79,7 +78,9 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
           <StyledH3>יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
-              <SmallActionItem key={index}>{item.name}</SmallActionItem>
+              <SmallActionItem initial={{ scale: 0 }} animate={{ scale: 1 }} key={index}>
+                {item.name}
+              </SmallActionItem>
             ))}
           </SmallActionsContainer>
         </CanDo>
@@ -88,7 +89,9 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
           <StyledH3>לא יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
-              <SmallActionItem key={index}>{item.name}</SmallActionItem>
+              <SmallActionItem key={index} initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                {item.name}
+              </SmallActionItem>
             ))}
           </SmallActionsContainer>
         </CantDo>

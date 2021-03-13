@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import { useParams, Link } from 'react-router-dom';
 import { FlexColumn, flexColumn } from 'shared/components/Flex';
 import Players, { Instruction } from '../consts';
@@ -122,6 +123,7 @@ export interface ContainerState {
 }
 
 const AvailableActions = () => {
+  const isMobile = window.innerWidth < 962;
   const playerPath = useParams<any>();
   const currentPlayer = Players.find(({ path }: any) => path === playerPath.playerRoute);
   const [bins] = useState<BinState[]>([{ accept: 'CAN' }, { accept: 'CANT' }]);
@@ -134,9 +136,7 @@ const AvailableActions = () => {
       info: action.info,
     })),
   );
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const returnActionsForColumn = useCallback((accept) => actions.filter((action) => action.position === accept), [
     actions,
   ]);
@@ -151,7 +151,7 @@ const AvailableActions = () => {
 
   return (
     <Wrapper>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
         ))}
