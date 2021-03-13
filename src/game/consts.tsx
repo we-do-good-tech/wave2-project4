@@ -82,7 +82,7 @@ const players: Player[] = [
     bgColor: theme.colors.modalBackground,
     btnColor: theme.colors.nirActionPurple,
     actions: [
-      { able: 'CANT', action: 'לקפוץ לרוחק', id: 1, position: 'INIT', info: 'בדיקה' },
+      { able: 'CANT', action: 'לקפוץ לרוחק', id: 1, position: 'INIT', info: '' },
       { able: 'CANT', action: 'להגיע למגרש לא מונגש', id: 2, position: 'INIT', info: '' },
       { able: 'CANT', action: 'לשחק תופסת גובה', id: 3, position: 'INIT', info: '' },
       { able: 'CAN', action: 'לשחק מסירות עם כדור בהפסקה', id: 4, position: 'INIT', info: '' },
@@ -155,8 +155,8 @@ export const Instruction = styled.div`
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 39px;
-  min-width: 616px;
-  height: 71px;
+  min-width: 50%;
+  height: 11%;
   font-weight: 600;
   font-size: 36px;
   display: flex;
@@ -167,6 +167,12 @@ export const Instruction = styled.div`
   justify-self: center;
   top: 3%;
   padding: 0 20px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 20px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    font-size: 24px;
+  }
 `;
 
 export const Item = styled(motion.div)`

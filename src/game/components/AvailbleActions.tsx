@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
@@ -18,9 +19,15 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 
 const PlayerImg = styled.img`
   position: absolute;
-  right: -120px;
+  right: -10%;
   bottom: -10%;
-  max-height: 450px;
+  max-height: 100%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    right: -25%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    right: -10%;
+  }
 `;
 
 const EndGameModal = styled(FlexColumn)`
@@ -39,7 +46,6 @@ const EndGameModal = styled(FlexColumn)`
   z-index: 100;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 80vw;
-    margin: 10px auto;
     height: 70vh;
   }
 `;
@@ -123,7 +129,6 @@ export interface ContainerState {
 }
 
 const AvailableActions = () => {
-  const isMobile = window.innerWidth < 962;
   const playerPath = useParams<any>();
   const currentPlayer = Players.find(({ path }: any) => path === playerPath.playerRoute);
   const [bins] = useState<BinState[]>([{ accept: 'CAN' }, { accept: 'CANT' }]);
