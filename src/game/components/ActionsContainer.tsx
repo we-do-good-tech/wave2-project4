@@ -115,13 +115,11 @@ const ArrowRight = (
 );
 
 export const MenuItem = ({ setActions, changeImage, action, id }: any) => (
-  /* const { id } = action; */
   <DraggbleActionItem key={id} setActions={setActions} changeImage={changeImage} action={action} />
 );
 
 export const Menu = (actions: any, setActions: any, changeImage: any) =>
   actions.map((action: any, index: number) => (
-    /* const { id } = action; */
     <MenuItem setActions={setActions} key={index} action={action} id={index} changeImage={changeImage} />
   ));
 
@@ -136,6 +134,7 @@ const getAnimationValues = () => {
 };
 const Xvalue = getAnimationValues().x;
 const Yvalue = getAnimationValues().y;
+
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
   const allPlayerImages = currentPlayer!.images;

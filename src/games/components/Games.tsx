@@ -458,9 +458,9 @@ const Games = () => {
       <GamesBg>
         <Wrapper>
           <BgGames>
-            {mapPinIcons.map((obj: any) => {
+            {mapPinIcons.map((obj: any, index: number) => {
               if (obj.title === 'אופניים זוגיים טנדם') return;
-              return obj.icon;
+              return <div key={index}>{obj.iconBg}</div>;
             })}
           </BgGames>
           <BgTop />
