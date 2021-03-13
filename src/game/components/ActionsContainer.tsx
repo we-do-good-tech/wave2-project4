@@ -10,7 +10,7 @@ import { DraggbleActionItem } from './DraggbleActionItem';
 const ActionsWrapper = styled(FlexCenterMiddle)`
   position: absolute;
   grid-area: 1 / 1;
-  min-width: 100%;
+  width: 100%;
   min-height: 144px;
   bottom: 1%;
   background-color: rgba(255, 255, 255, 0.8);
@@ -37,6 +37,7 @@ const ScrollActionsWrapper = styled(Flex)`
   height: 100%;
   justify-content: space-around;
   direction: ltr;
+  z-index: 100;
   & .scroll-menu-arrow--disabled {
     visibility: hidden;
   }
@@ -166,8 +167,8 @@ const ActionsContainer = (props: any) => {
             key={playerImage.image[0]}
             src={playerImage.image[0]}
             alt={currentPlayer?.name}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.1 }}
             exit={{ opacity: 0 }}
           />

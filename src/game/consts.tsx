@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import theme from 'shared/style/theme';
 import Nir from 'assets/images/Nir.svg';
 import NirAvailable from 'assets/images/NirAvailable.svg';
@@ -53,13 +54,19 @@ const players: Player[] = [
     bgColor: theme.colors.tomerBgGreen,
     btnColor: theme.colors.tomerActionYellow,
     actions: [
-      { able: 'CANT', action: 'לנסוע באוטובוס לאימון', id: 1, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון', id: 2, position: 'INIT', info: '' },
-      { able: 'CAN', action: 'לא לעשות כלים', id: 3, position: 'INIT', info: '' },
-      { able: 'CAN', action: 'לעשות כלים', id: 4, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לרוץ מהר מאוד', id: 5, position: 'INIT', info: '' },
-      { able: 'CAN', action: 'לרוץ מהר מאוד', id: 6, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לקפוץ על רגל אחת', id: 7, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'להשתתף בקפיצה לרוחק במשחקים האולימפיים', id: 1, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לבחור מה תהייה התוצאה בסוף ', id: 2, position: 'INIT', info: 'את זה אף אחד לא יכול' },
+      { able: 'CANT', action: 'לרוץ מאה מטר בפחות מ 9 שניות ', id: 3, position: 'INIT', info: 'את זה אף אחד לא יכול' },
+      { able: 'CAN', action: 'לשחק כדורגל בהפסקה', id: 4, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'להתאמן בחדר כושר', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לקפוץ לגובה גם בלי פרוטזה', id: 6, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'להיות שופט במשחק כדורסל', id: 7, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחות עם הפרוטזה בים', id: 8, position: 'INIT', info: 'יש פרוטזה מיוחדת לשחיה' },
+      { able: 'CAN', action: 'לקלוע עם חץ וקשת ישר למטרה', id: 9, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לרכב על סוסים', id: 10, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לנעול נעלי ספורט', id: 11, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחק תופסת בהפסקה', id: 12, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לנסוע באוטובוס לאימון', id: 13, position: 'INIT', info: '' },
     ],
   },
   {
@@ -75,24 +82,29 @@ const players: Player[] = [
     bgColor: theme.colors.modalBackground,
     btnColor: theme.colors.nirActionPurple,
     actions: [
-      { able: 'CAN', action: 'יכול 1', id: 1, position: 'INIT', info: 'בדיקה' },
+      { able: 'CANT', action: 'לקפוץ לרוחק', id: 1, position: 'INIT', info: 'בדיקה' },
+      { able: 'CANT', action: 'להגיע למגרש לא מונגש', id: 2, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לשחק תופסת גובה', id: 3, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחק מסירות עם כדור בהפסקה', id: 4, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'להתאמן בחדר כושר', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לרקוד', id: 6, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחק טניס', id: 7, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לנצח בתחרות שחיה ', id: 8, position: 'INIT', info: '' },
       {
-        able: 'CANT',
-        action: 'משפט לא יכול 1',
-        id: 2,
+        able: 'CAN',
+        action: 'לשחק בקבוצת כדורסל',
+        id: 9,
         position: 'INIT',
-        info: 'בדיקה לטקסט ארוך מאוד שאולי ייכנס',
+        info: 'יש קבוצות כדורסל שכולם בכיסאות גלגלים',
       },
-      { able: 'CANT', action: 'לא יכול 2', id: 3, position: 'INIT', info: 'בדיקה לטקסט ארוך מאוד שאולי ייכנס' },
-      { able: 'CAN', action: 'יכול 2', id: 4, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא יכול 3', id: 5, position: 'INIT', info: 'בדיקה לטקסט ארוך מאוד שאולי ייכנס' },
-      { able: 'CAN', action: 'יכול 3', id: 6, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לחתור בסירה', id: 10, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לקחת איתי את הציוד ספורט', id: 11, position: 'INIT', info: '' },
       {
-        able: 'CANT',
-        action: 'לא יכול 4',
-        id: 7,
+        able: 'CAN',
+        action: 'לנסוע באוטובוס לאימון',
+        id: 12,
         position: 'INIT',
-        info: 'בדיקה לטקסט ארוך מאוד שאולי ייכנס',
+        info: 'ברוב האוטובוסים יש רמפה לכסא גלגלים',
       },
     ],
   },
@@ -109,13 +121,30 @@ const players: Player[] = [
     bgColor: theme.colors.shiraBgPurple,
     btnColor: theme.colors.shiraActionPuprle,
     actions: [
-      { able: 'CAN', action: 'לנסוע באוטובוס לאימון', id: 1, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לנסוע באוטובוס לאימון', id: 2, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לעשות כלים', id: 3, position: 'INIT', info: '' },
-      { able: 'CAN', action: 'לעשות כלים', id: 4, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לרוץ מהר מאוד', id: 5, position: 'INIT', info: '' },
-      { able: 'CAN', action: 'לרוץ מהר מאוד', id: 6, position: 'INIT', info: '' },
-      { able: 'CANT', action: 'לא לקפוץ על רגל אחת', id: 7, position: 'INIT', info: '' },
+      { able: 'CANT', action: 'לראות את דגל ישראל על מדי הנבחרת', id: 1, position: 'INIT', info: '' },
+      {
+        able: 'CANT',
+        action: 'לראות את המדליה כשזוכים',
+        id: 2,
+        position: 'INIT',
+        info: 'אני יכולה לקרוא מה כתוב עליה בכתב ברייל',
+      },
+      { able: 'CAN', action: 'לשחק עם חברים בהפסקה משחקים ספורטיביים', id: 3, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'להתאמן בחדר כושר', id: 4, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחק כדורגל', id: 5, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לגלוש סקי', id: 6, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לשחק באולינג', id: 7, position: 'INIT', info: 'יש עוזר ומעקה לכיוון המסלול' },
+      { able: 'CAN', action: "לנצח יריב בג'ודו", id: 8, position: 'INIT', info: '' },
+      {
+        able: 'CAN',
+        action: 'לשמוע באיזו מדליה זכיתי',
+        id: 9,
+        position: 'INIT',
+        info: 'למדליות במשחקים הפארלימפיים יש צלילים',
+      },
+      { able: 'CAN', action: 'לרכב על אופניים', id: 10, position: 'INIT', info: 'רוכב איתי עוד מישהו שרואה' },
+      { able: 'CAN', action: 'לשחק פרה עיוורת', id: 11, position: 'INIT', info: '' },
+      { able: 'CAN', action: 'לנסוע באוטובוס לאימון', id: 12, position: 'INIT', info: '' },
     ],
   },
 ];
@@ -140,7 +169,7 @@ export const Instruction = styled.div`
   padding: 0 20px;
 `;
 
-export const Item = styled.div`
+export const Item = styled(motion.div)`
   background: linear-gradient(180deg, #052a86 0%, #04206b 100%);
   border-radius: 50%;
   color: white;

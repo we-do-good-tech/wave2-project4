@@ -8,8 +8,8 @@ const ActionItem = styled(Item)<{ opacity: number }>`
   opacity: ${(props) => props.opacity};
   width: 128px;
   height: 128px;
-  font-size: 20px;
-  padding: 5px;
+  font-size: 17px;
+  padding: 25px 7px;
   &:focus {
     outline: none;
   }
@@ -44,11 +44,11 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
         switch (name) {
           case 'CAN':
             changeActionPosition(item, 'CAN');
-            changeImage('success');
+            changeImage('success', item!.info);
             break;
           case 'CANT':
             changeActionPosition(item, 'CANT');
-            changeImage('success');
+            changeImage('success', item!.info);
             break;
           default:
             break;

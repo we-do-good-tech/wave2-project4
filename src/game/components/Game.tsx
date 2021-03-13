@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { Route, Link, Switch, useRouteMatch } from 'react-router-dom';
 import Players, { Instruction } from '../consts';
 import AvailbleActionsIntro from './AvailbleActionsIntro';
@@ -39,7 +40,7 @@ const PlayerBtn = styled.button<{ bg?: string }>`
   transition: 0.2s border ease-in-out;
 `;
 
-const PlayerImg = styled.img`
+const PlayerImg = styled(motion.img)`
   margin: auto auto 0 auto;
   display: block;
   max-width: 65%;
@@ -60,7 +61,7 @@ const PlayerWrapper = styled(Link)`
   &:hover > ${PlayerImg} {
     cursor: pointer;
     transition: 0.1s all;
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
   }
   &:hover > ${PlayerBtn} {
     border: 3px solid #ffffff;
@@ -81,7 +82,12 @@ const Game = () => {
           {Players.map((player, index) => (
             <PlayerContainer key={index} bg={player.bgColor}>
               <PlayerWrapper to={`${url}/${player.path}`}>
-                <PlayerImg src={player.images.hello[0]} alt={player.name} />
+                <PlayerImg
+                  src={player.images.hello[0]}
+                  alt={player.name}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                />
                 <PlayerBtn bg={player.btnColor}>{player.name}</PlayerBtn>
               </PlayerWrapper>
             </PlayerContainer>
