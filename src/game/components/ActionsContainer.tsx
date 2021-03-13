@@ -115,13 +115,11 @@ const ArrowRight = (
 );
 
 export const MenuItem = ({ setActions, changeImage, action, id }: any) => (
-  /* const { id } = action; */
   <DraggbleActionItem key={id} setActions={setActions} changeImage={changeImage} action={action} />
 );
 
 export const Menu = (actions: any, setActions: any, changeImage: any) =>
   actions.map((action: any, index: number) => (
-    /* const { id } = action; */
     <MenuItem setActions={setActions} key={index} action={action} id={index} changeImage={changeImage} />
   ));
 
@@ -136,7 +134,7 @@ const getAnimationValues = () => {
 };
 const Xvalue = getAnimationValues().x;
 const Yvalue = getAnimationValues().y;
-console.log('animationsValues', [Xvalue, Yvalue]);
+
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
   const allPlayerImages = currentPlayer?.images;
@@ -182,7 +180,7 @@ const ActionsContainer = (props: any) => {
         <PlayerImageWrapper>
           {playerImage.image !== allPlayerImages.availble && (
             <motion.div
-              initial={{ scale: 0, y: 0, x: 0 }}
+              initial={{ scale: 0, y: Yvalue, x: Xvalue }}
               animate={{ scale: 1, y: Yvalue, x: Xvalue }}
               transition={{ duration: 0.2 }}
               exit={{ opacity: 0 }}

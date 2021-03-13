@@ -1,13 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import basketballIconSVG from '../assets/images/basketball.svg';
+import basketballIconBgSVG from '../assets/images/basketball_bg.svg';
 import bikeIconSVG from '../assets/images/bike.svg';
 import bucheIconSVG from '../assets/images/buchia.svg';
+import bucheIconBgSVG from '../assets/images/buchia_bg.svg';
 import goalBallIconSVG from '../assets/images/goalball.svg';
+import goalBallIconBgSVG from '../assets/images/goalball_bg.svg';
 import pingpongIconSVG from '../assets/images/pingpong.svg';
+import pingpongIconBgSVG from '../assets/images/pingpong_bg.svg';
 import runningIconSVG from '../assets/images/running.svg';
+import runningIconBgSVG from '../assets/images/running_bg.svg';
 import swimmingIconSVG from '../assets/images/swimming.svg';
+import swimmingIconBgSVG from '../assets/images/swimming_bg.svg';
 import tennisIconSVG from '../assets/images/tennis.svg';
+import tennisIconBgSVG from '../assets/images/tennis_bg.svg';
 
 const BasketballIcon = styled.div`
   position: absolute;
@@ -20,6 +27,10 @@ const BasketballIcon = styled.div`
   background-size: cover;
   background-position: center;
   z-index: 0;
+`;
+
+const BasketballIconBg = styled(BasketballIcon)`
+  background-image: url(${basketballIconBgSVG});
 `;
 
 const BikeIcon = styled.div`
@@ -48,6 +59,10 @@ const BucheIcon = styled.div`
   z-index: 1;
 `;
 
+const BucheIconBg = styled(BucheIcon)`
+  background-image: url(${bucheIconBgSVG});
+`;
+
 const GoalBallIcon = styled.div`
   position: absolute;
   top: 43.6%;
@@ -59,6 +74,10 @@ const GoalBallIcon = styled.div`
   background-size: cover;
   background-position: center;
   z-index: 1;
+`;
+
+const GoalBallIconBg = styled(GoalBallIcon)`
+  background-image: url(${goalBallIconBgSVG});
 `;
 
 const PingpongIcon = styled.div`
@@ -74,6 +93,10 @@ const PingpongIcon = styled.div`
   z-index: 1;
 `;
 
+const PingpongBgIcon = styled(PingpongIcon)`
+  background-image: url(${pingpongIconBgSVG});
+`;
+
 const RunningIcon = styled.div`
   position: absolute;
   top: 14.8%;
@@ -85,6 +108,10 @@ const RunningIcon = styled.div`
   background-size: cover;
   background-position: center;
   z-index: 0;
+`;
+
+const RunningBgIcon = styled(RunningIcon)`
+  background-image: url(${runningIconBgSVG});
 `;
 
 const SwimmingIcon = styled.div`
@@ -100,6 +127,10 @@ const SwimmingIcon = styled.div`
   z-index: 1;
 `;
 
+const SwimmingBgIcon = styled(SwimmingIcon)`
+  background-image: url(${swimmingIconBgSVG});
+`;
+
 const TennisIcon = styled.div`
   position: absolute;
   top: 17%;
@@ -113,6 +144,10 @@ const TennisIcon = styled.div`
   z-index: 1;
 `;
 
+const TennisBgIcon = styled(TennisIcon)`
+  background-image: url(${tennisIconBgSVG});
+`;
+
 type AvailableGamesType = {
   [key: string]: boolean;
 };
@@ -121,6 +156,7 @@ type MapPinIconType = {
   title: string;
   position: any;
   icon: any;
+  iconBg?: any;
   left: number;
   availableGames: AvailableGamesType;
 };
@@ -133,6 +169,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 45,
     },
     icon: <BucheIcon />,
+    iconBg: <BucheIconBg />,
     left: 50,
     availableGames: {
       tomer: false,
@@ -147,6 +184,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 17,
     },
     icon: <TennisIcon />,
+    iconBg: <TennisBgIcon />,
     left: 37,
     availableGames: {
       tomer: true,
@@ -161,6 +199,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 19,
     },
     icon: <BasketballIcon />,
+    iconBg: <BasketballIconBg />,
     left: 64,
     availableGames: {
       tomer: true,
@@ -175,6 +214,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 30,
     },
     icon: <SwimmingIcon />,
+    iconBg: <SwimmingBgIcon />,
     left: 50,
     availableGames: {
       tomer: true,
@@ -203,6 +243,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 41,
     },
     icon: <PingpongIcon />,
+    iconBg: <PingpongBgIcon />,
     left: 37,
     availableGames: {
       tomer: true,
@@ -217,6 +258,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 8,
     },
     icon: <RunningIcon />,
+    iconBg: <RunningBgIcon />,
     left: 76,
     availableGames: {
       tomer: true,
@@ -231,6 +273,7 @@ const mapPinIcons: MapPinIconType[] = [
       top: 35,
     },
     icon: <GoalBallIcon />,
+    iconBg: <GoalBallIconBg />,
     left: 76,
     availableGames: {
       tomer: false,
