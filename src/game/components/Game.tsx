@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Route, Link, Switch, useRouteMatch } from 'react-router-dom';
+import { flexColumn, Flex, flexCenterMiddle } from 'shared/components/Flex';
 import Players, { Instruction } from '../consts';
 import AvailbleActionsIntro from './AvailbleActionsIntro';
 
@@ -13,12 +14,12 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
 `;
 
-const PlayerContainer = styled.div<{ bg?: string }>`
+const PlayerContainer = styled(Flex)<{ bg?: string }>`
   background-color: ${(props) => props.bg};
-  display: flex;
 `;
 
 const PlayerBtn = styled.button<{ bg?: string }>`
+  ${flexCenterMiddle};
   margin: 0 auto;
   background-color: ${(props) => props.bg};
   border: none;
@@ -33,9 +34,6 @@ const PlayerBtn = styled.button<{ bg?: string }>`
   margin-top: 1%;
   width: 65%;
   height: 12.5%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: normal;
   transition: 0.2s border ease-in-out;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
@@ -51,11 +49,10 @@ const PlayerImg = styled(motion.img)`
 `;
 
 const PlayerWrapper = styled(Link)`
+  ${flexColumn};
   width: fit-content;
   height: 90%;
   margin: auto auto 0 auto;
-  display: flex;
-  flex-direction: column;
   min-width: 65%;
   max-width: 75%;
   &:hover {
