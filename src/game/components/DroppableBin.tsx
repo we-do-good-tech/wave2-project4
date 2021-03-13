@@ -41,6 +41,9 @@ const SmallActionItem = styled(Item)`
   height: 80px;
   margin: 5px 10px;
   font-size: 12px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    font-size: 11px;
+  }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 50px;
     height: 50px;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { flexCenterMiddle } from 'shared/components';
 import theme from 'shared/style/theme';
 import Nir from 'assets/images/Nir.svg';
 import NirAvailable from 'assets/images/NirAvailable.svg';
@@ -150,6 +151,7 @@ const players: Player[] = [
 ];
 
 export const Instruction = styled.div`
+  ${flexCenterMiddle};
   position: absolute;
   background: ${({ theme }) => theme.colors.darkMagenta};
   border: 2px solid #ffffff;
@@ -159,10 +161,7 @@ export const Instruction = styled.div`
   height: 11%;
   font-weight: 600;
   font-size: 36px;
-  display: flex;
-  align-items: center;
   text-align: center;
-  justify-content: center;
   color: #ffffff;
   justify-self: center;
   top: 3%;
@@ -176,13 +175,11 @@ export const Instruction = styled.div`
 `;
 
 export const Item = styled(motion.div)`
+  ${flexCenterMiddle};
   background: linear-gradient(180deg, #052a86 0%, #04206b 100%);
   border-radius: 50%;
   color: white;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   margin-right: 5px;
   white-space: break-spaces;

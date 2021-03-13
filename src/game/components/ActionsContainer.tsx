@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { isMobileOnly } from 'react-device-detect';
+import { isMobileOnly, isTablet } from 'react-device-detect';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs';
 import { FlexCenterMiddle, flexColumnCenter, Flex } from 'shared/components/Flex';
@@ -125,9 +125,18 @@ export const Menu = (actions: any, setActions: any, changeImage: any) =>
     <MenuItem setActions={setActions} key={index} action={action} id={index} changeImage={changeImage} />
   ));
 
-const Xvalue = isMobileOnly ? -65 : -130;
-const Yvalue = isMobileOnly ? 40 : 90;
-
+const getAnimationValues = () => {
+  if (isMobileOnly) {
+    return { x: -65, y: 40 };
+  }
+  if (isTablet) {
+    return { x: -180, y: 40 };
+  }
+  return { x: -130, y: 90 };
+};
+const Xvalue = getAnimationValues().x;
+const Yvalue = getAnimationValues().y;
+console.log('animationsValues', [Xvalue, Yvalue]);
 const ActionsContainer = (props: any) => {
   const { currentPlayer, actions, setActions } = props;
   const allPlayerImages = currentPlayer?.images;
