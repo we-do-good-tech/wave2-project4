@@ -148,7 +148,7 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M149.66 134.23L141.8 133.37L133.73 131.45L141.73 132.29L149.66 134.23Z" fill="#C93900"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M133.53 130.4L119.26 127.91L127.1 128.88L133.53 130.4Z" fill="#C93900"/>
 </g>
-<path d="M0 0V-1H-1V0H0ZM270.83 0H271.83V-1H270.83V0ZM270.83 150.85V151.85H271.83V150.85H270.83ZM0 150.85H-1V151.85H0V150.85ZM0 1H270.83V-1H0V1ZM269.83 0V150.85H271.83V0H269.83ZM270.83 149.85H0V151.85H270.83V149.85ZM1 150.85V0H-1V150.85H1Z" fill="black"/>
+
 <defs>
 <linearGradient id="paint0_linear" x1="98.249" y1="6.81658" x2="60.7421" y2="7.72959" gradientUnits="userSpaceOnUse">
 <stop stop-color="#770000"/>
