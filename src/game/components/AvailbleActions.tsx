@@ -6,6 +6,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { useParams, Link } from 'react-router-dom';
 import { FlexColumn, flexColumn } from 'shared/components/Flex';
+import { SkipLink } from 'shared/components/index';
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
 import { DroppableBin } from './DroppableBin';
@@ -156,6 +157,9 @@ const AvailableActions = () => {
 
   return (
     <Wrapper>
+      <SkipLink $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer!.path}`}>
+        מעבר למשחקים
+      </SkipLink>
       <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />

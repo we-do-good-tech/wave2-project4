@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { Button, FlexCenter, FlexColumn, FlexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
@@ -91,20 +92,12 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   }
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled.p`
+  white-space: pre-wrap;
   width: 100%;
   min-height: calc(100vh - 240px);
   max-height: calc(100vh - 240px);
-  color: black;
-  font-size: 20px;
-  font-weight: 600;
   font-style: normal;
-  background: transparent;
-  border: none;
-  outline: 0;
-  resize: none;
-  font-stretch: ultra-condensed;
-  cursor: default;
   font-size: ${({ theme }) => theme.text.paragraph.fontSize};
   font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
   color: ${({ theme }) => theme.text.paragraph.color};
@@ -185,7 +178,6 @@ const ContinueBtn = styled(Button)`
   background: ${({ theme }) => theme.button.primary.normal.background};
   border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
   border-radius: 50px;
-  outline: 0 !important;
   &:hover {
     font-weight: ${({ theme }) => theme.button.primary.hover.fontWeight};
     border: 2px solid ${({ theme }) => theme.button.primary.hover.border};
@@ -202,12 +194,13 @@ const ContinueBtn = styled(Button)`
   }
 `;
 
-const MapPin = styled.div<{ index: number }>`
+const MapPin = styled.button<{ index: number }>`
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
   font-size: 20px;
   font-weight: 400;
+  border: none;
   padding: 0 10px;
   color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
@@ -224,7 +217,7 @@ const MapPin = styled.div<{ index: number }>`
   &:hover {
     transform: scale(1.2);
   }
-  h5 {
+  h3 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
       font-size: 11px;
@@ -263,7 +256,7 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  h5 {
+  h3 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
       font-size: 11px;
@@ -278,8 +271,9 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   }
 `;
 
-const MapPinModalText = styled.h5`
+const MapPinModalText = styled.h3`
   line-height: 20px;
+  font-size: 20px;
 `;
 
 const popup = keyframes`
@@ -353,7 +347,6 @@ const CloseBtn = styled.button`
   border-radius: 50%;
   cursor: pointer;
   animation: ${popup} 0.8s;
-  outline: 0 !important;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     border: 2px solid #fff;
     top: -17px;
@@ -363,9 +356,10 @@ const CloseBtn = styled.button`
   }
 `;
 
-const MapPinText = styled.h5`
+const MapPinText = styled.h3`
   cursor: pointer;
   line-height: 20px;
+  font-size: 20px;
 `;
 
 const ModalImage = styled.img`
@@ -468,7 +462,7 @@ const Games = () => {
             <GamesModal>
               <Container>
                 <Title>{gamesHeader}</Title>
-                <TextArea readOnly value={gamesDescription} />
+                <TextArea> {gamesDescription.toString()} </TextArea>
               </Container>
               <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
             </GamesModal>
@@ -484,22 +478,24 @@ const Games = () => {
       </GamesBg>
       {isGameModal.open && (
         <GameModal>
-          <GameFixedModal>
-            <GameTooltip left={gameConsts.left}>
-              <ModalImageWrapper>
-                <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
-              </ModalImageWrapper>
-              <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
-              <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
-              <CloseBtn onClick={handleCloseBtn}>
-                <TooltipX />
-              </CloseBtn>
-            </GameTooltip>
-            {gameConsts.icon}
-            <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
-              <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
-            </MapPinModal>
-          </GameFixedModal>
+          <FocusTrap active={isGameModal.open}>
+            <GameFixedModal>
+              <GameTooltip left={gameConsts.left}>
+                <ModalImageWrapper>
+                  <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
+                </ModalImageWrapper>
+                <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
+                <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
+                <CloseBtn onClick={handleCloseBtn}>
+                  <TooltipX />
+                </CloseBtn>
+              </GameTooltip>
+              {gameConsts.icon}
+              <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
+                <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
+              </MapPinModal>
+            </GameFixedModal>
+          </FocusTrap>
         </GameModal>
       )}
     </>

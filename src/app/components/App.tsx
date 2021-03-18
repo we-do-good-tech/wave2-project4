@@ -38,7 +38,7 @@ const App = () => (
         <Route path="/availableGamesIntro/:playerRoute">
           <AvailableGamesIntro />
         </Route>
-        <Route path="/team">
+        <Route path="/team/:playerRoute">
           <Team />
         </Route>
         <Route path="/" exact>

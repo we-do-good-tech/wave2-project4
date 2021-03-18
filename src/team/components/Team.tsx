@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
+import { useParams } from 'react-router-dom';
 import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper, flexCenter } from 'shared/components/';
-import Link from 'shared/components/Link';
+import { Link } from 'shared/components/Link';
 import goldLogo from '../../assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
@@ -131,6 +132,7 @@ const Avatar = styled.div<{ image?: string }>`
 `;
 
 const Team = () => {
+  const { playerRoute } = useParams<any>();
   const { thumbVertical, trackVertical } = Scrollers;
   const itemsRef = firebase.database().ref('team');
   const [teamDescription, setTeamDescription] = useState();
@@ -144,11 +146,10 @@ const Team = () => {
         setTeamMembers(snapshot.val()?.teamMembers);
     });
   }, [itemsRef, teamMembers]);
-
   return (
     <BackgroundWrapper>
       <BackgroundWhiteWrapper>
-        <StyledLink $isActiveItem={false} to="availableGames/nir">
+        <StyledLink $isActiveItem={false} to={`/availableGames/${playerRoute}`}>
           חזרה
         </StyledLink>
         <StyledHeader>

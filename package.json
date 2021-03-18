@@ -25,6 +25,7 @@
     "final-form": "^4.20.1",
     "final-form-arrays": "^3.0.2",
     "firebase": "^8.2.4",
+    "focus-trap-react": "^8.4.2",
     "framer-motion": "^3.10.2",
     "immutability-helper": "^3.1.1",
     "lodash.isequal": "^4.5.0",

@@ -122,7 +122,6 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
-  outline: 0 !important;
   &:hover {
     font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};

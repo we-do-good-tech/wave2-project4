@@ -1,8 +1,9 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
+import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, FlexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -260,7 +261,9 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
+const MapPin = styled.button<{ index: number }>`
+  ${flexCenterMiddle};
+  border: none;
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -377,6 +380,23 @@ const MapPinText = styled.h5`
   line-height: 20px;
 `;
 
+/**
+ * @todo: add this if there is time!
+ * const Loader = styled.div`
+  background-color: red;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const imageLoaded = new Image();
+  imageLoaded.src = mapBg;
+  imageLoaded.onload = () => {
+    setIsLoaded(true);
+  };
+`;
+ */
+
 const players: Player[] = [
   {
     name: 'תומר',
@@ -458,24 +478,26 @@ const Games = () => {
         </BgGames>
         <BgTop />
         {showVideo && (
-          <GamesModal>
-            <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
-            <VideoContainer>
-              <VideoPlayer url={currentPlayer?.video || ''} />
-            </VideoContainer>
-            <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
-            <LinksContainer>
-              <StyledLink $isActiveItem={false} to="/game">
-                לשחק עם דמות נוספת
-              </StyledLink>
-              <StyledLink $isActiveItem={false} to="/team">
-                להכיר את הנבחרת הפאראלימפית הישראלית
-              </StyledLink>
-              <StyledLink $isActiveItem={false} to="/">
-                לצאת מהמשחק
-              </StyledLink>
-            </LinksContainer>
-          </GamesModal>
+          <FocusTrap active={showVideo}>
+            <GamesModal>
+              <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
+              <VideoContainer>
+                <VideoPlayer url={currentPlayer?.video || ''} />
+              </VideoContainer>
+              <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
+              <LinksContainer>
+                <StyledLink $isActiveItem={false} to="/game">
+                  לשחק עם דמות נוספת
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
+                  להכיר את הנבחרת הפאראלימפית הישראלית
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to="/">
+                  לצאת מהמשחק
+                </StyledLink>
+              </LinksContainer>
+            </GamesModal>
+          </FocusTrap>
         )}
         <Pins>
           {sports.map((icon: any, index: number) => {

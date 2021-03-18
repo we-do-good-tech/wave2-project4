@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
 import { Flex } from 'shared/components/Flex';
-import { Link } from 'shared/components/index';
+import { Link, SkipLink } from 'shared/components/index';
 import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import Players from '../consts';
 
@@ -80,7 +80,6 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
-  outline: 0 !important;
   &:hover {
     font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};
@@ -109,6 +108,9 @@ const AvailbleActionsIntro = () => {
 
   return (
     <Wrapper>
+      <SkipLink $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer!.path}`}>
+        מעבר למשחקים
+      </SkipLink>
       <PlayerContainer bg={currentPlayer?.bgColor}>
         <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
@@ -116,6 +118,7 @@ const AvailbleActionsIntro = () => {
           {currentPlayer!.text}
         </StyledSpeechBubbleWrapper>
         <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
+
         <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
         </StyledButton>

@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'shared/components';
+import { Link, flexCenter, FlexCenter } from 'shared/components';
 import logo from 'assets/images/logo.png';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled.nav.attrs({ dir: 'rtl' })`
+  ${flexCenter};
   background: ${({ theme }) => theme.topbar.background};
   max-height: 66px;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.topbar.border};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
@@ -22,6 +21,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 `;
 
 const Logo = styled.a`
+  font-size: 0;
   width: 198px;
   height: 55px;
   margin-top: 40px;
@@ -150,9 +150,13 @@ const StyledLinkText = styled.h3`
   }
 `;
 
-const RightWrapper = styled.div`
+const RightWrapper = styled(FlexCenter)`
   display: flex;
   align-items: center;
+`;
+
+const StyledListItem = styled.li`
+  display: flex;
 `;
 
 type MenuItemType = {
@@ -190,7 +194,7 @@ const SideBar = () => {
   return (
     <Wrapper>
       <RightWrapper>
-        <Logo href="/" />
+        <Logo href="/">Home</Logo>
         <Menu>
           {items.map((i: MenuItemType) => (
             <MenuItem key={i.name}>
@@ -201,18 +205,22 @@ const SideBar = () => {
           ))}
         </Menu>
       </RightWrapper>
-      <Menu>
-        {itemsLeft.map((i: MenuItemType) => (
-          <MenuItem key={i.name}>
-            <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-              <StyledLinkText>{i.name}</StyledLinkText>
-            </StyledLink>
-          </MenuItem>
-        ))}
-        <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
-          אודות
-        </StyledAboutLink>
-      </Menu>
+      <RightWrapper>
+        <Menu>
+          {itemsLeft.map((i: MenuItemType) => (
+            <MenuItem key={i.name}>
+              <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
+                <StyledLinkText>{i.name}</StyledLinkText>
+              </StyledLink>
+            </MenuItem>
+          ))}
+          <StyledListItem>
+            <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
+              אודות
+            </StyledAboutLink>
+          </StyledListItem>
+        </Menu>
+      </RightWrapper>
     </Wrapper>
   );
 };

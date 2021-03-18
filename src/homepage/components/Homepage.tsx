@@ -29,7 +29,6 @@ const StyledButton = styled(Link)`
   background: ${({ theme }) => theme.button.primary.normal.background};
   border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
   border-radius: 50px;
-  outline: 0 !important;
   font-weight: 600;
   &:hover {
     font-weight: 700;
@@ -42,6 +41,9 @@ const StyledButton = styled(Link)`
     color: ${({ theme }) => theme.button.primary.active.color};
     background: ${({ theme }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
+  }
+  &:focus {
+    outline: 1px auto black;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     margin-bottom: 85px;
