@@ -22,23 +22,37 @@ const CantDo = styled(FlexColumn)<{ amount: number }>`
 `;
 
 const SmallActionsContainer = styled(Flex)`
-  flex: 0 0 50%;
   width: 50%;
-  flex-wrap: wrap;
   flex-wrap: wrap-reverse;
+  margin: auto 0 20% 0;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    margin: auto 0 35% 0;
+    width: 60%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin: auto 0 17% 0;
+    width: 60%;
+  }
 `;
 
 const SmallActionItem = styled(Item)`
   cursor: auto;
-  width: 64px;
-  height: 64px;
-  margin: 10px 20px;
+  width: 80px;
+  height: 80px;
+  margin: 5px 10px;
   font-size: 12px;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    font-size: 11px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 50px;
+    margin: 3px 3px;
+    font-size: 8px;
+  }
 `;
 
 const StyledH3 = styled(FlexCenter)`
-  font-family: Assistant;
-  font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 110.8%;
@@ -47,6 +61,14 @@ const StyledH3 = styled(FlexCenter)`
   min-width: 100%;
   margin-top: 15%;
   transition: 0.2s;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    font-size: 26px;
+    margin-top: 20%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 18px;
+    margin-top: 13%;
+  }
 `;
 
 interface ActionState {
@@ -81,7 +103,9 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
           <StyledH3>יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
-              <SmallActionItem key={index}>{item.name}</SmallActionItem>
+              <SmallActionItem initial={{ scale: 0 }} animate={{ scale: 1 }} key={index}>
+                {item.name}
+              </SmallActionItem>
             ))}
           </SmallActionsContainer>
         </CanDo>
@@ -90,7 +114,9 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
           <StyledH3>לא יכול</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
-              <SmallActionItem key={index}>{item.name}</SmallActionItem>
+              <SmallActionItem key={index} initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                {item.name}
+              </SmallActionItem>
             ))}
           </SmallActionsContainer>
         </CantDo>

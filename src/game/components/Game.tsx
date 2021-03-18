@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { Route, Link, Switch, useRouteMatch } from 'react-router-dom';
+import { flexColumn, Flex, flexCenterMiddle } from 'shared/components/Flex';
 import Players, { Instruction } from '../consts';
 import AvailbleActionsIntro from './AvailbleActionsIntro';
 
@@ -12,34 +14,34 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   position: relative;
 `;
 
-const PlayerContainer = styled.div<{ bg?: string }>`
+const PlayerContainer = styled(Flex)<{ bg?: string }>`
   background-color: ${(props) => props.bg};
-  display: flex;
 `;
 
 const PlayerBtn = styled.button<{ bg?: string }>`
+  ${flexCenterMiddle};
   margin: 0 auto;
   background-color: ${(props) => props.bg};
   border: none;
   color: white;
+  z-index: 100;
   border-radius: 20px;
   font-style: normal;
-  box-sizing: content-box;
   font-weight: normal;
   font-size: 40px;
   line-height: 44px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  width: 252px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 2%;
+  margin-top: 1%;
+  width: 65%;
+  height: 12.5%;
   cursor: normal;
   transition: 0.2s border ease-in-out;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 20px;
+  }
 `;
 
-const PlayerImg = styled.img`
+const PlayerImg = styled(motion.img)`
   margin: auto auto 0 auto;
   display: block;
   max-width: 65%;
@@ -47,11 +49,10 @@ const PlayerImg = styled.img`
 `;
 
 const PlayerWrapper = styled(Link)`
+  ${flexColumn};
   width: fit-content;
   height: 90%;
   margin: auto auto 0 auto;
-  display: flex;
-  flex-direction: column;
   min-width: 65%;
   max-width: 75%;
   &:hover {
@@ -60,7 +61,7 @@ const PlayerWrapper = styled(Link)`
   &:hover > ${PlayerImg} {
     cursor: pointer;
     transition: 0.1s all;
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
   }
   &:hover > ${PlayerBtn} {
     border: 3px solid #ffffff;
@@ -81,7 +82,12 @@ const Game = () => {
           {Players.map((player, index) => (
             <PlayerContainer key={index} bg={player.bgColor}>
               <PlayerWrapper to={`${url}/${player.path}`}>
-                <PlayerImg src={player.images.hello[0]} alt={player.name} />
+                <PlayerImg
+                  src={player.images.hello[0]}
+                  alt={player.name}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                />
                 <PlayerBtn bg={player.btnColor}>{player.name}</PlayerBtn>
               </PlayerWrapper>
             </PlayerContainer>

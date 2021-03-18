@@ -1,0 +1,63 @@
+[33m125c7d7[m[33m ([m[1;36mHEAD -> [m[1;32mcorrections-4[m[33m, [m[1;31morigin/corrections-4[m[33m)[m HEAD@{0}: checkout: moving from corrections-5 to corrections-4
+[33m12b46ff[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mcorrections-5[m[33m)[m HEAD@{1}: checkout: moving from corrections-4 to corrections-5
+[33m125c7d7[m[33m ([m[1;36mHEAD -> [m[1;32mcorrections-4[m[33m, [m[1;31morigin/corrections-4[m[33m)[m HEAD@{2}: pull --tags origin corrections-4: Fast-forward
+[33m3898010[m HEAD@{3}: checkout: moving from corrections-4 to corrections-4
+[33m3898010[m HEAD@{4}: checkout: moving from 12b46ffc07445eadcd0d5a64cfc7a1d143d73fe1 to corrections-4
+[33m12b46ff[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mcorrections-5[m[33m)[m HEAD@{5}: pull --tags -r origin master (start): checkout 12b46ffc07445eadcd0d5a64cfc7a1d143d73fe1
+[33mc0b6f4c[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{6}: reset: moving to HEAD
+[33mc0b6f4c[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{7}: checkout: moving from master to master
+[33mc0b6f4c[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{8}: checkout: moving from corrections-4 to master
+[33m3898010[m HEAD@{9}: commit: image loading and player texts
+[33m68f06d7[m HEAD@{10}: commit: flex shared components and tablet fixes
+[33md18e412[m[33m ([m[1;31morigin/corrections-3[m[33m, [m[1;32mcorrections-3[m[33m)[m HEAD@{11}: checkout: moving from corrections-3 to corrections-4
+[33md18e412[m[33m ([m[1;31morigin/corrections-3[m[33m, [m[1;32mcorrections-3[m[33m)[m HEAD@{12}: commit: mobile and tablet fixes
+[33mc42aded[m HEAD@{13}: pull --tags origin master: Fast-forward
+[33mda477ca[m HEAD@{14}: checkout: moving from corrections-2 to corrections-3
+[33m7eda04f[m[33m ([m[1;31morigin/corrections-2[m[33m, [m[1;32mcorrections-2[m[33m)[m HEAD@{15}: commit: actions font size and animations
+[33mda477ca[m HEAD@{16}: pull --tags origin master: Fast-forward
+[33m7849722[m HEAD@{17}: reset: moving to HEAD
+[33m7849722[m HEAD@{18}: checkout: moving from corrections_1 to corrections-2
+[33md532e75[m[33m ([m[1;32mcorrections_1[m[33m)[m HEAD@{19}: reset: moving to HEAD
+[33md532e75[m[33m ([m[1;32mcorrections_1[m[33m)[m HEAD@{20}: commit: corrections and animations
+[33m7849722[m HEAD@{21}: checkout: moving from master to corrections_1
+[33mc0b6f4c[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{22}: commit (merge): Merge branch 'master' of https://github.com/we-do-good-tech/wave2-project4
+[33m350129d[m HEAD@{23}: checkout: moving from actions-game to master
+[33m33a6395[m[33m ([m[1;32mactions-game[m[33m)[m HEAD@{24}: commit: last fixes
+[33m7fc3f3d[m HEAD@{25}: commit: all working
+[33m2fd60ca[m HEAD@{26}: commit: images, state and draggble items fixed
+[33md1083ce[m[33m ([m[1;32mdrag&drop[m[33m)[m HEAD@{27}: checkout: moving from drag&drop to actions-game
+[33md1083ce[m[33m ([m[1;32mdrag&drop[m[33m)[m HEAD@{28}: commit: can play - bug with drop target
+[33m06036bb[m[33m ([m[1;31morigin/drag&drop[m[33m)[m HEAD@{29}: commit: d&d init
+[33m21c5617[m HEAD@{30}: checkout: moving from master to drag&drop
+[33m350129d[m HEAD@{31}: checkout: moving from team to master
+[33m22478a7[m[33m ([m[1;31morigin/team[m[33m, [m[1;32mteam[m[33m)[m HEAD@{32}: checkout: moving from master to team
+[33m350129d[m HEAD@{33}: checkout: moving from Players to master
+[33mea20451[m[33m ([m[1;32mPlayers[m[33m)[m HEAD@{34}: reset: moving to HEAD
+[33mea20451[m[33m ([m[1;32mPlayers[m[33m)[m HEAD@{35}: checkout: moving from master to Players
+[33m350129d[m HEAD@{36}: checkout: moving from play to master
+[33mf7d10ac[m[33m ([m[1;31morigin/play[m[33m, [m[1;32mplay[m[33m)[m HEAD@{37}: checkout: moving from master to play
+[33m350129d[m HEAD@{38}: checkout: moving from master to master
+[33m350129d[m HEAD@{39}: reset: moving to HEAD
+[33m350129d[m HEAD@{40}: reset: moving to HEAD
+[33m350129d[m HEAD@{41}: reset: moving to HEAD
+[33m350129d[m HEAD@{42}: reset: moving to HEAD
+[33m350129d[m HEAD@{43}: reset: moving to HEAD
+[33m350129d[m HEAD@{44}: reset: moving to HEAD
+[33m350129d[m HEAD@{45}: reset: moving to HEAD
+[33m350129d[m HEAD@{46}: reset: moving to HEAD
+[33m350129d[m HEAD@{47}: checkout: moving from play to master
+[33mf7d10ac[m[33m ([m[1;31morigin/play[m[33m, [m[1;32mplay[m[33m)[m HEAD@{48}: checkout: moving from master to play
+[33m350129d[m HEAD@{49}: checkout: moving from play to master
+[33mf7d10ac[m[33m ([m[1;31morigin/play[m[33m, [m[1;32mplay[m[33m)[m HEAD@{50}: checkout: moving from master to play
+[33m350129d[m HEAD@{51}: checkout: moving from play to master
+[33mf7d10ac[m[33m ([m[1;31morigin/play[m[33m, [m[1;32mplay[m[33m)[m HEAD@{52}: checkout: moving from master to play
+[33m350129d[m HEAD@{53}: checkout: moving from play to master
+[33mf7d10ac[m[33m ([m[1;31morigin/play[m[33m, [m[1;32mplay[m[33m)[m HEAD@{54}: pull --tags -r origin play: Fast-forward
+[33mfa67460[m HEAD@{55}: commit: players text and speech bubbles
+[33me5eac3a[m HEAD@{56}: merge origin/master: Merge made by the 'recursive' strategy.
+[33m1e38afd[m HEAD@{57}: checkout: moving from master to play
+[33m350129d[m HEAD@{58}: rebase (finish): returning to refs/heads/master
+[33m350129d[m HEAD@{59}: rebase (pick): play init
+[33m2fcac8e[m HEAD@{60}: rebase (start): checkout origin/master
+[33mbdce0d9[m HEAD@{61}: rebase (finish): returning to refs/heads/master
+[33mbdce0d9[m HEAD@{62}: rebase (pick): login

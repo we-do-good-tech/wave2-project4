@@ -1,25 +1,35 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { FlexColumn } from 'shared/components/Flex';
 import TopBar from 'app/components/TopBar';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isMobile: boolean }>`
   display: grid;
   grid-template-rows: 69px 1fr;
   grid-template-columns: 1fr;
   height: 100vh;
   width: 100vw;
-  // min-width: 1280px;
   overflow: hidden;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     grid-template-rows: 33px 1fr;
-    width: 100vw !important;
-    height: 100vh !important;
-    min-width: 100vw !important;
-    min-height: auto !important;
-    max-width: 100vw !important;
-    max-height: auto !important;
+    height: calc(100vh - 40px);
+    width: 100vw;
   }
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+       {
+        @media (orientation: portrait) {
+          grid-template-rows: 33px 1fr;
+          height: 100vw;
+          width: calc(100vh - 40px);
+          transform: rotate(90deg) translateY(-100%);
+          transform-origin: top left;
+        }
+      }
+    `};
 `;
 
 const Content = styled(FlexColumn)`
@@ -31,7 +41,7 @@ const Content = styled(FlexColumn)`
 type Props = { children?: React.ReactNode };
 
 const Container = ({ children }: Props) => (
-  <Wrapper>
+  <Wrapper isMobile={isMobile}>
     <TopBar />
     <Content>{children}</Content>
   </Wrapper>

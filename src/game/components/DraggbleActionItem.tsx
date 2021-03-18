@@ -4,11 +4,20 @@ import styled from 'styled-components';
 import { useDrag } from 'react-dnd';
 import { Item } from '../consts';
 
-const ActionItem = styled(Item)`
+const ActionItem = styled(Item)<{ opacity: number }>`
+  opacity: ${(props) => props.opacity};
   width: 128px;
   height: 128px;
-  font-size: 20px;
-  padding: 5px;
+  font-size: 17px;
+  padding: 19% 3%;
+  &:focus {
+    outline: none;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 65px;
+    height: 65px;
+    font-size: 10px;
+  }
 `;
 
 export interface BoxProps {
@@ -29,17 +38,21 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
 
   const [{ isDragging }, drag] = useDrag({
     item: action,
+    begin: () => changeImage('availble', ''),
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (dropResult) {
         const { name } = dropResult;
         if (item!.type !== name) {
-          return changeImage('fail', item!.info);
+          if (item!.type === 'CANT') {
+            return changeImage('fail', item!.info);
+          }
+          return changeImage('fail');
         }
         switch (name) {
           case 'CAN':
             changeActionPosition(item, 'CAN');
-            changeImage('success');
+            changeImage('success', item!.info);
             break;
           case 'CANT':
             changeActionPosition(item, 'CANT');
@@ -54,9 +67,9 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = isDragging ? 0.4 : 1;
+  const opacity = isDragging ? 0 : 1;
   return (
-    <ActionItem ref={drag} role="Box" style={{ opacity }}>
+    <ActionItem ref={drag} role="Box" opacity={opacity}>
       {action.name}
     </ActionItem>
   );

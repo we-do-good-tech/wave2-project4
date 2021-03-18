@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import { useParams, Link } from 'react-router-dom';
 import { FlexColumn, flexColumn } from 'shared/components/Flex';
 import Players, { Instruction } from '../consts';
@@ -17,9 +19,15 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 
 const PlayerImg = styled.img`
   position: absolute;
-  right: -120px;
+  right: -10%;
   bottom: -10%;
-  max-height: 450px;
+  max-height: 100%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
+    right: -25%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    right: -10%;
+  }
 `;
 
 const EndGameModal = styled(FlexColumn)`
@@ -38,7 +46,6 @@ const EndGameModal = styled(FlexColumn)`
   z-index: 100;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 80vw;
-    margin: 10px auto;
     height: 70vh;
   }
 `;
@@ -134,29 +141,26 @@ const AvailableActions = () => {
       info: action.info,
     })),
   );
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const returnActionsForColumn = useCallback((accept) => actions.filter((action) => action.position === accept), [
     actions,
   ]);
 
   useEffect(() => {
     if (returnActionsForColumn('INIT').length < 1) {
-      setIsModalOpen(true);
+      setTimeout(() => {
+        setIsModalOpen(true);
+      }, 3000);
     }
-    /*     if (actions !== returnActionsForColumn('INIT')) {
-      setActions(returnActionsForColumn('INIT'));
-    } */
   }, [returnActionsForColumn]);
 
   return (
     <Wrapper>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
         ))}
-        {returnActionsForColumn('INIT').length > 0 && (
+        {!isModalOpen && (
           <>
             <Instruction>מיינו את המשימות הבאות לפי יכולותי</Instruction>
             <ActionsContainer
@@ -172,7 +176,7 @@ const AvailableActions = () => {
           <Container>
             <Title>
               איזה כיף! <br />
-              כמה דברים אני יכול לעשות!
+              כמה דברים אני יכול{currentPlayer!.path === 'shira' ? 'ה' : ''} לעשות!
             </Title>
           </Container>
           <PlayerImg src={currentPlayer?.images.availble[0]} />
