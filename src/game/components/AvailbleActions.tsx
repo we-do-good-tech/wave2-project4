@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { useParams, Link } from 'react-router-dom';
-import { FlexColumn, flexColumn } from 'shared/components/Flex';
+import { FlexColumnMiddle, flexColumnCenterMiddle, FlexColumnCenterMiddle } from 'shared/components/Flex';
 import { SkipLink } from 'shared/components/index';
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
@@ -31,14 +31,12 @@ const PlayerImg = styled.img`
   }
 `;
 
-const EndGameModal = styled(FlexColumn)`
+const EndGameModal = styled(FlexColumnCenterMiddle)`
   position: absolute;
   padding: 5%;
   text-align: right;
-  justify-content: center;
   align-self: center;
   justify-self: center;
-  align-items: center;
   width: 60%;
   height: 80%;
   background: ${({ theme }) => theme.modal.background};
@@ -51,8 +49,7 @@ const EndGameModal = styled(FlexColumn)`
   }
 `;
 
-const Container = styled(FlexColumn)`
-  align-items: center;
+const Container = styled(FlexColumnMiddle)`
   width: 90%;
   height: 60%;
   margin-top: 90px;
@@ -73,9 +70,7 @@ const Title = styled.h2`
 `;
 
 const ContinueBtn = styled(Link)`
-  ${flexColumn};
-  justify-content: center;
-  align-items: center;
+  ${flexColumnCenterMiddle};
   cursor: pointer;
   width: 160px;
   height: 50px;
