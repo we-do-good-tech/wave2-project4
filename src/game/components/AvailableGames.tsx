@@ -380,23 +380,6 @@ const MapPinText = styled.h5`
   line-height: 20px;
 `;
 
-/**
- * @todo: add this if there is time!
- * const Loader = styled.div`
-  background-color: red;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-  const [isLoaded, setIsLoaded] = useState(false);
-  const imageLoaded = new Image();
-  imageLoaded.src = mapBg;
-  imageLoaded.onload = () => {
-    setIsLoaded(true);
-  };
-`;
- */
-
 const players: Player[] = [
   {
     name: 'תומר',
