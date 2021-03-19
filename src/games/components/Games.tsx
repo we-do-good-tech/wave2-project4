@@ -477,6 +477,7 @@ const Games = () => {
             <FocusTrap
               focusTrapOptions={{
                 initialFocus: 'h2',
+                allowOutsideClick: true,
               }}
             >
               <GamesModal>

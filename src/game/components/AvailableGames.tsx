@@ -465,7 +465,13 @@ const Games = () => {
         </BgGames>
         <BgTop />
         {showVideo && (
-          <FocusTrap active={showVideo}>
+          <FocusTrap
+            active={showVideo}
+            focusTrapOptions={{
+              initialFocus: 'h2',
+              allowOutsideClick: true,
+            }}
+          >
             <GamesModal>
               <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
               <VideoContainer>
