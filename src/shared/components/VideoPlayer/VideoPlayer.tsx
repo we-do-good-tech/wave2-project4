@@ -1,17 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import ReactPlayer from 'react-player';
 
-const Video = styled.video.attrs(() => ({
-  muted: false,
-  autoPlay: false,
-  loop: false,
-  playsInline: true,
-}))`
-  width: 100%;
-  height: 100%;
-  outline: 0;
-`;
-
-const VideoPlayer = ({ url }: { url: string }) => <Video controls src={url} />;
+const VideoPlayer = ({ url }: { url: string }) => (
+  <ReactPlayer
+    url={url}
+    width="100%"
+    height="100%"
+    config={{
+      youtube: {
+        playerVars: { controls: 1, showinfo: 1, loop: 1, modestbranding: 1, host: 'https://www.youtube.com' },
+      },
+    }}
+  />
+);
 
 export default VideoPlayer;

@@ -1,5 +1,6 @@
 export * from './Flex';
 export * from './FlexCenter';
+export * from './FlexMiddle';
 export * from './FlexCenterMiddle';
 export * from './FlexColumn';
 export * from './FlexColumnMiddle';

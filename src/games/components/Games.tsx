@@ -220,8 +220,7 @@ const MapPin = styled.button<{ index: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover,
-  &:focus {
+  &:hover {
     transform: scale(1.2);
   }
   h3 {

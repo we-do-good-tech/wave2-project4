@@ -390,21 +390,21 @@ const players: Player[] = [
     path: 'tomer',
     icon: <StyledTomer />,
     iconWin: <StyledTomerWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
   {
     name: 'ניר',
     path: 'nir',
     icon: <StyledNir />,
     iconWin: <StyledNirWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
   {
     name: 'שירה',
     path: 'shira',
     icon: <StyledShira />,
     iconWin: <StyledShiraWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
 ];
 
@@ -454,6 +454,18 @@ const Games = () => {
     });
   }, [gamesRef, sports, currentPlayer]);
 
+  const itemsRef = firebase.database().ref('video');
+
+  const [video, setVideo] = useState(undefined);
+
+  useEffect(() => {
+    if (!video) setVideo(undefined);
+    itemsRef.on('value', (snapshot: any) => {
+      if (!isEqual(video, snapshot.val()) && snapshot.val() && currentPlayer)
+        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}?rel=0`;
+    });
+  }, [itemsRef, video, playerPath, currentPlayer]);
+
   return (
     <GamesBg>
       <Wrapper>
@@ -464,7 +476,7 @@ const Games = () => {
           })}
         </BgGames>
         <BgTop />
-        {showVideo && (
+        {showVideo && currentPlayer!.video !== '' && (
           <FocusTrap
             active={showVideo}
             focusTrapOptions={{
