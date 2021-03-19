@@ -233,7 +233,9 @@ const StyledLink = styled(Link)`
   border: 1px solid ${({ theme }) => theme.linkBig.primary.normal.border};
   border-radius: 50px;
   text-align: center;
-  &:hover {
+  outline: none !important;
+  &:hover,
+  &:focus {
     font-weight: 700;
     text-decoration: none;
     background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
@@ -279,7 +281,9 @@ const MapPin = styled.button<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  &:hover {
+  outline: none !important;
+  &:hover,
+  &:focus {
     transform: scale(1.2);
   }
   h5 {

@@ -68,6 +68,7 @@ const MenuItem = styled.li`
 
 const StyledLink = styled(Link)`
   min-width: 191px;
+  outline: none !important;
   max-height: 50px;
   text-decoration: none;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 600)};
@@ -101,6 +102,7 @@ const StyledLink = styled(Link)`
 const StyledAboutLink = styled(Link)`
   min-width: 133px;
   max-height: 50px;
+  outline: none !important;
   text-align: center;
   color: ${({ theme }) => theme.link.secondary.normal.color};
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : 'normal')};

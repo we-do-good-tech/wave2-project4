@@ -16,6 +16,7 @@ const colors = {
   sapphireDark: '#0B225C',
   frenchPass: '#96D5E4',
   darkMagenta: '#7D0396',
+  purpleLight: '#7D0396',
   purple: '#6C0382',
   midnightExpress: '#0f1e43',
   modalBackground: '#afd9e3',
@@ -221,7 +222,10 @@ const theme = {
     gameTooltipTextColor: colors.sapphireLightMedium,
     mapPinColor: colors.white,
     mapPinModalColor: colors.white,
-    closeButtonColor: colors.white,
+    closeButton: {
+      color: colors.white,
+      background: colors.purpleLight,
+    },
   },
   team: {
     color: colors.sapphireLight,
@@ -233,6 +237,9 @@ const theme = {
     circle: {
       color: colors.white,
       background: colors.prussianBlue,
+      focus: {
+        background: colors.sapphireLightMedium,
+      },
     },
   },
   speechBubble: {

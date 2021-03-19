@@ -30,6 +30,7 @@ const StyledButton = styled(Link)`
   border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
   border-radius: 50px;
   font-weight: 600;
+  outline: none !important;
   &:hover {
     font-weight: 700;
     color: ${({ theme }) => theme.button.primary.hover.color};
@@ -43,7 +44,9 @@ const StyledButton = styled(Link)`
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
   }
   &:focus {
-    outline: 1px auto black;
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     margin-bottom: 85px;
@@ -68,8 +71,14 @@ const Circle = styled.a`
   right: 10%;
   padding: 15px;
   text-align: center;
+  outline: none !important;
   pointer: cursor;
   &:hover {
+    text-decoration: none;
+    font-weight: 800;
+  }
+  &:focus {
+    background: ${({ theme }) => theme.homepage.circle.focus.background};
     text-decoration: none;
     font-weight: 800;
   }

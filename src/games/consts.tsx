@@ -24,7 +24,7 @@ const BasketballIcon = styled.div`
   height: 30.9%;
   background-image: url(${basketballIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 0;
 `;
@@ -41,7 +41,7 @@ const BikeIcon = styled.div`
   height: 84%;
   background-image: url(${bikeIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: -1;
 `;
@@ -54,7 +54,7 @@ const BucheIcon = styled.div`
   height: 42.9%;
   background-image: url(${bucheIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 1;
 `;
@@ -71,7 +71,7 @@ const GoalBallIcon = styled.div`
   height: 25.9%;
   background-image: url(${goalBallIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 1;
 `;
@@ -88,7 +88,7 @@ const PingpongIcon = styled.div`
   height: 36.5%;
   background-image: url(${pingpongIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 1;
 `;
@@ -105,7 +105,7 @@ const RunningIcon = styled.div`
   height: 21.4%;
   background-image: url(${runningIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 0;
 `;
@@ -122,7 +122,7 @@ const SwimmingIcon = styled.div`
   height: 31.9%;
   background-image: url(${swimmingIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 1;
 `;
@@ -139,7 +139,7 @@ const TennisIcon = styled.div`
   height: 30.1%;
   background-image: url(${tennisIconSVG});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   z-index: 1;
 `;
@@ -281,6 +281,24 @@ const mapPinIcons: MapPinIconType[] = [
       shira: true,
     },
   },
+];
+
+export const allImages = [
+  basketballIconSVG,
+  basketballIconBgSVG,
+  bikeIconSVG,
+  bucheIconSVG,
+  bucheIconBgSVG,
+  goalBallIconSVG,
+  goalBallIconBgSVG,
+  pingpongIconSVG,
+  pingpongIconBgSVG,
+  runningIconSVG,
+  runningIconBgSVG,
+  swimmingIconSVG,
+  swimmingIconBgSVG,
+  tennisIconSVG,
+  tennisIconBgSVG,
 ];
 
 export default mapPinIcons;

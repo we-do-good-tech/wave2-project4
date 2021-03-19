@@ -173,6 +173,7 @@ const ContinueBtn = styled(Button)`
   position: absolute;
   width: 160px;
   height: 50px;
+  outline: none !important;
   bottom: 25px;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
@@ -182,7 +183,11 @@ const ContinueBtn = styled(Button)`
     font-weight: ${({ theme }) => theme.button.primary.hover.fontWeight};
     border: 2px solid ${({ theme }) => theme.button.primary.hover.border};
   }
-
+  &:focus {
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
+  }
   &:active {
     background: ${({ theme }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
@@ -199,6 +204,7 @@ const MapPin = styled.button<{ index: number }>`
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
   font-size: 20px;
+  outline: none !important;
   font-weight: 400;
   border: none;
   padding: 0 10px;
@@ -214,7 +220,8 @@ const MapPin = styled.button<{ index: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover {
+  &:hover,
+  &:focus {
     transform: scale(1.2);
   }
   h3 {
@@ -228,6 +235,7 @@ const MapPin = styled.button<{ index: number }>`
   &:active {
     background: url(${mapPinActive}) no-repeat;
   }
+
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     width: 50px;
     height: 72px;
@@ -337,16 +345,23 @@ const CloseBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  outline: none !important;
   top: -33px;
   right: -33px;
   width: 63px;
   height: 63px;
-  color: ${({ theme }) => theme.games.closeButtonColor};
-  background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
+  color: ${({ theme }) => theme.games.closeButton.color};
+  background: ${({ theme }) => theme.games.closeButton.background};
   border: 4px solid #fff;
   border-radius: 50%;
   cursor: pointer;
   animation: ${popup} 0.8s;
+  &:hover,
+  &:focus {
+    transition: 0.1s all;
+    background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
+  }
+
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     border: 2px solid #fff;
     top: -17px;
@@ -459,13 +474,19 @@ const Games = () => {
           </BgGames>
           <BgTop />
           {isModalOpen && (
-            <GamesModal>
-              <Container>
-                <Title>{gamesHeader}</Title>
-                <TextArea> {gamesDescription.toString()} </TextArea>
-              </Container>
-              <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
-            </GamesModal>
+            <FocusTrap
+              focusTrapOptions={{
+                initialFocus: 'h2',
+              }}
+            >
+              <GamesModal>
+                <Container>
+                  <Title>{gamesHeader}</Title>
+                  <TextArea> {gamesDescription.toString()} </TextArea>
+                </Container>
+                <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
+              </GamesModal>
+            </FocusTrap>
           )}
           <Pins>
             {sports.map((icon: any, index: number) => (
@@ -478,7 +499,12 @@ const Games = () => {
       </GamesBg>
       {isGameModal.open && (
         <GameModal>
-          <FocusTrap active={isGameModal.open}>
+          <FocusTrap
+            active={isGameModal.open}
+            focusTrapOptions={{
+              initialFocus: 'img',
+            }}
+          >
             <GameFixedModal>
               <GameTooltip left={gameConsts.left}>
                 <ModalImageWrapper>

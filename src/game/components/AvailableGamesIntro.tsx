@@ -122,6 +122,12 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
+  outline: none !important;
+  &:focus {
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
+  }
   &:hover {
     font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};
@@ -150,7 +156,6 @@ const StyledButton = styled(Link)`
 
 const AvailableGamesIntro = () => {
   const playerPath = useParams<any>();
-
   const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
   return (
     <Wrapper>

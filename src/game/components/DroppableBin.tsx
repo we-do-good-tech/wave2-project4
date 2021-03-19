@@ -3,6 +3,7 @@ import React, { FC, memo } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { useDrop } from 'react-dnd';
+import { useParams } from 'react-router-dom';
 import { FlexColumn, Flex, FlexCenter } from 'shared/components/Flex';
 import { Item } from '../consts';
 
@@ -82,6 +83,7 @@ export interface BininProps {
 }
 
 export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
+  const playerPath = useParams<any>();
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ['CAN', 'CANT'],
     drop: () => ({ name: accept }),
@@ -100,7 +102,7 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
     <>
       {accept === 'CAN' ? (
         <CanDo ref={drop} role="bin" amount={amount}>
-          <StyledH3>יכול</StyledH3>
+          <StyledH3>{`יכול${playerPath.playerRoute === 'shira' ? 'ה' : ''}`}</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
               <SmallActionItem initial={{ scale: 0 }} animate={{ scale: 1 }} key={index}>
@@ -111,7 +113,7 @@ export const DroppableBin: FC<BininProps> = memo(({ accept, items }) => {
         </CanDo>
       ) : (
         <CantDo ref={drop} role="bin" amount={amount}>
-          <StyledH3>לא יכול</StyledH3>
+          <StyledH3>{`לא יכול${playerPath.playerRoute === 'shira' ? 'ה' : ''}`}</StyledH3>
           <SmallActionsContainer>
             {items?.map((item, index) => (
               <SmallActionItem key={index} initial={{ scale: 0 }} animate={{ scale: 1 }}>

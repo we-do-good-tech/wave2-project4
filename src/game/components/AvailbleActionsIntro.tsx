@@ -80,6 +80,7 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
+  outline: none !important;
   &:hover {
     font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};
@@ -91,6 +92,11 @@ const StyledButton = styled(Link)`
     color: ${({ theme }: { theme: any }) => theme.button.primary.active.color};
     background: ${({ theme }: { theme: any }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }: { theme: any }) => theme.button.primary.active.border};
+  }
+  &:focus {
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
   }
   &:disabled {
     color: ${({ theme }: { theme: any }) => theme.button.primary.disabled.color};
