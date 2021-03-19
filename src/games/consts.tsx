@@ -283,22 +283,4 @@ const mapPinIcons: MapPinIconType[] = [
   },
 ];
 
-export const allImages = [
-  basketballIconSVG,
-  basketballIconBgSVG,
-  bikeIconSVG,
-  bucheIconSVG,
-  bucheIconBgSVG,
-  goalBallIconSVG,
-  goalBallIconBgSVG,
-  pingpongIconSVG,
-  pingpongIconBgSVG,
-  runningIconSVG,
-  runningIconBgSVG,
-  swimmingIconSVG,
-  swimmingIconBgSVG,
-  tennisIconSVG,
-  tennisIconBgSVG,
-];
-
 export default mapPinIcons;
