@@ -508,6 +508,7 @@ const Games = () => {
             active={isGameModal.open}
             focusTrapOptions={{
               initialFocus: 'img',
+              allowOutsideClick: true,
             }}
           >
             <GameFixedModal>
