@@ -73,6 +73,10 @@ const items: MenuItemType[] = [
     name: 'ענפי הספורט',
     path: '/nihul/sports',
   },
+  {
+    name: 'וידאו',
+    path: '/nihul/video',
+  },
 ];
 
 const SideBar = () => {
