@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
 import { Scrollbars } from 'rc-scrollbars';
 import { useParams } from 'react-router-dom';
-import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper, flexCenter } from 'shared/components/';
-import { Link } from 'shared/components/Link';
-import goldLogo from '../../assets/images/gold_logo.png';
+import { Scrollers, BackgroundWrapper, BackgroundWhiteWrapper, flexCenter, Link } from 'shared/components/';
+import goldLogo from 'assets/images/gold_logo.png';
 import firebase from '../../firebase';
 
 const StyledHeader = styled.header.attrs({ dir: 'rtl' })`

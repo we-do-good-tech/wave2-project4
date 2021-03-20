@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { Link, flexCenter, FlexCenter } from 'shared/components';
+import { Link, flexCenter, FlexCenterMiddle } from 'shared/components';
 import logo from 'assets/images/logo.png';
 
 const Wrapper = styled.nav.attrs({ dir: 'rtl' })`
@@ -152,10 +152,7 @@ const StyledLinkText = styled.h3`
   }
 `;
 
-const RightWrapper = styled(FlexCenter)`
-  display: flex;
-  align-items: center;
-`;
+const RightWrapper = styled(FlexCenterMiddle)``;
 
 const StyledListItem = styled.li`
   display: flex;

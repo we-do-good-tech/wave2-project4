@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
-import { Button, FlexCenter, FlexColumn, FlexCenterMiddle } from 'shared/components';
+import { Button, FlexCenter, FlexColumn, FlexCenterMiddle, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -200,6 +200,7 @@ const ContinueBtn = styled(Button)`
 `;
 
 const MapPin = styled.button<{ index: number }>`
+  ${flexCenterMiddle};
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -217,9 +218,6 @@ const MapPin = styled.button<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   &:hover,
   &:focus {
     transform: scale(1.2);
@@ -382,7 +380,7 @@ const ModalImage = styled.img`
   height: 100%;
 `;
 
-const GameModal = styled.div`
+const ModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.85);
   position: absolute;
   z-index: 4;
@@ -390,6 +388,10 @@ const GameModal = styled.div`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+`;
+
+const LightModalBackground = styled(ModalBackground)`
+  background: rgba(0, 0, 0, 0.15);
 `;
 
 const GameFixedModal = styled.div`
@@ -480,13 +482,15 @@ const Games = () => {
                 allowOutsideClick: true,
               }}
             >
-              <GamesModal>
-                <Container>
-                  <Title>{gamesHeader}</Title>
-                  <TextArea> {gamesDescription.toString()} </TextArea>
-                </Container>
-                <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
-              </GamesModal>
+              <LightModalBackground>
+                <GamesModal>
+                  <Container>
+                    <Title>{gamesHeader}</Title>
+                    <TextArea> {gamesDescription.toString()} </TextArea>
+                  </Container>
+                  <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
+                </GamesModal>
+              </LightModalBackground>
             </FocusTrap>
           )}
           <Pins>
@@ -499,7 +503,7 @@ const Games = () => {
         </Wrapper>
       </GamesBg>
       {isGameModal.open && (
-        <GameModal>
+        <ModalBackground>
           <FocusTrap
             active={isGameModal.open}
             focusTrapOptions={{
@@ -523,7 +527,7 @@ const Games = () => {
               </MapPinModal>
             </GameFixedModal>
           </FocusTrap>
-        </GameModal>
+        </ModalBackground>
       )}
     </>
   );

@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
-import { Flex } from 'shared/components/Flex';
-import { Link, SkipLink } from 'shared/components/index';
-import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
+import { Link, SkipLink, SpeechBubbleWrapper, SpeechBubbleBorder, Flex } from 'shared/components/index';
 import Players from '../consts';
 
 const Wrapper = styled(Flex).attrs({ dir: 'rtl' })`

@@ -4,8 +4,8 @@ import { isMobile } from 'react-device-detect';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { useParams, Link } from 'react-router-dom';
-import { FlexColumnMiddle, flexColumnCenterMiddle, FlexColumnCenterMiddle, SkipLink } from 'shared/components';
+import { useParams } from 'react-router-dom';
+import { FlexColumnMiddle, FlexColumnCenterMiddle, SkipLink, Link } from 'shared/components';
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
 import { DroppableBin } from './DroppableBin';
@@ -69,7 +69,6 @@ const Title = styled.h2`
 `;
 
 const ContinueBtn = styled(Link)`
-  ${flexColumnCenterMiddle};
   cursor: pointer;
   width: 160px;
   height: 50px;
@@ -178,7 +177,10 @@ const AvailableActions = () => {
             </Title>
           </Container>
           <PlayerImg src={currentPlayer?.images.availble[0]} />
-          <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`}> המשך </ContinueBtn>
+          <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`} $isActiveItem={false}>
+            {' '}
+            המשך{' '}
+          </ContinueBtn>
         </EndGameModal>
       )}
     </Wrapper>
