@@ -462,7 +462,7 @@ const Games = () => {
     if (!video) setVideo(undefined);
     itemsRef.on('value', (snapshot: any) => {
       if (!isEqual(video, snapshot.val()) && snapshot.val() && currentPlayer)
-        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}?rel=0`;
+        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}`;
     });
   }, [itemsRef, video, playerPath, currentPlayer]);
 
