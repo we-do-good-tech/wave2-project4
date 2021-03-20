@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
+import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
-import { Button, FlexCenter, FlexColumn, FlexCenterMiddle } from 'shared/components';
+import {
+  Button,
+  FlexCenter,
+  FlexColumn,
+  FlexColumnMiddle,
+  FlexCenterMiddle,
+  flexCenterMiddle,
+} from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -36,6 +44,12 @@ const sizeSmall = css`
     min-width: 100vw;
     min-height: calc(100vw / 2);
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -49,6 +63,10 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+    overflow: unset;
+  }
 `;
 
 const Pins = styled.div.attrs({ dir: 'rtl' })`
@@ -61,6 +79,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const BgGames = styled.div.attrs({ dir: 'rtl' })`
@@ -71,6 +92,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   flex: 1;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -89,22 +113,17 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled.p`
+  white-space: pre-wrap;
   width: 100%;
   min-height: calc(100vh - 240px);
   max-height: calc(100vh - 240px);
-  color: black;
-  font-size: 20px;
-  font-weight: 600;
   font-style: normal;
-  background: transparent;
-  border: none;
-  outline: 0;
-  resize: none;
-  font-stretch: ultra-condensed;
-  cursor: default;
   font-size: ${({ theme }) => theme.text.paragraph.fontSize};
   font-weight: ${({ theme }) => theme.text.paragraph.fontWeight};
   color: ${({ theme }) => theme.text.paragraph.color};
@@ -125,6 +144,12 @@ const TextArea = styled.textarea`
     line-height: 16px;
     min-height: calc(100vw - 120px);
     max-height: calc(100vw - 120px);
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 110%;
+    font-size: 16px;
+    min-height: calc(100vw - 650px);
+    max-height: calc(100vw - 650px);
   }
 `;
 
@@ -150,16 +175,23 @@ const GamesModal = styled(FlexColumn)`
     margin: 20px auto;
     height: 73vw;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid ${({ theme }) => theme.colors.white};
+    width: 80vw;
+    margin: 10px auto;
+    height: 68vh;
+  }
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${FlexColumnMiddle};
   width: 90%;
   height: 60%;
   margin-top: 90px;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-top: 15px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     margin-top: 15px;
   }
 `;
@@ -169,6 +201,7 @@ const Title = styled.h2`
   font-weight: ${({ theme }) => theme.text.title.fontWeight};
   color: ${({ theme }) => theme.text.title.color};
   line-height: ${({ theme }) => theme.text.title.lineHeight};
+  text-align: center;
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 20px;
@@ -180,17 +213,21 @@ const ContinueBtn = styled(Button)`
   position: absolute;
   width: 160px;
   height: 50px;
+  outline: none !important;
   bottom: 25px;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
   border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
   border-radius: 50px;
-  outline: 0 !important;
   &:hover {
     font-weight: ${({ theme }) => theme.button.primary.hover.fontWeight};
     border: 2px solid ${({ theme }) => theme.button.primary.hover.border};
   }
-
+  &:focus {
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
+  }
   &:active {
     background: ${({ theme }) => theme.button.primary.active.background};
     border: 2px solid ${({ theme }) => theme.button.primary.active.border};
@@ -200,14 +237,22 @@ const ContinueBtn = styled(Button)`
     height: 30px;
     bottom: 10px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 100px;
+    height: 30px;
+    bottom: 10px;
+  }
 `;
 
-const MapPin = styled.div<{ index: number }>`
+const MapPin = styled.button<{ index: number }>`
+  ${flexCenterMiddle};
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
   font-size: 20px;
+  outline: none !important;
   font-weight: 400;
+  border: none;
   padding: 0 10px;
   color: ${({ theme }) => theme.games.mapPinColor};
   width: 90px;
@@ -218,15 +263,17 @@ const MapPin = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   &:hover {
     transform: scale(1.2);
   }
-  h5 {
+  h3 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
+    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
       font-size: 11px;
       line-height: 15px;
       padding-bottom: 8px;
@@ -235,14 +282,20 @@ const MapPin = styled.div<{ index: number }>`
   &:active {
     background: url(${mapPinActive}) no-repeat;
   }
+
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 72px;
+    top: ${({ index }) => mapPinIcons[index].position.top - 5}%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     width: 50px;
     height: 72px;
     top: ${({ index }) => mapPinIcons[index].position.top - 5}%;
   }
 `;
 
-const MapPinModal = styled.div<{ left: number; top: number }>`
+const MapPinModal = styled(FlexCenterMiddle)<{ left: number; top: number }>`
   position: absolute;
   z-index: 501;
   left: ${({ left }) => left}%;
@@ -260,12 +313,14 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   vertical-align: middle;
   transition: all 0s;
   transform: scale(1.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h5 {
+  h3 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
+    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
       font-size: 11px;
       line-height: 15px;
       padding-bottom: 8px;
@@ -276,10 +331,16 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
     height: 72px;
     top: ${({ top }) => top - 5}%;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 50px;
+    height: 72px;
+    top: ${({ top }) => top - 5}%;
+  }
 `;
 
-const MapPinModalText = styled.h5`
+const MapPinModalText = styled.h3`
   line-height: 20px;
+  font-size: 20px;
 `;
 
 const popup = keyframes`
@@ -310,6 +371,14 @@ const GameTooltip = styled(FlexColumn)<{ left: number }>`
     width: 180px;
     height: 210px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid #fff;
+    padding: 8px 12px 0px;
+    left: calc(${({ left }) => left}% - 90px);
+    top: calc(50% - 110px);
+    width: 180px;
+    height: 210px;
+  }
 `;
 
 const GameTooltipHeader = styled.div`
@@ -318,6 +387,11 @@ const GameTooltipHeader = styled.div`
   text-align: right;
   padding: 10px 10px 0;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    line-height: 13px;
+    padding: 3px 3px 0;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     font-size: 12px;
     line-height: 13px;
     padding: 3px 3px 0;
@@ -336,25 +410,41 @@ const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
     line-height: 10px;
     padding: 0;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    font-size: 10px;
+    line-height: 10px;
+    padding: 0;
+  }
 `;
 
 const CloseBtn = styled.button`
+  ${flexCenterMiddle};
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  outline: none !important;
   top: -33px;
   right: -33px;
   width: 63px;
   height: 63px;
-  color: ${({ theme }) => theme.games.closeButtonColor};
-  background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
+  color: ${({ theme }) => theme.games.closeButton.color};
+  background: ${({ theme }) => theme.games.closeButton.background};
   border: 4px solid #fff;
   border-radius: 50%;
   cursor: pointer;
   animation: ${popup} 0.8s;
-  outline: 0 !important;
+  &:hover,
+  &:focus {
+    transition: 0.1s all;
+    background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
+  }
+
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    border: 2px solid #fff;
+    top: -17px;
+    right: -17px;
+    width: 31px;
+    height: 31px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     border: 2px solid #fff;
     top: -17px;
     right: -17px;
@@ -363,9 +453,10 @@ const CloseBtn = styled.button`
   }
 `;
 
-const MapPinText = styled.h5`
+const MapPinText = styled.h3`
   cursor: pointer;
   line-height: 20px;
+  font-size: 20px;
 `;
 
 const ModalImage = styled.img`
@@ -373,13 +464,24 @@ const ModalImage = styled.img`
   height: 100%;
 `;
 
-const GameModal = styled.div`
+const ModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.85);
   position: absolute;
   z-index: 4;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    min-width: 100vw;
+    min-height: 100%;
+  }
+`;
+
+const LightModalBackground = styled(ModalBackground)`
+  background: rgba(0, 0, 0, 0.15);
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    height: calc(100vh - 66px);
   }
 `;
 
@@ -403,6 +505,9 @@ const GameFixedModal = styled.div`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const ModalImageWrapper = styled(FlexCenterMiddle)`
@@ -410,6 +515,10 @@ const ModalImageWrapper = styled(FlexCenterMiddle)`
   height: 207px;
   border: 2px solid #fff;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 152px;
+    height: 96px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     width: 152px;
     height: 96px;
   }
@@ -465,13 +574,22 @@ const Games = () => {
           </BgGames>
           <BgTop />
           {isModalOpen && (
-            <GamesModal>
-              <Container>
-                <Title>{gamesHeader}</Title>
-                <TextArea readOnly value={gamesDescription} />
-              </Container>
-              <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
-            </GamesModal>
+            <FocusTrap
+              focusTrapOptions={{
+                initialFocus: 'h2',
+                allowOutsideClick: true,
+              }}
+            >
+              <LightModalBackground>
+                <GamesModal>
+                  <Container>
+                    <Title>{gamesHeader}</Title>
+                    <TextArea> {gamesDescription.toString()} </TextArea>
+                  </Container>
+                  <ContinueBtn onClick={() => setIsModalOpen(false)}>המשך</ContinueBtn>
+                </GamesModal>
+              </LightModalBackground>
+            </FocusTrap>
           )}
           <Pins>
             {sports.map((icon: any, index: number) => (
@@ -483,24 +601,32 @@ const Games = () => {
         </Wrapper>
       </GamesBg>
       {isGameModal.open && (
-        <GameModal>
-          <GameFixedModal>
-            <GameTooltip left={gameConsts.left}>
-              <ModalImageWrapper>
-                <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
-              </ModalImageWrapper>
-              <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
-              <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
-              <CloseBtn onClick={handleCloseBtn}>
-                <TooltipX />
-              </CloseBtn>
-            </GameTooltip>
-            {gameConsts.icon}
-            <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
-              <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
-            </MapPinModal>
-          </GameFixedModal>
-        </GameModal>
+        <ModalBackground>
+          <FocusTrap
+            active={isGameModal.open}
+            focusTrapOptions={{
+              initialFocus: 'img',
+              allowOutsideClick: true,
+            }}
+          >
+            <GameFixedModal>
+              <GameTooltip left={gameConsts.left}>
+                <ModalImageWrapper>
+                  <ModalImage src={isGameModal.selectedGame.image} alt={isGameModal.selectedGame.name} />
+                </ModalImageWrapper>
+                <GameTooltipHeader>{isGameModal.selectedGame.name}</GameTooltipHeader>
+                <GameTooltipText>{isGameModal.selectedGame.description}</GameTooltipText>
+                <CloseBtn onClick={handleCloseBtn}>
+                  <TooltipX />
+                </CloseBtn>
+              </GameTooltip>
+              {gameConsts.icon}
+              <MapPinModal left={gameConsts.position.left} top={gameConsts.position.top}>
+                <MapPinModalText>{isGameModal.selectedGame.name}</MapPinModalText>
+              </MapPinModal>
+            </GameFixedModal>
+          </FocusTrap>
+        </ModalBackground>
       )}
     </>
   );

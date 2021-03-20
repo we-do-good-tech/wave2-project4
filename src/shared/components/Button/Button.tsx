@@ -1,10 +1,8 @@
 import styled from 'styled-components';
+import { flexColumnCenterMiddle } from '../Flex';
 
 const Button = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${flexColumnCenterMiddle};
   cursor: pointer;
 `;
 

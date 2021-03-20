@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'shared/components';
+import { flex, Link, flexCenter, FlexCenterMiddle } from 'shared/components';
 import logo from 'assets/images/logo.png';
 
-const Wrapper = styled.div.attrs({ dir: 'rtl' })`
+const Wrapper = styled.nav.attrs({ dir: 'rtl' })`
+  ${flexCenter};
   background: ${({ theme }) => theme.topbar.background};
   max-height: 66px;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.topbar.border};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
@@ -22,6 +21,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 `;
 
 const Logo = styled.a`
+  font-size: 0;
   width: 198px;
   height: 55px;
   margin-top: 40px;
@@ -40,8 +40,8 @@ const Logo = styled.a`
 `;
 
 const Menu = styled.ul`
+  ${flex};
   list-style-type: none;
-  display: flex;
   justufy-content: flex-end;
   height: 50px;
   margin: 0 16px;
@@ -68,6 +68,7 @@ const MenuItem = styled.li`
 
 const StyledLink = styled(Link)`
   min-width: 191px;
+  outline: none !important;
   max-height: 50px;
   text-decoration: none;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 600)};
@@ -101,6 +102,7 @@ const StyledLink = styled(Link)`
 const StyledAboutLink = styled(Link)`
   min-width: 133px;
   max-height: 50px;
+  outline: none !important;
   text-align: center;
   color: ${({ theme }) => theme.link.secondary.normal.color};
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? '700' : 'normal')};
@@ -150,9 +152,10 @@ const StyledLinkText = styled.h3`
   }
 `;
 
-const RightWrapper = styled.div`
-  display: flex;
-  align-items: center;
+const RightWrapper = styled(FlexCenterMiddle)``;
+
+const StyledListItem = styled.li`
+  ${flex};
 `;
 
 type MenuItemType = {
@@ -190,7 +193,7 @@ const SideBar = () => {
   return (
     <Wrapper>
       <RightWrapper>
-        <Logo href="/" />
+        <Logo href="/">Home</Logo>
         <Menu>
           {items.map((i: MenuItemType) => (
             <MenuItem key={i.name}>
@@ -201,18 +204,22 @@ const SideBar = () => {
           ))}
         </Menu>
       </RightWrapper>
-      <Menu>
-        {itemsLeft.map((i: MenuItemType) => (
-          <MenuItem key={i.name}>
-            <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-              <StyledLinkText>{i.name}</StyledLinkText>
-            </StyledLink>
-          </MenuItem>
-        ))}
-        <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
-          אודות
-        </StyledAboutLink>
-      </Menu>
+      <RightWrapper>
+        <Menu>
+          {itemsLeft.map((i: MenuItemType) => (
+            <MenuItem key={i.name}>
+              <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
+                <StyledLinkText>{i.name}</StyledLinkText>
+              </StyledLink>
+            </MenuItem>
+          ))}
+          <StyledListItem>
+            <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
+              אודות
+            </StyledAboutLink>
+          </StyledListItem>
+        </Menu>
+      </RightWrapper>
     </Wrapper>
   );
 };

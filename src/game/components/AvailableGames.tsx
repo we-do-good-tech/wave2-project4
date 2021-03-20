@@ -1,8 +1,9 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
+import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, FlexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, flex, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -44,6 +45,12 @@ const sizeSmall = css`
     min-width: 100vw;
     min-height: calc(100vw / 2);
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} and (orientation: landscape) {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
 `;
 
 const StyledMapPinX = styled(MapPinX)`
@@ -60,9 +67,19 @@ const IconWrapper = styled.div`
   pointer-events: none;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     height: 48%;
-    right: -18%;
+    right: 1%;
     bottom: 11%;
+    & > svg {
+      width: auto;
+    }
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    height: 48%;
+    right: 1%;
+    bottom: 11%;
+    & > svg {
+      width: auto;
+    }
 `;
 
 const StyledTomer = styled(Tomer)`
@@ -107,6 +124,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const BgGames = styled.div.attrs({ dir: 'rtl' })`
@@ -117,6 +137,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   flex: 1;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -135,6 +158,9 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -146,6 +172,9 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background-position: center;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -232,7 +261,9 @@ const StyledLink = styled(Link)`
   border: 1px solid ${({ theme }) => theme.linkBig.primary.normal.border};
   border-radius: 50px;
   text-align: center;
-  &:hover {
+  outline: none !important;
+  &:hover,
+  &:focus {
     font-weight: 700;
     text-decoration: none;
     background: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
@@ -258,9 +289,22 @@ const StyledLink = styled(Link)`
     font-size: 12px;
     line-height: 11px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    margin: 0 5px;
+    padding: 5px;
+    width: 190px;
+    height: 50px;
+    min-width: 190px;
+    min-height: 50px;
+    max-width: 190px;
+    max-height: 50px;
+    font-size: 14px;
+  }
 `;
 
-const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
+const MapPin = styled.button<{ index: number }>`
+  ${flexCenterMiddle};
+  border: none;
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -276,7 +320,9 @@ const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  &:hover {
+  outline: none !important;
+  &:hover,
+  &:focus {
     transform: scale(1.2);
   }
   h5 {
@@ -298,6 +344,7 @@ const MapPin = styled(FlexCenterMiddle)<{ index: number }>`
 `;
 
 const MapPinIncorrect = styled.div<{ index: number }>`
+  ${flexCenterMiddle};
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -313,9 +360,6 @@ const MapPinIncorrect = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   h5 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
@@ -332,6 +376,7 @@ const MapPinIncorrect = styled.div<{ index: number }>`
 `;
 
 const MapPinCorrect = styled.div<{ index: number }>`
+  ${flexCenterMiddle};
   cursor: default;
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
@@ -348,9 +393,6 @@ const MapPinCorrect = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transform: scale(1.2);
   h5 {
     cursor: default;
@@ -369,7 +411,7 @@ const MapPinCorrect = styled.div<{ index: number }>`
 `;
 
 const LinksContainer = styled.div`
-  display: flex;
+  ${flex};
 `;
 
 const MapPinText = styled.h5`
@@ -383,21 +425,21 @@ const players: Player[] = [
     path: 'tomer',
     icon: <StyledTomer />,
     iconWin: <StyledTomerWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
   {
     name: 'ניר',
     path: 'nir',
     icon: <StyledNir />,
     iconWin: <StyledNirWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
   {
     name: 'שירה',
     path: 'shira',
     icon: <StyledShira />,
     iconWin: <StyledShiraWin />,
-    video: 'https://res.cloudinary.com/dhocrufiz/video/upload/v1614432570/shira_btqbgt.mp4',
+    video: '',
   },
 ];
 
@@ -447,6 +489,18 @@ const Games = () => {
     });
   }, [gamesRef, sports, currentPlayer]);
 
+  const itemsRef = firebase.database().ref('video');
+
+  const [video, setVideo] = useState(undefined);
+
+  useEffect(() => {
+    if (!video) setVideo(undefined);
+    itemsRef.on('value', (snapshot: any) => {
+      if (!isEqual(video, snapshot.val()) && snapshot.val() && currentPlayer)
+        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}`;
+    });
+  }, [itemsRef, video, playerPath, currentPlayer]);
+
   return (
     <GamesBg>
       <Wrapper>
@@ -457,25 +511,34 @@ const Games = () => {
           })}
         </BgGames>
         <BgTop />
-        {showVideo && (
-          <GamesModal>
-            <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
-            <VideoContainer>
-              <VideoPlayer url={currentPlayer?.video || ''} />
-            </VideoContainer>
-            <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
-            <LinksContainer>
-              <StyledLink $isActiveItem={false} to="/game">
-                לשחק עם דמות נוספת
-              </StyledLink>
-              <StyledLink $isActiveItem={false} to="/team">
-                להכיר את הנבחרת הפאראלימפית הישראלית
-              </StyledLink>
-              <StyledLink $isActiveItem={false} to="/">
-                לצאת מהמשחק
-              </StyledLink>
-            </LinksContainer>
-          </GamesModal>
+        {showVideo && currentPlayer!.video !== '' && (
+          <FocusTrap
+            active={showVideo}
+            focusTrapOptions={{
+              initialFocus: 'h2',
+              allowOutsideClick: true,
+            }}
+          >
+            <GamesModal>
+              <Title>{`איזה כיף! כמה דברים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לעשות!`}</Title>
+              <Title> </Title>
+              <VideoContainer>
+                <VideoPlayer url={currentPlayer?.video || ''} />
+              </VideoContainer>
+              <LinksTitle>מה תרצו לעשות כעת?</LinksTitle>
+              <LinksContainer>
+                <StyledLink $isActiveItem={false} to="/game">
+                  לשחק עם דמות נוספת
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
+                  להכיר את הנבחרת הפאראלימפית הישראלית
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to="/">
+                  לצאת מהמשחק
+                </StyledLink>
+              </LinksContainer>
+            </GamesModal>
+          </FocusTrap>
         )}
         <Pins>
           {sports.map((icon: any, index: number) => {

@@ -11,6 +11,7 @@ import Games from './panels/Games';
 import Info from './panels/Info';
 import Sports from './panels/Sports';
 import Team from './panels/Team';
+import Video from './panels/Video';
 import PrivateRoute from './PrivateRoute';
 import TopBar from './TopBar';
 
@@ -258,6 +259,7 @@ const Nihul = () => {
         <PrivateRoute isAuthenticated={user.loggedIn} component={Info} path="/nihul/info" />
         <PrivateRoute isAuthenticated={user.loggedIn} component={Team} path="/nihul/team" />
         <PrivateRoute isAuthenticated={user.loggedIn} component={Sports} path="/nihul/sports" />
+        <PrivateRoute isAuthenticated={user.loggedIn} component={Video} path="/nihul/video" />
       </Switch>
     </Wrapper>
   );

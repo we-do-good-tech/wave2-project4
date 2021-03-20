@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { useParams } from 'react-router-dom';
-import { Link, Flex } from 'shared/components/';
-import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
+import { Link, Flex, SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components';
 import theme from 'shared/style/theme';
 import nir from 'assets/images/Nir.svg';
 import shira from 'assets/images/Shira.svg';
@@ -122,7 +121,12 @@ const StyledButton = styled(Link)`
   text-decoration: none;
   border-radius: 50px;
   cursor: pointer;
-  outline: 0 !important;
+  outline: none !important;
+  &:focus {
+    font-weight: 700;
+    border: 3px solid ${({ theme }) => theme.button.primary.hover.border};
+    background: ${({ theme }) => theme.button.primary.active.background};
+  }
   &:hover {
     font-weight: 600;
     color: ${({ theme }: { theme: any }) => theme.button.primary.hover.color};
@@ -151,7 +155,6 @@ const StyledButton = styled(Link)`
 
 const AvailableGamesIntro = () => {
   const playerPath = useParams<any>();
-
   const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
   return (
     <Wrapper>

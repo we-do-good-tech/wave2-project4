@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import arrayMutators from 'final-form-arrays';
 import isEqual from 'lodash.isequal';
 import { Form, Field } from 'react-final-form';
-import { flexColumnCenter } from 'shared/components';
+import { flexColumnCenter, FlexMiddle } from 'shared/components';
 import firebase from '../../../firebase';
 import { Buttons, SaveButton, ClearButton } from '../../shared/Buttons';
 import { Wrapper } from '../../shared/Wrapper';
@@ -14,6 +14,7 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   flex: 0 0 85%;
+  min-height: 600px;
   max-height: calc(100vh - 460px);
   overflow-y: none;
 `;
@@ -33,10 +34,8 @@ const HeaderInput = styled.input`
   border-radius: 30px;
   outline: 0;
   resize: none;
-  text-align: right;
+  text-align: left;
   font-stretch: ultra-condensed;
-  direction: rtl;
-  font-family: 'Assistant';
 `;
 
 const TextInput = styled(HeaderInput)`
@@ -46,18 +45,15 @@ const TextInput = styled(HeaderInput)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  direction: ltr;
 `;
 
-const TextInputGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const TextInputGroup = styled(FlexMiddle)`
+  width: 65%;
+  max-width: 750px;
+  justify-content: space-between;
   direction: rtl;
   transition: all 0.3s;
-  margin-left: 20px;
-  margin-top: 79px;
-  margin-bottom: 298px;
+  margin-top: 20px;
 `;
 
 const StyledLabel = styled.label`
@@ -74,26 +70,26 @@ const Footer = styled.div`
   position: fixed;
 `;
 
-const Info = () => {
-  const itemsRef = firebase.database().ref('info');
+const Video = () => {
+  const itemsRef = firebase.database().ref('video');
 
-  const [pdf, setPdf] = useState('');
+  const [video, setVideo] = useState({ tomer: '', nir: '', shira: '' });
 
   const onSubmit = async (values: any) => {
     itemsRef.update({ ...values });
   };
 
   useEffect(() => {
-    if (!pdf) setPdf('');
+    if (!video) setVideo({ tomer: '', nir: '', shira: '' });
     itemsRef.on('value', (snapshot: any) => {
-      if (!isEqual(pdf, snapshot.val()?.pdf) && snapshot.val()?.pdf) setPdf(snapshot.val()?.pdf);
+      if (!isEqual(video, snapshot.val()) && snapshot.val()) setVideo(snapshot.val());
     });
-  }, [itemsRef, pdf]);
+  }, [itemsRef, video]);
 
   return (
     <Wrapper>
       <Form
-        initialValues={{ pdf }}
+        initialValues={{ ...video }}
         onSubmit={onSubmit}
         mutators={{
           ...arrayMutators,
@@ -101,9 +97,33 @@ const Info = () => {
         render={({ handleSubmit, pristine, form, submitting }) => (
           <StyledForm onSubmit={handleSubmit}>
             <TextInputGroup>
-              <StyledLabel htmlFor="pdf">קובץ</StyledLabel>
+              <StyledLabel htmlFor="tomer">תומר</StyledLabel>
               <Field
-                name="pdf"
+                name="tomer"
+                render={({ input, meta }) => (
+                  <span>
+                    <TextInput {...input} />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </span>
+                )}
+              />
+            </TextInputGroup>
+            <TextInputGroup>
+              <StyledLabel htmlFor="nir">ניר</StyledLabel>
+              <Field
+                name="nir"
+                render={({ input, meta }) => (
+                  <span>
+                    <TextInput {...input} />
+                    {meta.touched && meta.error && <span>{meta.error}</span>}
+                  </span>
+                )}
+              />
+            </TextInputGroup>
+            <TextInputGroup>
+              <StyledLabel htmlFor="shira">שירה</StyledLabel>
+              <Field
+                name="shira"
                 render={({ input, meta }) => (
                   <span>
                     <TextInput {...input} />
@@ -134,4 +154,4 @@ const Info = () => {
   );
 };
 
-export default Info;
+export default Video;

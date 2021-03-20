@@ -17,6 +17,8 @@ const ActionItem = styled(Item)<{ opacity: number }>`
     width: 65px;
     height: 65px;
     font-size: 10px;
+    padding: 10% 5%;
+    line-height: initial;
   }
 `;
 

@@ -174,6 +174,7 @@ const ActionsContainer = (props: any) => {
           innerWrapperStyle={{ display: 'flex' }}
           data={menu}
           menuStyle={{ width: '100%' }}
+          disableTabindex
         />
       </ScrollActionsWrapper>
       <AnimatePresence exitBeforeEnter>

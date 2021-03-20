@@ -4,8 +4,8 @@ import { isMobile } from 'react-device-detect';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { useParams, Link } from 'react-router-dom';
-import { FlexColumn, flexColumn } from 'shared/components/Flex';
+import { useParams } from 'react-router-dom';
+import { FlexColumnMiddle, FlexColumnCenterMiddle, SkipLink, Link } from 'shared/components';
 import Players, { Instruction } from '../consts';
 import ActionsContainer from './ActionsContainer';
 import { DroppableBin } from './DroppableBin';
@@ -30,14 +30,12 @@ const PlayerImg = styled.img`
   }
 `;
 
-const EndGameModal = styled(FlexColumn)`
+const EndGameModal = styled(FlexColumnCenterMiddle)`
   position: absolute;
   padding: 5%;
   text-align: right;
-  justify-content: center;
   align-self: center;
   justify-self: center;
-  align-items: center;
   width: 60%;
   height: 80%;
   background: ${({ theme }) => theme.modal.background};
@@ -50,8 +48,7 @@ const EndGameModal = styled(FlexColumn)`
   }
 `;
 
-const Container = styled(FlexColumn)`
-  align-items: center;
+const Container = styled(FlexColumnMiddle)`
   width: 90%;
   height: 60%;
   margin-top: 90px;
@@ -72,12 +69,9 @@ const Title = styled.h2`
 `;
 
 const ContinueBtn = styled(Link)`
-  ${flexColumn};
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
   width: 160px;
   height: 50px;
+  align-items: center;
   align-self: flex-end;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
@@ -156,6 +150,9 @@ const AvailableActions = () => {
 
   return (
     <Wrapper>
+      <SkipLink $isActiveItem={false} to={`/availableGamesIntro/${currentPlayer!.path}`}>
+        מעבר למשחקים
+      </SkipLink>
       <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
         {bins.map(({ accept }, index) => (
           <DroppableBin accept={accept} items={returnActionsForColumn(accept)} key={index} />
@@ -180,7 +177,9 @@ const AvailableActions = () => {
             </Title>
           </Container>
           <PlayerImg src={currentPlayer?.images.availble[0]} />
-          <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`}> המשך </ContinueBtn>
+          <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`} $isActiveItem={false}>
+            המשך{' '}
+          </ContinueBtn>
         </EndGameModal>
       )}
     </Wrapper>

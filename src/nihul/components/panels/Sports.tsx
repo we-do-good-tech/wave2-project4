@@ -203,7 +203,6 @@ const Sports = () => {
       <Form
         initialValues={{ sports }}
         onSubmit={onSubmit}
-        // validate={validate}
         mutators={{
           ...arrayMutators,
         }}
