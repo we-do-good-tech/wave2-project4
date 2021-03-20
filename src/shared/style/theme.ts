@@ -27,7 +27,7 @@ const colors = {
   tomerActionYellow: '#F9AE00',
   lightRed: '#FB8676',
   lightGreen: '#98D866',
-  mantis: '#8ccb71',
+  mantis: '#78CE65',
   prussianBlue: '#03345a',
 };
 

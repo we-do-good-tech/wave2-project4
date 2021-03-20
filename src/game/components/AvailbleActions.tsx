@@ -69,9 +69,9 @@ const Title = styled.h2`
 `;
 
 const ContinueBtn = styled(Link)`
-  cursor: pointer;
   width: 160px;
   height: 50px;
+  align-items: center;
   align-self: flex-end;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
@@ -178,7 +178,6 @@ const AvailableActions = () => {
           </Container>
           <PlayerImg src={currentPlayer?.images.availble[0]} />
           <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`} $isActiveItem={false}>
-            {' '}
             המשך{' '}
           </ContinueBtn>
         </EndGameModal>

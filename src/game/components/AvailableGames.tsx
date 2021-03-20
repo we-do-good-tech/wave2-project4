@@ -45,6 +45,12 @@ const sizeSmall = css`
     min-width: 100vw;
     min-height: calc(100vw / 2);
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} and (orientation: landscape) {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
 `;
 
 const StyledMapPinX = styled(MapPinX)`
@@ -61,9 +67,19 @@ const IconWrapper = styled.div`
   pointer-events: none;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     height: 48%;
-    right: -18%;
+    right: 1%;
     bottom: 11%;
+    & > svg {
+      width: auto;
+    }
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    height: 48%;
+    right: 1%;
+    bottom: 11%;
+    & > svg {
+      width: auto;
+    }
 `;
 
 const StyledTomer = styled(Tomer)`
@@ -108,6 +124,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const BgGames = styled.div.attrs({ dir: 'rtl' })`
@@ -118,6 +137,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   flex: 1;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -136,6 +158,9 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -147,6 +172,9 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   background-position: center;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -260,6 +288,17 @@ const StyledLink = styled(Link)`
     max-height: 35px;
     font-size: 12px;
     line-height: 11px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    margin: 0 5px;
+    padding: 5px;
+    width: 190px;
+    height: 50px;
+    min-width: 190px;
+    min-height: 50px;
+    max-width: 190px;
+    max-height: 50px;
+    font-size: 14px;
   }
 `;
 

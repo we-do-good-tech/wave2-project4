@@ -37,6 +37,12 @@ const sizeSmall = css`
     min-width: 100vw;
     min-height: calc(100vw / 2);
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
 `;
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })`
@@ -50,6 +56,10 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+    overflow: unset;
+  }
 `;
 
 const Pins = styled.div.attrs({ dir: 'rtl' })`
@@ -62,6 +72,9 @@ const Pins = styled.div.attrs({ dir: 'rtl' })`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const BgGames = styled.div.attrs({ dir: 'rtl' })`
@@ -72,6 +85,9 @@ const BgGames = styled.div.attrs({ dir: 'rtl' })`
   flex: 1;
   ${sizeNormal};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -88,6 +104,9 @@ const BgTop = styled.div.attrs({ dir: 'rtl' })`
   background-size: cover;
   background-position: center;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    ${sizeSmall};
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
   }
 `;
@@ -119,6 +138,12 @@ const TextArea = styled.p`
     min-height: calc(100vw - 120px);
     max-height: calc(100vw - 120px);
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 110%;
+    font-size: 16px;
+    min-height: calc(100vw - 650px);
+    max-height: calc(100vw - 650px);
+  }
 `;
 
 const GamesModal = styled(FlexColumn)`
@@ -143,6 +168,12 @@ const GamesModal = styled(FlexColumn)`
     margin: 20px auto;
     height: 73vw;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid ${({ theme }) => theme.colors.white};
+    width: 80vw;
+    margin: 10px auto;
+    height: 68vh;
+  }
 `;
 
 const Container = styled.div`
@@ -153,6 +184,9 @@ const Container = styled.div`
   height: 60%;
   margin-top: 90px;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-top: 15px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     margin-top: 15px;
   }
 `;
@@ -197,6 +231,11 @@ const ContinueBtn = styled(Button)`
     height: 30px;
     bottom: 10px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 100px;
+    height: 30px;
+    bottom: 10px;
+  }
 `;
 
 const MapPin = styled.button<{ index: number }>`
@@ -229,12 +268,22 @@ const MapPin = styled.button<{ index: number }>`
       line-height: 15px;
       padding-bottom: 8px;
     }
+    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
   }
   &:active {
     background: url(${mapPinActive}) no-repeat;
   }
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 72px;
+    top: ${({ index }) => mapPinIcons[index].position.top - 5}%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     width: 50px;
     height: 72px;
     top: ${({ index }) => mapPinIcons[index].position.top - 5}%;
@@ -269,8 +318,18 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
       line-height: 15px;
       padding-bottom: 8px;
     }
+    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+      font-size: 11px;
+      line-height: 15px;
+      padding-bottom: 8px;
+    }
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 50px;
+    height: 72px;
+    top: ${({ top }) => top - 5}%;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     width: 50px;
     height: 72px;
     top: ${({ top }) => top - 5}%;
@@ -310,6 +369,14 @@ const GameTooltip = styled(FlexColumn)<{ left: number }>`
     width: 180px;
     height: 210px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid #fff;
+    padding: 8px 12px 0px;
+    left: calc(${({ left }) => left}% - 90px);
+    top: calc(50% - 110px);
+    width: 180px;
+    height: 210px;
+  }
 `;
 
 const GameTooltipHeader = styled.div`
@@ -318,6 +385,11 @@ const GameTooltipHeader = styled.div`
   text-align: right;
   padding: 10px 10px 0;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 12px;
+    line-height: 13px;
+    padding: 3px 3px 0;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     font-size: 12px;
     line-height: 13px;
     padding: 3px 3px 0;
@@ -332,6 +404,11 @@ const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
   line-height: 25px;
   padding: 0 10px;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    font-size: 10px;
+    line-height: 10px;
+    padding: 0;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     font-size: 10px;
     line-height: 10px;
     padding: 0;
@@ -367,6 +444,13 @@ const CloseBtn = styled.button`
     width: 31px;
     height: 31px;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid #fff;
+    top: -17px;
+    right: -17px;
+    width: 31px;
+    height: 31px;
+  }
 `;
 
 const MapPinText = styled.h3`
@@ -388,10 +472,17 @@ const ModalBackground = styled.div`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    min-width: 100vw;
+    min-height: 100%;
+  }
 `;
 
 const LightModalBackground = styled(ModalBackground)`
   background: rgba(0, 0, 0, 0.15);
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    height: calc(100vh - 66px);
+  }
 `;
 
 const GameFixedModal = styled.div`
@@ -414,6 +505,9 @@ const GameFixedModal = styled.div`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     ${sizeSmall};
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    ${sizeSmall};
+  }
 `;
 
 const ModalImageWrapper = styled(FlexCenterMiddle)`
@@ -421,6 +515,10 @@ const ModalImageWrapper = styled(FlexCenterMiddle)`
   height: 207px;
   border: 2px solid #fff;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 152px;
+    height: 96px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     width: 152px;
     height: 96px;
   }

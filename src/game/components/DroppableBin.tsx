@@ -42,14 +42,17 @@ const SmallActionItem = styled(Item)`
   height: 80px;
   margin: 5px 10px;
   font-size: 12px;
+  line-height: initial;
   @media ${({ theme }) => theme.typing.mediaRules.untilBig} {
     font-size: 11px;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     margin: 3px 3px;
     font-size: 8px;
+    padding: 6px 4px;
+    line-height: initial;
   }
 `;
 
