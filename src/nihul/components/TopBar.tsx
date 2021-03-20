@@ -1,22 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'shared/components';
+import { Link, flexCenter } from 'shared/components';
 
 const Wrapper = styled.div.attrs({ dir: 'rtl' })``;
 
 const Menu = styled.ul`
+  ${flexCenter};
   list-style-type: none;
-  display: flex;
-  justify-content: center;
   height: 50px;
-  margin: 0 16px;
+  margin: 0 12px;
   padding-inline-start: 0px;
 `;
 
 const MenuItem = styled.li`
-  margin-left: 20px;
-  margin-bottom: 25px;
+  margin: 0 5px 25px 5px;
   a {
     width: auto;
     align-items: center;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { Link, flexCenter, FlexCenterMiddle } from 'shared/components';
+import { flex, Link, flexCenter, FlexCenterMiddle } from 'shared/components';
 import logo from 'assets/images/logo.png';
 
 const Wrapper = styled.nav.attrs({ dir: 'rtl' })`
@@ -40,8 +40,8 @@ const Logo = styled.a`
 `;
 
 const Menu = styled.ul`
+  ${flex};
   list-style-type: none;
-  display: flex;
   justufy-content: flex-end;
   height: 50px;
   margin: 0 16px;
@@ -155,7 +155,7 @@ const StyledLinkText = styled.h3`
 const RightWrapper = styled(FlexCenterMiddle)``;
 
 const StyledListItem = styled.li`
-  display: flex;
+  ${flex};
 `;
 
 type MenuItemType = {

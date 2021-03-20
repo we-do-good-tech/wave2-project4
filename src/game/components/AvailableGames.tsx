@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, flex, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -344,6 +344,7 @@ const MapPin = styled.button<{ index: number }>`
 `;
 
 const MapPinIncorrect = styled.div<{ index: number }>`
+  ${flexCenterMiddle};
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
@@ -359,9 +360,6 @@ const MapPinIncorrect = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   h5 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
@@ -378,6 +376,7 @@ const MapPinIncorrect = styled.div<{ index: number }>`
 `;
 
 const MapPinCorrect = styled.div<{ index: number }>`
+  ${flexCenterMiddle};
   cursor: default;
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
@@ -394,9 +393,6 @@ const MapPinCorrect = styled.div<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transform: scale(1.2);
   h5 {
     cursor: default;
@@ -415,7 +411,7 @@ const MapPinCorrect = styled.div<{ index: number }>`
 `;
 
 const LinksContainer = styled.div`
-  display: flex;
+  ${flex};
 `;
 
 const MapPinText = styled.h5`
@@ -524,7 +520,8 @@ const Games = () => {
             }}
           >
             <GamesModal>
-              <Title>איזה כיף! כמה דברים אני יכול לעשות!</Title>
+              <Title>{`איזה כיף! כמה דברים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לעשות!`}</Title>
+              <Title> </Title>
               <VideoContainer>
                 <VideoPlayer url={currentPlayer?.video || ''} />
               </VideoContainer>

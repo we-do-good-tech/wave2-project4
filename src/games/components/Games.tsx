@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
-import { Button, FlexCenter, FlexColumn, FlexCenterMiddle, flexCenterMiddle } from 'shared/components';
+import {
+  Button,
+  FlexCenter,
+  FlexColumn,
+  FlexColumnMiddle,
+  FlexCenterMiddle,
+  flexCenterMiddle,
+} from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -177,9 +184,7 @@ const GamesModal = styled(FlexColumn)`
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  ${FlexColumnMiddle};
   width: 90%;
   height: 60%;
   margin-top: 90px;
@@ -196,6 +201,7 @@ const Title = styled.h2`
   font-weight: ${({ theme }) => theme.text.title.fontWeight};
   color: ${({ theme }) => theme.text.title.color};
   line-height: ${({ theme }) => theme.text.title.lineHeight};
+  text-align: center;
   cursor: default;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 20px;
@@ -257,8 +263,7 @@ const MapPin = styled.button<{ index: number }>`
   text-align: center;
   vertical-align: middle;
   transition: all 0.6s;
-  &:hover,
-  &:focus {
+  &:hover {
     transform: scale(1.2);
   }
   h3 {
@@ -290,7 +295,7 @@ const MapPin = styled.button<{ index: number }>`
   }
 `;
 
-const MapPinModal = styled.div<{ left: number; top: number }>`
+const MapPinModal = styled(FlexCenterMiddle)<{ left: number; top: number }>`
   position: absolute;
   z-index: 501;
   left: ${({ left }) => left}%;
@@ -308,9 +313,6 @@ const MapPinModal = styled.div<{ left: number; top: number }>`
   vertical-align: middle;
   transition: all 0s;
   transform: scale(1.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   h3 {
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
@@ -416,10 +418,8 @@ const GameTooltipText = styled.div.attrs({ dir: 'rtl' })`
 `;
 
 const CloseBtn = styled.button`
+  ${flexCenterMiddle};
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   outline: none !important;
   top: -33px;
   right: -33px;
