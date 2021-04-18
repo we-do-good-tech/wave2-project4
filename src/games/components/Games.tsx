@@ -538,6 +538,7 @@ const Games = () => {
 
   const handleOnClick = (e: any) => {
     const selectedGame = sports.filter((g: any) => g.name === e.target.dataset.name)[0];
+    console.log(selectedGame);
     const selectedConsts = mapPinIcons.filter((g: any) => g.title === e.target.dataset.name)[0];
     setGameConsts(selectedConsts);
     setIsGameModal({
