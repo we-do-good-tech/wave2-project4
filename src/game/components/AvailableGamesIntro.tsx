@@ -162,7 +162,7 @@ const AvailableGamesIntro = () => {
         <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
           <SpeechBubbleTitle>
-            {`באיזה משחקים פאראלימפיים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לשחק?`}
+            {`באיזה ענפי ספורט פאראלימפיים אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} לשחק?`}
           </SpeechBubbleTitle>
           <SpeechBubbleText>
             {`סמנו את ענפי הספורט בהם אני יכול${currentPlayer!.path === 'shira' ? 'ה' : ''} להשתתף`}
