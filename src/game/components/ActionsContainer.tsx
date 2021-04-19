@@ -4,8 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { isMobileOnly, isTablet } from 'react-device-detect';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { BsChevronRight, BsChevronLeft } from 'react-icons/bs';
-import { FlexCenterMiddle, flexColumnCenter, Flex } from 'shared/components/Flex';
+import { VideoPlayer } from 'shared/components';
+import { FlexCenterMiddle, flexColumnCenter, Flex, flexCenterMiddle } from 'shared/components/Flex';
 import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
+import { ReactComponent as PlayVideoButton } from 'assets/images/play_video.svg';
+import { ReactComponent as TooltipX } from 'assets/images/tooltip_x.svg';
+import { VideoContainer } from 'game/consts';
 import { DraggbleActionItem } from './DraggbleActionItem';
 
 const ActionsWrapper = styled(FlexCenterMiddle)`
@@ -80,7 +84,7 @@ const RightArrow = styled(FlexCenterMiddle)`
   cursor: pointer;
 `;
 
-const StyledImage = styled.img`
+/* const StyledImage = styled.img`
   flex: 1 1 10%;
   max-height: 75%;
   min-height: 10%;
@@ -88,17 +92,99 @@ const StyledImage = styled.img`
     flex: 1 1 30%;
     min-height: 30%;
   }
-`;
+`; */
 
-const SpeechBubbleText = styled.div`
+const SpeechBubbleText = styled(motion.div)<{ colorProp: string }>`
   font-size: 20px;
   line-height: 22.16px;
-  flex: 1 1 45%;
-  margin-top: 10px;
+  margin: 10px 0;
+  color: ${(props) => props.colorProp};
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     font-size: 12px;
     line-height: 110%;
-    margin-top: 3px;
+    margin: 3px 0;
+  }
+`;
+
+const ModalBackground = styled.div`
+  background: rgba(0, 0, 0, 0.85);
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  }
+`;
+
+const VideoModal = styled(motion.div)`
+  ${flexColumnCenter};
+  position: absolute;
+  width: 35%;
+  height: 62%;
+  justify-self: center;
+  align-self: center;
+  align-items: center;
+  background: ${({ theme }) => theme.modal.background};
+  border: 4px solid ${({ theme }) => theme.colors.white};
+  border-radius: 20px;
+  z-index: 100;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 80vw;
+    margin: 10px auto;
+    height: 75vh;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 80vh;
+    margin: 10px auto;
+    height: 85vw;
+  }
+`;
+
+const CloseBtn = styled.button`
+  ${flexCenterMiddle};
+  position: absolute;
+  outline: none !important;
+  top: -33px;
+  right: -33px;
+  width: 63px;
+  height: 63px;
+  color: ${({ theme }) => theme.games.closeButton.color};
+  background: ${({ theme }) => theme.games.closeButton.background};
+  border: 4px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    transition: 0.1s all;
+    background: radial-gradient(50% 50% at 50% 50%, #7d0396 33.38%, #4e025d 100%);
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    border: 2px solid #fff;
+    top: -17px;
+    right: -17px;
+    width: 31px;
+    height: 31px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid #fff;
+    top: -17px;
+    right: -17px;
+    width: 31px;
+    height: 31px;
+  }
+`;
+
+const VideoButton = styled.div`
+  z-index: 10;
+  cursor: pointer;
+  width: 25%;
+  display: inline-flex;
+  &:hover {
+    transition: 0.2s;
+    filter: brightness(0.8);
   }
 `;
 
@@ -141,14 +227,41 @@ const ActionsContainer = (props: any) => {
   const [playerImage, setPlayerImage] = useState({ image: allPlayerImages.availble, info: '' });
   const [delay, setDelay] = useState(3);
   const [menuRef, setMenuRef] = useState<ScrollMenu | null>(null);
+  const [bubbleText, setBubbleText] = useState({ text: '', color: '' });
+  const [video, setVideo] = useState({ show: false, url: '' });
 
-  const changeImage = (image: string, info: string) => {
-    if (info) setDelay(6);
+  const changeImage = (image: string, info: string, videoUrl: string = '') => {
+    setVideo({ show: false, url: '' });
+    setDelay(3);
     setPlayerImage({ image: allPlayerImages[image], info });
+
     if (image === 'success') {
       menuRef!.scrollTo('0');
+      if (!info) {
+        return setBubbleText({ text: 'הצלחת!', color: 'green' });
+      }
+      setBubbleText({ text: info, color: 'black' });
+      setDelay(6);
+      if (videoUrl) {
+        setVideo({ show: video.show, url: videoUrl });
+        setDelay(600);
+      }
+    } else if (image === 'fail') {
+      if (info) {
+        return setBubbleText({ text: info, color: 'black' });
+      }
+      setBubbleText({ text: 'כדאי לנסות שוב', color: 'red' });
     }
   };
+
+  const handleCloseBtn = () => {
+    setVideo({ show: false, url: video.url });
+  };
+
+  const onShowVideo = () => {
+    setVideo({ show: true, url: video.url });
+  };
+
   const menu = Menu(actions, setActions, changeImage);
 
   useEffect(() => {
@@ -163,57 +276,79 @@ const ActionsContainer = (props: any) => {
   }, [allPlayerImages.availble, delay, playerImage]);
 
   return (
-    <ActionsWrapper>
-      <ScrollActionsWrapper>
-        <ScrollMenu
-          ref={(el) => setMenuRef(el)}
-          arrowLeft={ArrowLeft}
-          arrowRight={ArrowRight}
-          hideSingleArrow
-          dragging={false}
-          innerWrapperStyle={{ display: 'flex' }}
-          data={menu}
-          menuStyle={{ width: '100%' }}
-          disableTabindex
-        />
-      </ScrollActionsWrapper>
-      <AnimatePresence exitBeforeEnter>
-        <PlayerImageWrapper>
-          {playerImage.image !== allPlayerImages.availble && (
-            <motion.div
-              initial={{ scale: 0, y: 100, x: 100 }}
-              animate={{ scale: 1, y: Yvalue, x: Xvalue }}
-              transition={{ duration: 0.2 }}
-              exit={{ opacity: 0 }}
-            >
-              <StyledSpeechBubbleWrapper key={playerImage.image[1]}>
-                <SpeechBubbleBorder />
-                <StyledImage src={playerImage.image[1]} alt="" />
-                {playerImage.info && <SpeechBubbleText>{playerImage.info}</SpeechBubbleText>}
-              </StyledSpeechBubbleWrapper>
-            </motion.div>
-          )}
-          {Object.entries(allPlayerImages).map(([key]) => {
-            let display = 'none';
-            if (allPlayerImages[key][0] === playerImage.image[0]) {
-              display = 'block';
-            }
-            return (
-              <PlayerImg
-                key={key}
-                displayProp={display}
-                src={allPlayerImages[key][0]}
-                alt={currentPlayer?.name}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.1 }}
+    <>
+      <ActionsWrapper>
+        <ScrollActionsWrapper>
+          <ScrollMenu
+            ref={(el) => setMenuRef(el)}
+            arrowLeft={ArrowLeft}
+            arrowRight={ArrowRight}
+            hideSingleArrow
+            dragging={false}
+            innerWrapperStyle={{ display: 'flex' }}
+            data={menu}
+            menuStyle={{ width: '100%' }}
+            disableTabindex
+          />
+        </ScrollActionsWrapper>
+        <AnimatePresence exitBeforeEnter>
+          <PlayerImageWrapper>
+            {playerImage.image !== allPlayerImages.availble && (
+              <motion.div
+                initial={{ scale: 0, y: 100, x: 100 }}
+                animate={{ scale: 1, y: Yvalue, x: Xvalue }}
+                transition={{ duration: 0.2 }}
                 exit={{ opacity: 0 }}
-              />
-            );
-          })}
-        </PlayerImageWrapper>
-      </AnimatePresence>
-    </ActionsWrapper>
+              >
+                <StyledSpeechBubbleWrapper key={playerImage.image[1]}>
+                  <SpeechBubbleBorder />
+                  <SpeechBubbleText
+                    dangerouslySetInnerHTML={{ __html: bubbleText.text }}
+                    animate={{ opacity: 1 }}
+                    colorProp={bubbleText.color}
+                  />
+                  {video.url !== '' && (
+                    <VideoButton onClick={() => onShowVideo()}>
+                      <PlayVideoButton />
+                    </VideoButton>
+                  )}
+                </StyledSpeechBubbleWrapper>
+              </motion.div>
+            )}
+            {Object.entries(allPlayerImages).map(([key]) => {
+              let display = 'none';
+              if (allPlayerImages[key] === playerImage.image) {
+                display = 'block';
+              }
+              return (
+                <PlayerImg
+                  key={key}
+                  displayProp={display}
+                  src={allPlayerImages[key]}
+                  alt={currentPlayer?.name}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.1 }}
+                  exit={{ opacity: 0 }}
+                />
+              );
+            })}
+          </PlayerImageWrapper>
+        </AnimatePresence>
+      </ActionsWrapper>
+      {video.show && video.url !== '' && (
+        <ModalBackground onClick={handleCloseBtn}>
+          <VideoModal initial={{ scale: 0, x: 300 }} animate={{ scale: 1, x: 0 }} transition={{ duration: 0.3 }}>
+            <CloseBtn onClick={handleCloseBtn}>
+              <TooltipX />
+            </CloseBtn>
+            <VideoContainer>
+              <VideoPlayer url={video.url} />
+            </VideoContainer>
+          </VideoModal>
+        </ModalBackground>
+      )}
+    </>
   );
 };
 

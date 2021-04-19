@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, flex, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, flex, FlexCenter, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -15,6 +15,7 @@ import { ReactComponent as Shira } from 'assets/images/ShiraAvailable.svg';
 import { ReactComponent as ShiraWin } from 'assets/images/ShiraAvailableWin.svg';
 import { ReactComponent as Tomer } from 'assets/images/TomerAvailable.svg';
 import { ReactComponent as TomerWin } from 'assets/images/TomerAvailableWin.svg';
+import { GamesModal, VideoContainer } from 'game/consts';
 import mapPinIcons from 'games/consts';
 import firebase from '../../firebase';
 
@@ -176,45 +177,6 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     ${sizeSmall};
-  }
-`;
-
-const GamesModal = styled(FlexColumnCenter)`
-  position: relative;
-  width: 80%;
-  height: 92%;
-  margin: 20px auto;
-  align-items: center;
-  background: ${({ theme }) => theme.modal.background};
-  border: 4px solid ${({ theme }) => theme.colors.white};
-  border-radius: 20px;
-  z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 80vw;
-    margin: 10px auto;
-    height: 75vh;
-  }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 80vh;
-    margin: 10px auto;
-    height: 85vw;
-  }
-`;
-
-const VideoContainer = styled(FlexColumnCenter)`
-  width: 90%;
-  height: 60%;
-  margin-top: 10px;
-
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 72%;
-    height: 48%;
-    margin-top: 5px;
-  }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 81%;
-    height: 54%;
-    margin-top: 5px;
   }
 `;
 

@@ -87,12 +87,7 @@ const Game = () => {
           {Players.map((player, index) => (
             <PlayerContainer key={index} bg={player.bgColor}>
               <PlayerWrapper to={`${url}/${player.path}`}>
-                <PlayerImg
-                  src={player.images.hello[0]}
-                  alt={player.name}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                />
+                <PlayerImg src={player.images.hello} alt={player.name} initial={{ scale: 0 }} animate={{ scale: 1 }} />
                 <PlayerBtn bg={player.btnColor}>{player.name}</PlayerBtn>
               </PlayerWrapper>
             </PlayerContainer>

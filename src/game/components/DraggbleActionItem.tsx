@@ -45,20 +45,22 @@ export const DraggbleActionItem: FC<BoxProps> = memo(({ action, setActions, chan
       const dropResult = monitor.getDropResult();
       if (dropResult) {
         const { name } = dropResult;
+        let video = '';
+        if (item.video) video = item.video;
         if (item!.type !== name) {
           if (item!.type === 'CANT') {
-            return changeImage('fail', item!.info);
+            return changeImage('fail', item!.info, video);
           }
-          return changeImage('fail');
+          return changeImage('fail', '', video);
         }
         switch (name) {
           case 'CAN':
             changeActionPosition(item, 'CAN');
-            changeImage('success', item!.info);
+            changeImage('success', item!.info, video);
             break;
           case 'CANT':
             changeActionPosition(item, 'CANT');
-            changeImage('success');
+            changeImage('success', '', video);
             break;
           default:
             break;

@@ -121,7 +121,7 @@ const AvailbleActionsIntro = () => {
           היי אני {currentPlayer!.name}, <br />
           {currentPlayer!.text}
         </StyledSpeechBubbleWrapper>
-        <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
+        <PlayerImg src={currentPlayer!.images.hello} alt={currentPlayer?.name} />
 
         <StyledButton $isActiveItem={false} to={`/AvailbleActions/${currentPlayer?.path}`}>
           המשך
