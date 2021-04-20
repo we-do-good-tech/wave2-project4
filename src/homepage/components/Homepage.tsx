@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEqual from 'lodash.isequal';
-import { Link, flexCenter, flexCenterMiddle, flexColumnCenterBottom } from 'shared/components';
+import { Link, flexCenter, flexCenterMiddle, flexColumnCenterBottom, Flex } from 'shared/components';
 import commiteeLogo from 'assets/images/commitee-logo.png';
 import homepageBg from 'assets/images/homepage_bg.svg';
 import unionLogo from 'assets/images/union-logo.png';
@@ -20,8 +20,8 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 `;
 
 const StyledButton = styled(Link)`
-  margin-bottom: 178px;
   text-align: center;
+  line-height: 1;
   width: 236px;
   height: 75px;
   font-size: 30px;
@@ -113,6 +113,16 @@ const Footer = styled.div`
   }
 `;
 
+const CtaWrapper = styled(Flex)`
+  margin-bottom: 178px;
+  width: 40%;
+  justify-content: space-between;
+  max-height: 25%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin-bottom: 0;
+  }
+`;
+
 const Homepage = () => {
   const pdfRef = firebase.database().ref('info');
   const [pdf, setPdf] = useState('');
@@ -126,9 +136,14 @@ const Homepage = () => {
 
   return (
     <Wrapper>
-      <StyledButton to="/games" $isActiveItem={false}>
-        בואו נתחיל
-      </StyledButton>
+      <CtaWrapper>
+        <StyledButton to="/games" $isActiveItem={false}>
+          משחקים פראלימפיים
+        </StyledButton>
+        <StyledButton to="/game" $isActiveItem={false}>
+          בואו נתחיל!
+        </StyledButton>
+      </CtaWrapper>
       <Footer>
         <Circle href={pdf} target="_blank">
           הסבר לצוות החינוכי

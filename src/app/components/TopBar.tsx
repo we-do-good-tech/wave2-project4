@@ -190,19 +190,22 @@ const itemsLeft: MenuItemType[] = [
 
 const SideBar = () => {
   const location = useLocation();
+  console.log('location', location);
   return (
     <Wrapper>
       <RightWrapper>
         <Logo href="/">Home</Logo>
-        <Menu>
-          {items.map((i: MenuItemType) => (
-            <MenuItem key={i.name}>
-              <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-                <StyledLinkText>{i.name}</StyledLinkText>
-              </StyledLink>
-            </MenuItem>
-          ))}
-        </Menu>
+        {location.pathname !== '/' && (
+          <Menu>
+            {items.map((i: MenuItemType) => (
+              <MenuItem key={i.name}>
+                <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
+                  <StyledLinkText>{i.name}</StyledLinkText>
+                </StyledLink>
+              </MenuItem>
+            ))}
+          </Menu>
+        )}
       </RightWrapper>
       <RightWrapper>
         <Menu>
