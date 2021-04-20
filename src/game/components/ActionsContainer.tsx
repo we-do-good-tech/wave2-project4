@@ -248,6 +248,7 @@ const ActionsContainer = (props: any) => {
       }
     } else if (image === 'fail') {
       if (info) {
+        setDelay(6);
         return setBubbleText({ text: info, color: 'black' });
       }
       setBubbleText({ text: 'כדאי לנסות שוב', color: 'red' });
