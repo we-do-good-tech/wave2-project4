@@ -207,12 +207,10 @@ const LinksTitle = styled.h2`
 `;
 
 const StyledLink = styled(Link)`
-  min-width: 302px;
-  min-height: 106px;
-  max-width: 302px;
-  max-height: 106px;
+  max-width: 300px;
+  min-width: 255px;
   margin: 0 20px;
-  padding: 0 30px;
+  padding: 0 20px;
   text-decoration: none;
   font-size: 24px;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 400)};
@@ -239,18 +237,6 @@ const StyledLink = styled(Link)`
     background: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.background};
     color: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.color};
   }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    margin: 0 5px;
-    padding: 0 5px;
-    width: 140px;
-    height: 35px;
-    min-width: 140px;
-    min-height: 35px;
-    max-width: 140px;
-    max-height: 35px;
-    font-size: 12px;
-    line-height: 11px;
-  }
   @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     margin: 0 5px;
     padding: 5px;
@@ -261,6 +247,16 @@ const StyledLink = styled(Link)`
     max-width: 190px;
     max-height: 50px;
     font-size: 14px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin: 0 5px;
+    padding: 0 5px;
+    min-width: 130px;
+    min-height: 35px;
+    max-width: 140px;
+    max-height: 35px;
+    font-size: 12px;
+    line-height: 11px;
   }
 `;
 
@@ -491,6 +487,9 @@ const Games = () => {
               <LinksContainer>
                 <StyledLink $isActiveItem={false} to="/game">
                   לשחק עם דמות נוספת
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to="/games">
+                  להכיר את המשחקים הפראלימפיים
                 </StyledLink>
                 <StyledLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
                   להכיר את הנבחרת הפאראלימפית הישראלית
