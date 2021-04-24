@@ -13,8 +13,8 @@ import runningIconSVG from '../assets/images/running.svg';
 import runningIconBgSVG from '../assets/images/running_bg.svg';
 import swimmingIconSVG from '../assets/images/swimming.svg';
 import swimmingIconBgSVG from '../assets/images/swimming_bg.svg';
-import tennisIconSVG from '../assets/images/tennis.svg';
-import tennisIconBgSVG from '../assets/images/tennis_bg.svg';
+import tennisIconSVG from '../assets/images/Tennis_court.svg';
+import tennisIconBgSVG from '../assets/images/Tennis_court_bg.svg';
 
 const BasketballIcon = styled.div`
   position: absolute;
@@ -193,7 +193,7 @@ const mapPinIcons: MapPinIconType[] = [
     },
   },
   {
-    title: 'כדורסל',
+    title: 'כדורסל בכסאות גלגלים',
     position: {
       left: 32,
       top: 19,

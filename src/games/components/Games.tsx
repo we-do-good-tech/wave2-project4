@@ -536,9 +536,9 @@ const Games = () => {
   });
   const [gameConsts, setGameConsts] = useState<any>(undefined);
 
-  const handleOnClick = (e: any) => {
-    const selectedGame = sports.filter((g: any) => g.name === e.target.dataset.name)[0];
-    const selectedConsts = mapPinIcons.filter((g: any) => g.title === e.target.dataset.name)[0];
+  const handleOnClick = (index: number) => {
+    const selectedGame = sports[index];
+    const selectedConsts = mapPinIcons[index];
     setGameConsts(selectedConsts);
     setIsGameModal({
       open: true,
@@ -568,7 +568,7 @@ const Games = () => {
         <Wrapper>
           <BgGames>
             {mapPinIcons.map((obj: any, index: number) => {
-              if (obj.title === 'אופניים זוגיים טנדם') return;
+              if (!obj.iconBg) return;
               return <div key={index}>{obj.iconBg}</div>;
             })}
           </BgGames>
@@ -593,7 +593,7 @@ const Games = () => {
           )}
           <Pins>
             {sports.map((icon: any, index: number) => (
-              <MapPin index={index} data-name={icon.name} key={index} onClick={(e) => handleOnClick(e)}>
+              <MapPin index={index} data-name={icon.name} key={index} onClick={() => handleOnClick(index)}>
                 <MapPinText data-name={icon.name}>{icon.name}</MapPinText>
               </MapPin>
             ))}

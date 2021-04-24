@@ -466,8 +466,8 @@ const Games = () => {
   const [winNum, setWinNum] = useState(0);
   const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
 
-  const handleOnClick = (e: any) => {
-    const selectedConsts = mapPinIcons.filter((g: any) => g.title === e.target.dataset.name)[0];
+  const handleOnClick = (e: any, index: number) => {
+    const selectedConsts = mapPinIcons[index];
     const playerStatus = selectedConsts.availableGames[currentPlayer!.path];
     const status = gamesStatus.map((g: any) => g);
     status[e.target.dataset.index] = playerStatus;
@@ -506,7 +506,7 @@ const Games = () => {
       <Wrapper>
         <BgGames>
           {mapPinIcons.map((obj: any, index: number) => {
-            if (obj.title === 'אופניים זוגיים טנדם') return;
+            if (!obj.title) return;
             return <div key={index}>{obj.iconBg}</div>;
           })}
         </BgGames>
@@ -563,7 +563,7 @@ const Games = () => {
                 data-index={index}
                 data-name={icon.name}
                 key={index}
-                onClick={(e) => handleOnClick(e)}
+                onClick={(e) => handleOnClick(e, index)}
               >
                 <MapPinText data-index={index} data-name={icon.name}>
                   {icon.name}

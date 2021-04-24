@@ -118,7 +118,7 @@ const AvailbleActionsIntro = () => {
       <PlayerContainer bg={currentPlayer?.bgColor}>
         <StyledSpeechBubbleWrapper>
           <SpeechBubbleBorder />
-          היי אני {currentPlayer!.name} <br />
+          היי אני {currentPlayer!.name}, <br />
           {currentPlayer!.text}
         </StyledSpeechBubbleWrapper>
         <PlayerImg src={currentPlayer!.images.hello[0]} alt={currentPlayer?.name} />
