@@ -80,6 +80,11 @@ const Info = () => {
   const [pdf, setPdf] = useState('');
 
   const onSubmit = async (values: any) => {
+    console.log({ values });
+    if (!values.pdf) {
+      // eslint-disable-next-line no-param-reassign
+      values.pdf = '';
+    }
     itemsRef.update({ ...values });
   };
 

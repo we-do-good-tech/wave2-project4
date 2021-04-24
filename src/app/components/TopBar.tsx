@@ -172,25 +172,10 @@ const items: MenuItemType[] = [
     name: 'בואו נשחק!',
     path: '/game',
   },
-  // {
-  //   name: 'הנבחרת',
-  //   path: '/team',
-  // },
-];
-const itemsLeft: MenuItemType[] = [
-  // {
-  //   name: 'ניהול',
-  //   path: '/nihul',
-  // },
-  // {
-  //   name: 'אודות',
-  //   path: '/information',
-  // },
 ];
 
 const SideBar = () => {
   const location = useLocation();
-  console.log('location', location);
   return (
     <Wrapper>
       <RightWrapper>
@@ -209,13 +194,6 @@ const SideBar = () => {
       </RightWrapper>
       <RightWrapper>
         <Menu>
-          {itemsLeft.map((i: MenuItemType) => (
-            <MenuItem key={i.name}>
-              <StyledLink to={i.path} $isActiveItem={location.pathname === i.path}>
-                <StyledLinkText>{i.name}</StyledLinkText>
-              </StyledLink>
-            </MenuItem>
-          ))}
           <StyledListItem>
             <StyledAboutLink to="/information" $isActiveItem={location.pathname === '/information'}>
               אודות
