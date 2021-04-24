@@ -102,6 +102,7 @@ interface ActionState {
   id: number;
   position: string;
   info: string;
+  video?: string;
 }
 
 interface BinState {
@@ -133,6 +134,7 @@ const AvailableActions = () => {
       id: action.id,
       position: action.position,
       info: action.info,
+      video: action?.video,
     })),
   );
   const [isModalOpen, setIsModalOpen] = useState(false);

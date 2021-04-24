@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, flex, FlexCenter, FlexColumnCenter, flexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, flex, FlexCenter, flexCenterMiddle } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -15,6 +15,7 @@ import { ReactComponent as Shira } from 'assets/images/ShiraAvailable.svg';
 import { ReactComponent as ShiraWin } from 'assets/images/ShiraAvailableWin.svg';
 import { ReactComponent as Tomer } from 'assets/images/TomerAvailable.svg';
 import { ReactComponent as TomerWin } from 'assets/images/TomerAvailableWin.svg';
+import { GamesModal, VideoContainer } from 'game/consts';
 import mapPinIcons from 'games/consts';
 import firebase from '../../firebase';
 
@@ -179,45 +180,6 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   }
 `;
 
-const GamesModal = styled(FlexColumnCenter)`
-  position: relative;
-  width: 80%;
-  height: 92%;
-  margin: 20px auto;
-  align-items: center;
-  background: ${({ theme }) => theme.modal.background};
-  border: 4px solid ${({ theme }) => theme.colors.white};
-  border-radius: 20px;
-  z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 80vw;
-    margin: 10px auto;
-    height: 75vh;
-  }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 80vh;
-    margin: 10px auto;
-    height: 85vw;
-  }
-`;
-
-const VideoContainer = styled(FlexColumnCenter)`
-  width: 90%;
-  height: 60%;
-  margin-top: 10px;
-
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 72%;
-    height: 48%;
-    margin-top: 5px;
-  }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 81%;
-    height: 54%;
-    margin-top: 5px;
-  }
-`;
-
 const Title = styled.h2`
   margin-top: 15px;
   font-size: ${({ theme }) => theme.text.title.fontSize};
@@ -245,12 +207,10 @@ const LinksTitle = styled.h2`
 `;
 
 const StyledLink = styled(Link)`
-  min-width: 302px;
-  min-height: 106px;
-  max-width: 302px;
-  max-height: 106px;
+  max-width: 300px;
+  min-width: 255px;
   margin: 0 20px;
-  padding: 0 30px;
+  padding: 0 20px;
   text-decoration: none;
   font-size: 24px;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 400)};
@@ -277,18 +237,6 @@ const StyledLink = styled(Link)`
     background: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.background};
     color: ${({ theme }: { theme: any }) => theme.linkBig.primary.active.color};
   }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    margin: 0 5px;
-    padding: 0 5px;
-    width: 140px;
-    height: 35px;
-    min-width: 140px;
-    min-height: 35px;
-    max-width: 140px;
-    max-height: 35px;
-    font-size: 12px;
-    line-height: 11px;
-  }
   @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     margin: 0 5px;
     padding: 5px;
@@ -299,6 +247,16 @@ const StyledLink = styled(Link)`
     max-width: 190px;
     max-height: 50px;
     font-size: 14px;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    margin: 0 5px;
+    padding: 0 5px;
+    min-width: 130px;
+    min-height: 35px;
+    max-width: 140px;
+    max-height: 35px;
+    font-size: 12px;
+    line-height: 11px;
   }
 `;
 
@@ -529,6 +487,9 @@ const Games = () => {
               <LinksContainer>
                 <StyledLink $isActiveItem={false} to="/game">
                   לשחק עם דמות נוספת
+                </StyledLink>
+                <StyledLink $isActiveItem={false} to="/games">
+                  להכיר את המשחקים הפראלימפיים
                 </StyledLink>
                 <StyledLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
                   להכיר את הנבחרת הפאראלימפית הישראלית
