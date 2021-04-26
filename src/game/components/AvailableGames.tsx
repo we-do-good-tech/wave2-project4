@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import FocusTrap from 'focus-trap-react';
 import isEqual from 'lodash.isequal';
 import { useParams } from 'react-router-dom';
-import { Link, VideoPlayer, flex, FlexCenter, flexCenterMiddle } from 'shared/components';
+import { Link, VideoPlayer, FlexCenter, flexCenterMiddle, Flex } from 'shared/components';
 import mapBg from 'assets/images/map_bg.svg';
 import mapBgTop from 'assets/images/map_bg_top.svg';
 import mapPin from 'assets/images/map_pin.svg';
@@ -62,7 +62,7 @@ const StyledMapPinX = styled(MapPinX)`
 const IconWrapper = styled.div`
   position: absolute;
   height: 60%;
-  right: -2%;
+  right: -3%;
   bottom: 5%;
   z-index: 101;
   pointer-events: none;
@@ -113,6 +113,7 @@ const GamesBg = styled(FlexCenter)`
   background: ${({ theme }) => theme.games.background};
   flex: 1;
   align-items: flex-start;
+  overflow-x: hidden;
 `;
 
 const Pins = styled.div.attrs({ dir: 'rtl' })`
@@ -207,12 +208,14 @@ const LinksTitle = styled.h2`
 `;
 
 const StyledLink = styled(Link)`
-  max-width: 300px;
-  min-width: 255px;
-  margin: 0 20px;
-  padding: 0 20px;
+  max-width: 250px;
+  min-width: 250px;
+  max-height: 106px;
+  min-height: 106px;
+  padding: 15px 10px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 21px;
+  line-height: 26px;
   font-weight: ${({ $isActiveItem }: { $isActiveItem: boolean }) => ($isActiveItem ? 700 : 400)};
   color: ${({ theme, $isActiveItem }: { theme: any; $isActiveItem: boolean }) =>
     $isActiveItem ? theme.linkBig.primary.active.color : theme.linkBig.primary.normal.color};
@@ -220,6 +223,7 @@ const StyledLink = styled(Link)`
     $isActiveItem ? theme.linkBig.primary.active.background : theme.linkBig.primary.normal.background};
   border: 1px solid ${({ theme }) => theme.linkBig.primary.normal.border};
   border-radius: 50px;
+  flex: 1 1 25%;
   text-align: center;
   outline: none !important;
   &:hover,
@@ -240,11 +244,11 @@ const StyledLink = styled(Link)`
   @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
     margin: 0 5px;
     padding: 5px;
-    width: 190px;
+    width: 170px;
     height: 50px;
-    min-width: 190px;
+    min-width: 170px;
     min-height: 50px;
-    max-width: 190px;
+    max-width: 170px;
     max-height: 50px;
     font-size: 14px;
   }
@@ -257,6 +261,13 @@ const StyledLink = styled(Link)`
     max-height: 35px;
     font-size: 12px;
     line-height: 11px;
+  }
+`;
+
+const CtaLink = styled(StyledLink)`
+  background-color: #015f7e;
+  &:hover {
+    background-color: #015f7e;
   }
 `;
 
@@ -285,6 +296,7 @@ const MapPin = styled.button<{ index: number }>`
   }
   h5 {
     padding-bottom: 18px;
+    font-size: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
       font-size: 11px;
       line-height: 15px;
@@ -368,8 +380,9 @@ const MapPinCorrect = styled.div<{ index: number }>`
   }
 `;
 
-const LinksContainer = styled.div`
-  ${flex};
+const LinksContainer = styled(Flex)`
+  width: 90%;
+  justify-content: space-between;
 `;
 
 const MapPinText = styled.h5`
@@ -405,7 +418,7 @@ const Games = () => {
   const gamesRef = firebase.database().ref('games');
   const [sports, setSports] = useState([]);
 
-  const playerPath = useParams<any>();
+  const playerRoute = useParams<any>();
 
   const [gamesStatus, setGamesStatus] = useState([
     undefined,
@@ -422,7 +435,7 @@ const Games = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const [winNum, setWinNum] = useState(0);
-  const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
+  const currentPlayer = players.find(({ path }: any) => path === playerRoute.playerRoute);
 
   const handleOnClick = (e: any, index: number) => {
     const selectedConsts = mapPinIcons[index];
@@ -455,9 +468,13 @@ const Games = () => {
     if (!video) setVideo(undefined);
     itemsRef.on('value', (snapshot: any) => {
       if (!isEqual(video, snapshot.val()) && snapshot.val() && currentPlayer)
-        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}`;
+        currentPlayer!.video = `${snapshot.val()[playerRoute.playerRoute]}`;
+      if (playerRoute.didWin === 'win') {
+        setIsWinner(true);
+        setShowVideo(true);
+      }
     });
-  }, [itemsRef, video, playerPath, currentPlayer]);
+  }, [itemsRef, video, playerRoute, currentPlayer, showVideo]);
 
   return (
     <GamesBg>
@@ -491,9 +508,9 @@ const Games = () => {
                 <StyledLink $isActiveItem={false} to="/games">
                   להכיר את המשחקים הפראלימפיים
                 </StyledLink>
-                <StyledLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
+                <CtaLink $isActiveItem={false} to={`/team/${currentPlayer!.path}`}>
                   להכיר את הנבחרת הפאראלימפית הישראלית
-                </StyledLink>
+                </CtaLink>
                 <StyledLink $isActiveItem={false} to="/">
                   לצאת מהמשחק
                 </StyledLink>

@@ -22,13 +22,13 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
 const StyledButton = styled(Link)`
   text-align: center;
   line-height: 1;
-  width: 236px;
-  height: 75px;
+  width: 284px;
+  height: 74px;
   font-size: 30px;
   color: ${({ theme }) => theme.button.primary.normal.color};
   background: ${({ theme }) => theme.button.primary.normal.background};
   border: 2px solid ${({ theme }) => theme.button.primary.normal.border};
-  border-radius: 50px;
+  border-radius: 60px;
   font-weight: 600;
   outline: none !important;
   &:hover {
@@ -50,7 +50,7 @@ const StyledButton = styled(Link)`
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     margin-bottom: 85px;
-    width: 120px;
+    width: 150px;
     height: 38px;
     font-size: 15px;
   }

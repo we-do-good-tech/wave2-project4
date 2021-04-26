@@ -148,7 +148,7 @@ const Team = () => {
   return (
     <BackgroundWrapper>
       <BackgroundWhiteWrapper>
-        <StyledLink $isActiveItem={false} to={`/availableGames/${playerRoute}`}>
+        <StyledLink $isActiveItem={false} to={`/availableGames/${playerRoute}/win`}>
           חזרה
         </StyledLink>
         <StyledHeader>

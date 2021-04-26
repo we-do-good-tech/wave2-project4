@@ -1,8 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 import ReactPlayer from 'react-player';
 
+const StyledReactPlayer = styled(ReactPlayer)`
+  padding-bottom: 56.25%;
+  position: relative;
+  & > div {
+    position: absolute;
+  }
+`;
+
 const VideoPlayer = ({ url }: { url: string }) => (
-  <ReactPlayer
+  <StyledReactPlayer
     url={url}
     width="100%"
     height="100%"

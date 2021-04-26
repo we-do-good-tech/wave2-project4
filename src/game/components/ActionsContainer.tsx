@@ -9,7 +9,6 @@ import { FlexCenterMiddle, flexColumnCenter, Flex, flexCenterMiddle } from 'shar
 import { SpeechBubbleWrapper, SpeechBubbleBorder } from 'shared/components/SpeechBubble';
 import { ReactComponent as PlayVideoButton } from 'assets/images/play_video.svg';
 import { ReactComponent as TooltipX } from 'assets/images/tooltip_x.svg';
-import { VideoContainer } from 'game/consts';
 import { DraggbleActionItem } from './DraggbleActionItem';
 
 const ActionsWrapper = styled(FlexCenterMiddle)`
@@ -84,16 +83,6 @@ const RightArrow = styled(FlexCenterMiddle)`
   cursor: pointer;
 `;
 
-/* const StyledImage = styled.img`
-  flex: 1 1 10%;
-  max-height: 75%;
-  min-height: 10%;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-    flex: 1 1 30%;
-    min-height: 30%;
-  }
-`; */
-
 const SpeechBubbleText = styled(motion.div)<{ colorProp: string }>`
   font-size: 20px;
   line-height: 22.16px;
@@ -131,15 +120,20 @@ const VideoModal = styled(motion.div)`
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 80vw;
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} and (orientation: landscape) {
+    width: 65vw;
     margin: 10px auto;
     height: 75vh;
   }
-  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 80vh;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
+    width: 70vw;
     margin: 10px auto;
-    height: 85vw;
+    height: 65vh;
+  }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 65vw;
+    margin: 10px auto;
+    height: 75vh;
   }
 `;
 
@@ -174,6 +168,13 @@ const CloseBtn = styled.button`
     right: -17px;
     width: 31px;
     height: 31px;
+  }
+`;
+
+const VideoContainer = styled.div`
+  width: 80%;
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    width: 60%;
   }
 `;
 
@@ -238,7 +239,7 @@ const ActionsContainer = (props: any) => {
     if (image === 'success') {
       menuRef!.scrollTo('0');
       if (!info) {
-        return setBubbleText({ text: 'הצלחת!', color: 'green' });
+        return setBubbleText({ text: 'צדקת!', color: 'green' });
       }
       setBubbleText({ text: info, color: 'black' });
       setDelay(6);

@@ -132,21 +132,18 @@ const TextArea = styled.p`
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     margin-top: -8px;
-    width: 110%;
     font-size: 14px;
     line-height: 15px;
     min-height: calc(100vh - 120px);
     max-height: calc(100vh - 120px);
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 110%;
     font-size: 14px;
     line-height: 16px;
     min-height: calc(100vw - 120px);
     max-height: calc(100vw - 120px);
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
-    width: 110%;
     font-size: 16px;
     min-height: calc(100vw - 650px);
     max-height: calc(100vw - 650px);
