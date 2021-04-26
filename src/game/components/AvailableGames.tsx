@@ -405,7 +405,7 @@ const Games = () => {
   const gamesRef = firebase.database().ref('games');
   const [sports, setSports] = useState([]);
 
-  const playerPath = useParams<any>();
+  const playerRoute = useParams<any>();
 
   const [gamesStatus, setGamesStatus] = useState([
     undefined,
@@ -422,7 +422,7 @@ const Games = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   const [winNum, setWinNum] = useState(0);
-  const currentPlayer = players.find(({ path }: any) => path === playerPath.playerRoute);
+  const currentPlayer = players.find(({ path }: any) => path === playerRoute.playerRoute);
 
   const handleOnClick = (e: any, index: number) => {
     const selectedConsts = mapPinIcons[index];
@@ -455,9 +455,13 @@ const Games = () => {
     if (!video) setVideo(undefined);
     itemsRef.on('value', (snapshot: any) => {
       if (!isEqual(video, snapshot.val()) && snapshot.val() && currentPlayer)
-        currentPlayer!.video = `${snapshot.val()[playerPath.playerRoute]}`;
+        currentPlayer!.video = `${snapshot.val()[playerRoute.playerRoute]}`;
+      if (playerRoute.didWin === 'win') {
+        setIsWinner(true);
+        setShowVideo(true);
+      }
     });
-  }, [itemsRef, video, playerPath, currentPlayer]);
+  }, [itemsRef, video, playerRoute, currentPlayer, showVideo]);
 
   return (
     <GamesBg>

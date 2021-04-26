@@ -238,7 +238,7 @@ const ActionsContainer = (props: any) => {
     if (image === 'success') {
       menuRef!.scrollTo('0');
       if (!info) {
-        return setBubbleText({ text: 'הצלחת!', color: 'green' });
+        return setBubbleText({ text: 'צדקת!', color: 'green' });
       }
       setBubbleText({ text: info, color: 'black' });
       setDelay(6);

@@ -231,8 +231,8 @@ const mapPinIcons: MapPinIconType[] = [
     icon: <BikeIcon />,
     left: 60,
     availableGames: {
-      tomer: false,
-      nir: false,
+      tomer: true,
+      nir: true,
       shira: true,
     },
   },
