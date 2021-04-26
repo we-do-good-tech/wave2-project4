@@ -242,13 +242,12 @@ export const GamesModal = styled(FlexColumnCenter)`
 `;
 
 export const VideoContainer = styled(FlexColumnCenter)`
-  width: 90%;
-  height: 60%;
+  width: 45%;
   margin-top: 10px;
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
-    width: 72%;
-    height: 48%;
+    width: 40%;
+    height: 46%;
     margin-top: 5px;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
