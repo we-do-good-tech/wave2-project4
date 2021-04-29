@@ -152,7 +152,7 @@ const players: Player[] = [
       { able: 'CAN', action: 'להתאמן בחדר כושר', id: 2, position: 'INIT', info: '' },
       {
         able: 'CAN',
-        action: 'לשחק כדורשת',
+        action: 'לשחק כדורשער',
         id: 3,
         position: 'INIT',
         info: 'יש כדור מיוחד שמשמיע צליל',
