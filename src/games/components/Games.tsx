@@ -456,7 +456,7 @@ const CloseBtn = styled.button`
 const MapPinText = styled.h3`
   cursor: pointer;
   line-height: 20px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const ModalImage = styled.img`
