@@ -58,6 +58,7 @@ const Wrapper = styled.div.attrs({ dir: 'rtl' })`
   ${sizeNormal};
   background-image: url(${mapBg});
   background-repeat: no-repeat;
+  overflow: auto;
   background-size: cover;
   background-position: center;
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
@@ -246,7 +247,6 @@ const MapPin = styled.button<{ index: number }>`
   position: absolute;
   left: ${({ index }) => mapPinIcons[index].position.left}%;
   top: ${({ index }) => mapPinIcons[index].position.top}%;
-  font-size: 20px;
   outline: none !important;
   font-weight: 400;
   border: none;
@@ -454,6 +454,7 @@ const MapPinText = styled.h3`
   cursor: pointer;
   line-height: 20px;
   font-size: 18px;
+  padding: 0;
 `;
 
 const ModalImage = styled.img`
