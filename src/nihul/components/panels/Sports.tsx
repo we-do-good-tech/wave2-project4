@@ -249,7 +249,7 @@ const Sports = () => {
                         name={`${name}.name`}
                         render={({ input, meta }) => (
                           <span>
-                            <TextInput {...input} />
+                            <TextInput {...input} readOnly />
                             {meta.touched && meta.error && <span>{meta.error}</span>}
                           </span>
                         )}

@@ -42,7 +42,7 @@ const Logo = styled.a`
 const Menu = styled.ul`
   ${flex};
   list-style-type: none;
-  justufy-content: flex-end;
+  justify-content: flex-end;
   height: 50px;
   margin: 0 16px;
   padding-inline-start: 0px;

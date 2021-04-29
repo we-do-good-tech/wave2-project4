@@ -178,7 +178,7 @@ const AvailableActions = () => {
               כמה דברים אני יכול{currentPlayer!.path === 'shira' ? 'ה' : ''} לעשות!
             </Title>
           </Container>
-          <PlayerImg src={currentPlayer?.images.availble[0]} />
+          <PlayerImg src={currentPlayer?.images.availble} />
           <ContinueBtn to={`/availableGamesIntro/${currentPlayer!.path}`} $isActiveItem={false}>
             המשך{' '}
           </ContinueBtn>

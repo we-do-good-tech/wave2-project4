@@ -29,7 +29,7 @@ const App = () => (
         <Route path="/games">
           <Games />
         </Route>
-        <Route path="/availableGames/:playerRoute">
+        <Route path="/availableGames/:playerRoute/:didWin?">
           <AvailableGames />
         </Route>
         <Route path="/AvailbleActions/:playerRoute">
@@ -38,7 +38,7 @@ const App = () => (
         <Route path="/availableGamesIntro/:playerRoute">
           <AvailableGamesIntro />
         </Route>
-        <Route path="/team/:playerRoute">
+        <Route path="/team/:playerRoute/">
           <Team />
         </Route>
         <Route path="/" exact>
