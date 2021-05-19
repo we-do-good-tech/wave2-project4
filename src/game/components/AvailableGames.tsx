@@ -255,7 +255,7 @@ const StyledLink = styled(Link)`
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
     margin: 0 5px;
     padding: 0 5px;
-    min-width: 130px;
+    min-width: 100px;
     min-height: 35px;
     max-width: 140px;
     max-height: 35px;
@@ -296,9 +296,9 @@ const MapPin = styled.button<{ index: number }>`
   }
   h5 {
     padding-bottom: 18px;
-    font-size: 18px;
+    font-size: 17px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-      font-size: 11px;
+      font-size: 9px;
       line-height: 15px;
       padding-bottom: 8px;
     }
@@ -368,7 +368,7 @@ const MapPinCorrect = styled.div<{ index: number }>`
     cursor: default;
     padding-bottom: 18px;
     @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
-      font-size: 11px;
+      font-size: 9px;
       line-height: 15px;
       padding-bottom: 8px;
     }

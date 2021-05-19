@@ -35,7 +35,7 @@ const BasketballIconBg = styled(BasketballIcon)`
 
 const BikeIcon = styled.div`
   position: absolute;
-  top: 12%;
+  top: 14%;
   left: 0%;
   width: 100%;
   height: 84%;

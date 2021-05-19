@@ -38,17 +38,23 @@ const sizeSmall = css`
   min-width: 100vh;
   min-height: calc(100vh / 2);
   overflow: auto;
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    width: 100vw;
+    height: calc(100vw / 2);
+    min-width: 100vw;
+    min-height: calc(100vw / 2);
+  }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     width: 100vw;
     height: calc(100vw / 2);
     min-width: 100vw;
     min-height: calc(100vw / 2);
   }
-  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
-    width: 100vw;
-    height: calc(100vw / 2);
-    min-width: 100vw;
-    min-height: calc(100vw / 2);
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 100vh;
+    height: calc(100vw);
+    min-width: 100vh;
+    min-height: calc(100vw);
   }
 `;
 
@@ -161,6 +167,12 @@ const GamesModal = styled(FlexColumn)`
   border: 4px solid ${({ theme }) => theme.colors.white};
   border-radius: 20px;
   z-index: 100;
+  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
+    border: 2px solid ${({ theme }) => theme.colors.white};
+    width: 80vw;
+    margin: 10px auto;
+    height: 68vh;
+  }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     border: 2px solid ${({ theme }) => theme.colors.white};
     width: 80vw;
@@ -172,12 +184,6 @@ const GamesModal = styled(FlexColumn)`
     width: 83vh;
     margin: 20px auto;
     height: 73vw;
-  }
-  @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
-    border: 2px solid ${({ theme }) => theme.colors.white};
-    width: 80vw;
-    margin: 10px auto;
-    height: 68vh;
   }
 `;
 
@@ -265,13 +271,13 @@ const MapPin = styled.button<{ index: number }>`
   }
   h3 {
     padding-bottom: 18px;
-    @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
       font-size: 11px;
       line-height: 15px;
       padding-bottom: 8px;
     }
-    @media ${({ theme }) => theme.typing.mediaRules.untilMedium} {
-      font-size: 11px;
+    @media ${({ theme }) => theme.typing.mediaRules.untilSmall} {
+      font-size: 9px;
       line-height: 15px;
       padding-bottom: 8px;
     }

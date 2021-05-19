@@ -46,6 +46,10 @@ const EndGameModal = styled(FlexColumnCenterMiddle)`
     width: 80vw;
     height: 70vh;
   }
+  @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
+    width: 80vh;
+    height: 70vw;
+  }
 `;
 
 const Container = styled(FlexColumnMiddle)`
