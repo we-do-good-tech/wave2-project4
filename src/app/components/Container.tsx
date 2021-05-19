@@ -14,7 +14,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
 
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: landscape) {
     grid-template-rows: 33px 1fr;
-    height: calc(100vh - 40px);
+    height: calc(100vh);
     width: 100vw;
   }
   ${({ isMobile }) =>
@@ -24,7 +24,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
         @media (orientation: portrait) {
           grid-template-rows: 33px 1fr;
           height: 100vw;
-          width: calc(100vh - 40px);
+          width: calc(100vh - 30px);
           transform: rotate(90deg) translateY(-100%);
           transform-origin: top left;
         }
@@ -35,7 +35,8 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
 const Content = styled(FlexColumn)`
   background: ${({ theme }) => theme.page.background};
   position: relative;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 type Props = { children?: React.ReactNode };

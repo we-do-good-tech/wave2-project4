@@ -251,8 +251,8 @@ export const VideoContainer = styled(FlexColumnCenter)`
     margin-top: 5px;
   }
   @media ${({ theme }) => theme.typing.mediaRules.untilSmall} and (orientation: portrait) {
-    width: 81%;
-    height: 54%;
+    width: 40%;
+    height: 46%;
     margin-top: 5px;
   }
 `;
